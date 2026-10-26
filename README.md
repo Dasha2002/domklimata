@@ -1,37 +1,118 @@
-# Дом Климата — главная страница
+# Дом Климата — вёрстка сайта
 
-Локальная адаптивная вёрстка на PHP 8.0+, без сборки и зависимостей.
+Статическая вёрстка (HTML/CSS/JS) под последующую натяжку на WordPress.
+Текущий сайт: https://domklimata59.ru/
 
 ## Запуск
 
-Из корня проекта: `php -S 127.0.0.1:8080 -t .`
+Открывать **только через Live Server** (или любой локальный http-сервер):
+секции подгружаются через `fetch`, по `file://` браузер их заблокирует.
 
-Открыть http://127.0.0.1:8080/. PHP-файлам нужен сервер.
+В VS Code: правый клик по `index.html` → Open with Live Server.
+Порт задан в `.vscode/settings.json` (5505).
 
 ## Структура
 
-- `index.php` — метаданные и подключения `include __DIR__ . '/includes/имя/имя.php';`.
-- `css/style.css` — общие переменные, типографика, формы и кнопки.
-- `css/index-page.css` — импорты CSS всех секций главной.
-- `includes/<секция>/<секция>.php` и одноимённый CSS — независимые блоки.
-- `includes/home-data.php` — категории, FAQ, преимущества, SVG-иконки.
-- `assets/products.json`, `assets/articles.json` — снимок данных старого сайта.
-- `js/script.js` — мобильное меню, поиск, диалоги и подготовка письма.
+```
+index.html                 — главная: каркас и плейсхолдеры секций
+404.html                   — страница «не найдено» (пути от корня)
+css/
+  styles.css               — главный файл: подключает базу и все секции
+  reset.css                — сброс
+  fonts.css                — @font-face (Onest, локально)
+  base.css                 — переменные, типографика, .container, .button, поля
+  icons.css                — иконки: .icon--<имя> → img/icons/<имя>.svg
+  request-form.css         — форма заявки (CTA + модалка)
+js/
+  include-sections.js      — сборка страницы из HTML-секций, {{root}}
+  app.js                   — общие скрипты (после события sections:loaded)
+sections/
+  <секция>/<секция>.html   — разметка секции
+  <секция>/<секция>.css    — стили секции (БЭМ-блок = имя папки)
+img/
+  icons/                   — иконки Tabler Icons (MIT), по файлу на иконку
+  brands/ categories/ photos/
+fonts/
+```
 
-## Поведение
+## Новая страница
 
-Главная готова как вёрстка. Ссылки каталога, товаров, услуг и статей ведут на существующий domklimata59.ru. Поиск охватывает категории и товары с главной. Выбор площади даёт предварительный ориентир и переносит задачу в форму; это не фильтр всего каталога. Расчёт монтажа собирает параметры для специалиста, стоимость не выдумывается.
+Страница лежит в папке с адресом будущего URL: `/about/` → `about/index.html`.
 
-Форма валидирует данные и готовит mailto-письмо. Ничего не отправляется автоматически. Для серверной отправки потребуется обработчик/SMTP или подключение к CMS.
+```html
+<link rel="stylesheet" href="../css/styles.css">
+<body data-root="../">
+  <div data-include="../sections/header/header.html"></div>
+  <main id="main">…</main>
+  <div data-include="../sections/footer/footer.html"></div>
+  <div data-include="../sections/request-modal/request-modal.html"></div>
+  <div data-include="../sections/cookie/cookie.html"></div>
+  <script src="../js/include-sections.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+```
 
-Отзывы: сохранены площадки и оценки со старой главной. Тексты отзывов и авторы не выдумывались. Работы и статьи взяты из опубликованного блога.
+`data-root` — путь до корня сайта. Внутри секций все пути пишутся через
+`{{root}}` (`{{root}}img/logo.webp`), скрипт подставит нужный префикс,
+поэтому одна секция работает на любой глубине вложенности.
 
-## Источники и иллюстрация
+Адреса в меню повторяют адреса текущего сайта (`/catalog/…`, `/Installation/`,
+`/dostavka-i-oplata/`, `/kontakty/` и т. д.), чтобы не потерять страницы
+при переезде. Пока эти страницы не свёрстаны, Live Server отдаст по ним 404.
 
-ТЗ: https://docs.google.com/document/d/1GR_oCa6usmh49gdwXSqixzKis-x33wf4sdqz1Bi33xo/edit
+## Новая секция
 
-Контакты, условия, преимущества, товары, фотографии и логотипы: https://domklimata59.ru/ и его каталог/блог. Числа и рейтинги перенесены как снимок исходного сайта, без живой выгрузки.
+1. Папка `sections/<имя>/` с файлами `<имя>.html` и `<имя>.css`.
+2. Плейсхолдер на странице: `<div data-include="sections/<имя>/<имя>.html"></div>`.
+3. `@import url("../sections/<имя>/<имя>.css");` в `css/styles.css`.
 
-Интерьер первого экрана создан встроенным ImageGen: `assets/hero-interior.png`; оптимизированные варианты — `hero-interior.webp` и `hero-interior-mobile.webp`. Это иллюстрация, не фотография выполненного объекта.
+## Соглашения
 
-Промпт: Photorealistic wide landscape photograph for an air conditioning company website hero, no text, no logos, no UI. Airy contemporary apartment living room, floor-to-ceiling windows overlooking a green city and river, pale gray sofa, teal cushion, light oak side table, green plant, sheer curtains. White wall-mounted air conditioner on upper right wall. Soft cool-white morning light. Right two-thirds occupied by scene; left third bright and empty for headline. 16:9. No people, airflow streaks or typography.
+- CSS по БЭМ: блок = имя секции (`.services`), элемент `.services__feature`,
+  модификатор `.category--main`.
+- Цвета, отступы, скругления — только через переменные из `base.css`.
+- Цвет бренда — петроль из логотипа `#014454`. Акцент — оранжевый `#f26b2e`,
+  только для кнопки заявки и активных состояний. Текст на оранжевом тёмный
+  (белый не проходит контраст).
+- Скругления: 10px кнопки и поля, 16px карточки, 24px крупные панели.
+- Иконки: `<span class="icon icon--phone" aria-hidden="true"></span>`, цвет
+  берётся из `color`. Новая иконка: SVG с tabler.io/icons в `img/icons/`
+  и строка `.icon--имя { --icon: url(...) }` в `css/icons.css`.
+- **Во фрагментах секций не писать `<svg>…</svg>` (и `</body>`).** Live Server
+  вставляет свой скрипт автообновления перед каждым `</svg>` в отдаваемом
+  HTML-файле, а `Content-Length` увеличивает только на одну вставку —
+  браузер обрезает конец секции, падают скрипты и не появляется контент.
+  Нужна SVG-графика — отдельным файлом через `<img>` или CSS.
+- Анимации уважают `prefers-reduced-motion`. Появление при прокрутке —
+  атрибут `data-reveal` (+ `style="--reveal-index: N"` для очерёдности).
+
+## Главная
+
+Порядок секций: первый экран → подбор оборудования → каталог → монтаж
+и сервис → преимущества → бренды → FAQ → заявка.
+
+- **Подбор** (`initSelection`): тип помещения, площадь, число комнат →
+  тип оборудования, мощность, типоразмер, ссылка на категорию. Ориентир:
+  0,1 кВт/м² для жилья, 0,12 кВт/м² для офиса и магазина. Итог подбора
+  подставляется в комментарий заявки.
+- **Заявка**: одна форма в секции CTA и в модалке (кнопки `[data-open-request]`).
+  Проверка полей, маска телефона, состояния «отправка», «успех», «ошибка».
+  Отправки на сервер нет: функция `sendRequest` в `app.js` — место для
+  обработчика WordPress (Contact Form 7 / admin-ajax).
+- **Поиск в шапке**: форма отправляет стандартный WordPress-запрос `?s=`.
+  Подсказки — готовый список популярных разделов, не живой поиск.
+
+## На WordPress
+
+Каждая секция переносится в `template-parts/section-<имя>.php` один в один,
+`{{root}}` заменяется на `get_template_directory_uri()` / `home_url()`.
+Тексты, цифры, оценки на площадках, условия доставки и оплаты взяты
+с текущего сайта как снимок — сверить перед запуском.
+
+## Изображения
+
+- `img/photos/hero-interior*.webp` — интерьер первого экрана сгенерирован
+  нейросетью, это иллюстрация, а не фото объекта. Лучше заменить на реальную
+  съёмку.
+- `img/photos/installation.webp` и остальные фото — из блога текущего сайта.
+- `img/categories/*`, `img/brands/*`, логотип — с текущего сайта.

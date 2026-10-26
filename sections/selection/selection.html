@@ -1,0 +1,92 @@
+<!-- ==========================================================================
+     Секция: Подбор оборудования
+     Блок БЭМ: .selection
+     Логика в app.js (initSelection). Расчёт ориентировочный:
+     0,1 кВт на 1 м² для жилья и 0,12 кВт для офиса и магазина.
+     Точный подбор делает инженер, об этом сказано в подписи.
+     ========================================================================== -->
+<section class="selection" id="selection" aria-labelledby="selection-title">
+  <div class="container">
+    <div class="selection__panel" data-reveal>
+
+      <form class="selection__form" id="selection-form">
+        <h2 class="section-title" id="selection-title">Подбор кондиционера по&nbsp;площади</h2>
+        <p class="selection__lead">Ответьте на три вопроса, и мы подскажем мощность и тип оборудования.</p>
+
+        <fieldset class="selection__group">
+          <legend class="selection__label">Тип помещения</legend>
+          <div class="chips">
+            <label class="chip">
+              <input type="radio" name="place" value="flat" checked>
+              <span><span class="icon icon--building" aria-hidden="true"></span>Квартира</span>
+            </label>
+            <label class="chip">
+              <input type="radio" name="place" value="house">
+              <span><span class="icon icon--home" aria-hidden="true"></span>Частный дом</span>
+            </label>
+            <label class="chip">
+              <input type="radio" name="place" value="office">
+              <span><span class="icon icon--briefcase" aria-hidden="true"></span>Офис</span>
+            </label>
+            <label class="chip">
+              <input type="radio" name="place" value="shop">
+              <span><span class="icon icon--building-store" aria-hidden="true"></span>Магазин или кафе</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="selection__group">
+          <div class="selection__label-row">
+            <label class="selection__label" for="selection-area">Площадь помещения</label>
+            <output class="selection__area-value" for="selection-area" id="selection-area-value">25 м²</output>
+          </div>
+          <input class="range" type="range" id="selection-area" name="area"
+                 min="10" max="150" step="5" value="25" aria-describedby="selection-area-scale">
+          <div class="selection__scale" id="selection-area-scale">
+            <span>10 м²</span><span>150 м²</span>
+          </div>
+        </div>
+
+        <fieldset class="selection__group">
+          <legend class="selection__label">Сколько комнат охлаждать</legend>
+          <div class="chips chips--compact">
+            <label class="chip"><input type="radio" name="rooms" value="1" checked><span>1</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="2"><span>2</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="3"><span>3</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="4"><span>4 и больше</span></label>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="selection__result" aria-live="polite">
+        <img class="selection__result-img" src="{{root}}img/categories/home.webp"
+             width="494" height="500" alt="" data-result-img>
+
+        <p class="selection__result-label">Вам подойдёт</p>
+        <p class="selection__result-type" data-result-type>Настенная сплит-система</p>
+
+        <dl class="selection__specs">
+          <div>
+            <dt>Мощность охлаждения</dt>
+            <dd data-result-power>от 2,5 кВт</dd>
+          </div>
+          <div>
+            <dt data-result-size-label>Типоразмер</dt>
+            <dd data-result-size>09</dd>
+          </div>
+        </dl>
+
+        <p class="selection__note" data-result-note>
+          Ориентир для потолков до 2,7 м. Солнечная сторона, техника
+          и люди в помещении повышают нагрузку: это учтёт инженер.
+        </p>
+
+        <div class="selection__actions">
+          <button class="button button--accent" type="button" data-open-request data-request-source="selection">Оставить заявку</button>
+          <a class="button button--light" href="{{root}}catalog/konditsionirovanie/bitovie_konditsioneri/" data-result-link>Смотреть модели</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

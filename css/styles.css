@@ -1,0 +1,33 @@
+/* ==========================================================================
+   Дом Климата: главный файл стилей
+   Порядок важен: сначала база, затем секции сверху вниз по странице.
+   ========================================================================== */
+
+/* --- База ---------------------------------------------------------------- */
+@import url("reset.css");
+@import url("fonts.css");
+@import url("base.css");
+@import url("icons.css");
+
+/* --- Общие компоненты ---------------------------------------------------- */
+/* Не привязаны к одной секции: форма стоит в CTA и в модалке */
+@import url("request-form.css");
+
+/* --- Общие секции всех страниц ------------------------------------------- */
+@import url("../sections/header/header.css");
+@import url("../sections/footer/footer.css");
+@import url("../sections/request-modal/request-modal.css");
+@import url("../sections/cookie/cookie.css");
+
+/* --- Главная (/) --------------------------------------------------------- */
+@import url("../sections/hero/hero.css");
+@import url("../sections/selection/selection.css");
+@import url("../sections/categories/categories.css");
+@import url("../sections/services/services.css");
+@import url("../sections/advantages/advantages.css");
+@import url("../sections/brands/brands.css");
+@import url("../sections/faq/faq.css");
+@import url("../sections/cta/cta.css");
+
+/* --- Страница 404 -------------------------------------------------------- */
+@import url("../sections/not-found/not-found.css");

@@ -1,0 +1,92 @@
+/* ==========================================================================
+   Секция: Официальные представители брендов
+   ========================================================================== */
+
+.brands {
+  padding: var(--section-y) 0;
+  overflow: hidden;
+}
+
+.brands__marquee {
+  display: flex;
+  margin-top: 40px;
+  /* Края ленты растворяются в фоне */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.brands__track {
+  display: flex;
+  flex-shrink: 0;
+  gap: 16px;
+  padding-right: 16px;
+}
+
+.brands__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 96px;
+  padding: 16px 24px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background-color: #fff;
+}
+
+/* Логотипы в фирменных цветах, на белой подложке, как в исходных файлах */
+.brands__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .brands__marquee.is-running .brands__track {
+    animation: brands-scroll 40s linear infinite;
+  }
+
+  .brands__marquee:hover .brands__track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes brands-scroll {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Без анимации лента превращается в сетку */
+@media (prefers-reduced-motion: reduce) {
+  .brands__marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+    max-width: calc(var(--container-width) + var(--container-padding) * 2);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--container-padding);
+  }
+
+  .brands__track {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    padding-right: 0;
+  }
+
+  .brands__track[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .brands__marquee {
+    margin-top: 28px;
+  }
+
+  .brands__item {
+    width: 150px;
+    height: 76px;
+    padding: 12px 18px;
+  }
+}

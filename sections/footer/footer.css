@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Секция: Подвал
+   ========================================================================== */
+
+.footer {
+  padding-top: 64px;
+  background-color: var(--color-brand-dark);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 15px;
+}
+
+.footer__main {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) repeat(3, minmax(0, 2.6fr));
+  gap: 40px;
+  padding-bottom: 48px;
+}
+
+.footer__logo {
+  display: block;
+  width: 168px;
+}
+
+.footer__about {
+  margin-top: 20px;
+  max-width: 32ch;
+}
+
+.footer__socials {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.footer__socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.footer__socials a:hover {
+  background-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.footer__socials .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.footer__title {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.footer__links,
+.footer__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer__links a,
+.footer__contacts a {
+  transition: color var(--transition);
+}
+
+.footer__links a:hover,
+.footer__contacts a:hover {
+  color: #fff;
+}
+
+.footer__phone {
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 32px;
+  padding-top: 24px;
+  padding-bottom: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer__bottom a {
+  margin-left: auto;
+  transition: color var(--transition);
+}
+
+.footer__bottom a:hover {
+  color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .footer__main {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding-top: 48px;
+  }
+
+  .footer__main {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 20px;
+  }
+
+  .footer__main > .footer__col:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer__bottom a {
+    margin-left: 0;
+  }
+}

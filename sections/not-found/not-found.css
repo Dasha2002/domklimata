@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Секция: Страница не найдена
+   ========================================================================== */
+
+.not-found {
+  padding: 96px 0 120px;
+}
+
+.not-found__code {
+  font-size: clamp(80px, 14vw, 160px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-brand-soft);
+}
+
+.not-found__title {
+  margin-top: 8px;
+  font-size: clamp(30px, 4vw, 48px);
+}
+
+.not-found__text {
+  margin-top: 16px;
+  max-width: 48ch;
+  font-size: 18px;
+  color: var(--color-muted);
+}
+
+.not-found__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+@media (max-width: 640px) {
+  .not-found {
+    padding: 56px 0 80px;
+  }
+
+  .not-found__actions .button {
+    width: 100%;
+  }
+}

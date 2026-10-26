@@ -1,0 +1,29 @@
+<!-- ==========================================================================
+     Секция: Первый экран
+     Блок БЭМ: .hero
+     Интерьер сгенерирован нейросетью (см. README): это иллюстрация,
+     а не фото объекта. Заменить на реальную съёмку, когда появится.
+     ========================================================================== -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__inner container">
+
+    <div class="hero__content">
+      <h1 class="hero__title" id="hero-title">Кондиционеры с&nbsp;установкой в&nbsp;Перми</h1>
+      <p class="hero__text">
+        Продаём, устанавливаем и обслуживаем кондиционеры, вентиляцию
+        и отопление. Гарантия на оборудование до 5 лет.
+      </p>
+      <div class="hero__actions">
+        <a class="button button--accent button--lg" href="#selection">Подобрать кондиционер</a>
+        <a class="button button--outline button--lg" href="{{root}}catalog/">Перейти в каталог</a>
+      </div>
+    </div>
+
+    <picture class="hero__media">
+      <source media="(max-width: 640px)" srcset="{{root}}img/photos/hero-interior-mobile.webp">
+      <img src="{{root}}img/photos/hero-interior.webp" width="1672" height="941"
+           alt="Светлая гостиная с настенным кондиционером" fetchpriority="high">
+    </picture>
+
+  </div>
+</section>

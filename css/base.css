@@ -1,0 +1,381 @@
+/* ==========================================================================
+   Переменные, типографика, общие компоненты
+   ========================================================================== */
+
+:root {
+  /* Фирменный петроль снят с логотипа (#014454). Им набраны заголовки,
+     иконки и тёмные плашки. Других «брендовых» цветов на сайте нет. */
+  --color-brand: #014454;
+  --color-brand-dark: #01313d;
+  --color-brand-soft: #e4eef0;
+  --color-brand-tint: #f2f7f7;
+
+  /* Единственный акцент. Только кнопка заявки и активные состояния.
+     Белый текст на нём не проходит контраст (3:1), поэтому на оранжевом
+     всегда тёмный текст: 4.9:1 */
+  --color-accent: #f26b2e;
+  --color-accent-hover: #e45b1d;
+
+  --color-ink: #10262c;
+  --color-muted: #52656a;      /* 6.1:1 на белом, 5.4:1 на --color-brand-soft */
+  --color-line: #d5e0e2;
+  --color-surface: #fdfefe;
+  --color-page: #fbfcfc;
+  --color-error: #b42318;
+  --color-success: #1b7a4b;
+
+  --font-main: "Onest", "Segoe UI", "Arial", sans-serif;
+
+  /* Сетка */
+  --container-width: 1280px;
+  --container-padding: 24px;
+  --section-y: 96px;
+
+  /* Скругления: одно правило на весь сайт.
+     10px: кнопки, поля, чипсы. 16px: карточки. 24px: крупные панели и фото */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+
+  --shadow: 0 1px 2px rgba(1, 49, 61, 0.06), 0 8px 24px rgba(1, 49, 61, 0.08);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: 0.25s var(--ease);
+
+  /* Высота верхней полосы шапки: на неё шапка уезжает при прокрутке */
+  --header-top-h: 40px;
+  --header-main-h: 76px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --section-y: 72px;
+    --header-top-h: 0px;
+    --header-main-h: 64px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --container-padding: 16px;
+    --section-y: 56px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-main-h) + 16px);
+}
+
+body {
+  min-width: 320px;
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--color-ink);
+  background-color: var(--color-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+/* --- Контейнер ----------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container-width) + var(--container-padding) * 2);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* --- Заголовки ----------------------------------------------------------- */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--color-brand-dark);
+}
+
+h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.section-title {
+  font-size: clamp(28px, 3.2vw, 42px);
+  max-width: 22ch;
+}
+
+.section-lead {
+  margin-top: 16px;
+  max-width: 60ch;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+@media (max-width: 640px) {
+  .section-lead {
+    font-size: 16px;
+  }
+}
+
+/* --- Иконки -------------------------------------------------------------- */
+/* <span class="icon icon--phone" aria-hidden="true"></span>
+   Файл иконки задаёт модификатор в css/icons.css, цвет берётся из color.
+   Не инлайновый <svg>: Live Server вставляет свой скрипт перед каждым </svg>
+   во фрагменте секции и обрезает ответ (см. README) */
+.icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+/* --- Кнопки -------------------------------------------------------------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  transition: background-color var(--transition), border-color var(--transition),
+    color var(--transition), transform 0.15s ease;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button--lg {
+  min-height: 56px;
+  padding: 0 28px;
+  font-size: 17px;
+}
+
+/* Заявка. Одна на всём сайте, всегда оранжевая */
+.button--accent {
+  background-color: var(--color-accent);
+  color: var(--color-brand-soft);
+}
+
+.button--accent:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.button--primary {
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+.button--primary:hover {
+  background-color: var(--color-brand-dark);
+}
+
+.button--outline {
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+}
+
+.button--outline:hover {
+  background-color: var(--color-brand-soft);
+}
+
+/* Вторичная кнопка на тёмной плашке */
+.button--light {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.button--light:hover {
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.button[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* --- Текстовая ссылка ---------------------------------------------------- */
+/* Подчёркнута всегда, чтобы было видно, что это ссылка.
+   При наведении линия темнеет до цвета текста */
+.text-link {
+  font-weight: 600;
+  color: var(--color-brand);
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-color: rgba(1, 68, 84, 0.35);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--transition), color var(--transition);
+}
+
+.text-link:hover {
+  color: var(--color-brand-dark);
+  text-decoration-color: currentColor;
+}
+
+/* --- Поля формы ---------------------------------------------------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.field__optional {
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+.field__input {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  font-size: 16px;
+  line-height: 1.4;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.field__input::placeholder {
+  color: #6d7f84;
+}
+
+.field__input:hover {
+  border-color: #b6c7ca;
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgba(1, 68, 84, 0.18);
+}
+
+textarea.field__input {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.field.is-invalid .field__input {
+  border-color: var(--color-error);
+}
+
+.field__error {
+  font-size: 13px;
+  color: var(--color-error);
+}
+
+/* Чекбокс согласия */
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.checkbox input {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-brand);
+  cursor: pointer;
+}
+
+.checkbox a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* --- Доступность --------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 100;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-brand);
+  color: #fff;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* --- Появление при прокрутке --------------------------------------------- */
+/* Класс .js ставит app.js: без скрипта контент виден сразу */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition-delay: calc(var(--reveal-index, 0) * 70ms);
+}
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

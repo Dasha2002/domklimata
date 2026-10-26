@@ -1,0 +1,34 @@
+/* ==========================================================================
+   Иконки
+   Tabler Icons 3.19.0 (MIT), https://tabler.io/icons
+   Разметка: <span class="icon icon--phone" aria-hidden="true"></span>
+   Иконка рисуется маской и берёт цвет текста (currentColor).
+   Новая иконка: положить SVG в img/icons/ и добавить строку ниже.
+   ========================================================================== */
+
+.icon--arrow-up-right { --icon: url("../img/icons/arrow-up-right.svg"); }
+.icon--brand-telegram { --icon: url("../img/icons/brand-telegram.svg"); }
+.icon--brand-vk { --icon: url("../img/icons/brand-vk.svg"); }
+.icon--briefcase { --icon: url("../img/icons/briefcase.svg"); }
+.icon--building { --icon: url("../img/icons/building.svg"); }
+.icon--building-store { --icon: url("../img/icons/building-store.svg"); }
+.icon--check { --icon: url("../img/icons/check.svg"); }
+.icon--clock { --icon: url("../img/icons/clock.svg"); }
+.icon--credit-card { --icon: url("../img/icons/credit-card.svg"); }
+.icon--flame { --icon: url("../img/icons/flame.svg"); }
+.icon--home { --icon: url("../img/icons/home.svg"); }
+.icon--layout-grid { --icon: url("../img/icons/layout-grid.svg"); }
+.icon--mail { --icon: url("../img/icons/mail.svg"); }
+.icon--map-pin { --icon: url("../img/icons/map-pin.svg"); }
+.icon--phone { --icon: url("../img/icons/phone.svg"); }
+.icon--plus { --icon: url("../img/icons/plus.svg"); }
+.icon--search { --icon: url("../img/icons/search.svg"); }
+.icon--shield-check { --icon: url("../img/icons/shield-check.svg"); }
+.icon--shopping-cart { --icon: url("../img/icons/shopping-cart.svg"); }
+.icon--snowflake { --icon: url("../img/icons/snowflake.svg"); }
+.icon--star-filled { --icon: url("../img/icons/star-filled.svg"); }
+.icon--tool { --icon: url("../img/icons/tool.svg"); }
+.icon--tools { --icon: url("../img/icons/tools.svg"); }
+.icon--truck { --icon: url("../img/icons/truck.svg"); }
+.icon--wind { --icon: url("../img/icons/wind.svg"); }
+.icon--x { --icon: url("../img/icons/x.svg"); }

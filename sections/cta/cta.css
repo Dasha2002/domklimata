@@ -1,0 +1,97 @@
+/* ==========================================================================
+   Секция: Заявка (CTA)
+   ========================================================================== */
+
+.cta {
+  padding-bottom: var(--section-y);
+}
+
+.cta__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: 56px;
+  padding: 56px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+.cta__title {
+  font-size: clamp(28px, 3.2vw, 42px);
+  color: #fff;
+  max-width: 18ch;
+}
+
+.cta__text {
+  margin-top: 16px;
+  max-width: 46ch;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.cta__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 40px;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.cta__contacts li {
+  display: flex;
+  gap: 14px;
+}
+
+.cta__contacts .icon {
+  margin-top: 2px;
+  color: var(--color-accent);
+}
+
+.cta__contacts a {
+  transition: color var(--transition);
+}
+
+.cta__contacts a:hover {
+  color: var(--color-accent);
+}
+
+.cta__form {
+  padding: 32px;
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+}
+
+@media (max-width: 1024px) {
+  .cta__panel {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cta .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .cta__panel {
+    padding: 40px var(--container-padding) var(--container-padding);
+    border-radius: 0;
+  }
+
+  .cta__text {
+    font-size: 16px;
+  }
+
+  .cta__contacts {
+    margin-top: 28px;
+    font-size: 16px;
+  }
+
+  .cta__form {
+    padding: 24px 20px;
+  }
+}

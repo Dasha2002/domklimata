@@ -1,0 +1,84 @@
+<!-- ==========================================================================
+     Секция: Категории каталога
+     Блок БЭМ: .categories
+     Вся карточка кликабельна за счёт растянутой ссылки на заголовке
+     (.category__link::after). Быстрые ссылки в главной карточке лежат
+     поверх неё: вложенные <a> в HTML запрещены.
+     Адреса категорий совпадают с текущим сайтом.
+     ========================================================================== -->
+<section class="categories" id="catalog" aria-labelledby="categories-title">
+  <div class="container">
+
+    <div class="categories__head">
+      <h2 class="section-title" id="categories-title">Каталог оборудования</h2>
+      <a class="text-link" href="{{root}}catalog/">
+        Перейти в каталог
+      </a>
+    </div>
+
+    <div class="categories__grid">
+
+      <article class="category category--main" data-reveal>
+        <div class="category__body">
+          <h3 class="category__title">
+            <a class="category__link" href="{{root}}catalog/konditsionirovanie/bitovie_konditsioneri/">Бытовые кондиционеры</a>
+          </h3>
+          <p class="category__text">Настенные сплит-системы для квартир, домов и небольших офисов</p>
+          <ul class="category__tags" aria-label="Быстрый выбор">
+            <li><a href="{{root}}catalog/konditsionirovanie/bitovie_konditsioneri/">Инверторные</a></li>
+            <li><a href="{{root}}catalog/konditsionirovanie/bitovie_konditsioneri/">До 20 м²</a></li>
+            <li><a href="{{root}}catalog/konditsionirovanie/bitovie_konditsioneri/">До 35 м²</a></li>
+            <li><a href="{{root}}catalog/konditsionirovanie/bitovie_konditsioneri/">До 50 м²</a></li>
+          </ul>
+        </div>
+        <img class="category__img" src="{{root}}img/categories/home.webp" width="494" height="500" alt="" loading="lazy">
+        <span class="category__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right" aria-hidden="true"></span></span>
+      </article>
+
+      <article class="category category--dark" data-reveal style="--reveal-index: 1">
+        <div class="category__body">
+          <h3 class="category__title">
+            <a class="category__link" href="{{root}}catalog/konditsionirovanie/multisplit_sistemi/">Мультисплит-системы</a>
+          </h3>
+          <p class="category__text">Один наружный блок на&nbsp;несколько комнат</p>
+        </div>
+        <img class="category__img" src="{{root}}img/categories/multi.webp" width="494" height="500" alt="" loading="lazy">
+        <span class="category__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right" aria-hidden="true"></span></span>
+      </article>
+
+      <article class="category" data-reveal style="--reveal-index: 2">
+        <div class="category__body">
+          <h3 class="category__title">
+            <a class="category__link" href="{{root}}catalog/konditsionirovanie/polupromishlennie_konditsioneri/">Полупромышленные</a>
+          </h3>
+          <p class="category__text">Кассетные и канальные для офисов и магазинов</p>
+        </div>
+        <img class="category__img" src="{{root}}img/categories/commercial.webp" width="494" height="500" alt="" loading="lazy">
+        <span class="category__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right" aria-hidden="true"></span></span>
+      </article>
+
+      <article class="category" data-reveal style="--reveal-index: 3">
+        <div class="category__body">
+          <h3 class="category__title">
+            <a class="category__link" href="{{root}}catalog/ventilyatsiya/">Вентиляция</a>
+          </h3>
+          <p class="category__text">Приточные установки и&nbsp;рекуператоры</p>
+        </div>
+        <img class="category__img" src="{{root}}img/categories/ventilation.webp" width="500" height="472" alt="" loading="lazy">
+        <span class="category__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right" aria-hidden="true"></span></span>
+      </article>
+
+      <article class="category category--soft" data-reveal style="--reveal-index: 4">
+        <div class="category__body">
+          <h3 class="category__title">
+            <a class="category__link" href="{{root}}catalog/otoplenie/">Отопление</a>
+          </h3>
+          <p class="category__text">Котлы и тепловое оборудование для дома</p>
+        </div>
+        <img class="category__img" src="{{root}}img/categories/heating.webp" width="500" height="375" alt="" loading="lazy">
+        <span class="category__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right" aria-hidden="true"></span></span>
+      </article>
+
+    </div>
+  </div>
+</section>

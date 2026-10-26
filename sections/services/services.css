@@ -1,0 +1,197 @@
+/* ==========================================================================
+   Секция: Услуги
+   ========================================================================== */
+
+.services {
+  padding-bottom: var(--section-y);
+}
+
+.services__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+/* --- Главная услуга ------------------------------------------------------ */
+.services__feature {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  overflow: hidden;
+}
+
+.services__feature-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.services__feature-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  padding: 32px 36px 36px;
+}
+
+.services__feature-title {
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.services__feature-text {
+  margin-top: 12px;
+  color: var(--color-muted);
+}
+
+.services__included-title {
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.services__included {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 24px;
+  margin-top: 10px;
+  margin-bottom: 28px;
+  font-size: 15px;
+}
+
+.services__included li {
+  display: flex;
+  gap: 10px;
+}
+
+.services__included .icon {
+  margin-top: 2px;
+  color: var(--color-brand);
+}
+
+.services__feature-body .text-link {
+  margin-top: auto;
+}
+
+/* --- Остальные услуги ---------------------------------------------------- */
+.services__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.services__list li {
+  flex: 1;
+}
+
+.service {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: 100%;
+  padding: 20px 22px;
+  border-radius: var(--radius);
+  background-color: var(--color-brand-tint);
+  border: 1px solid transparent;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+.service:hover {
+  background-color: var(--color-surface);
+  border-color: var(--color-line);
+}
+
+.service__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+.service__icon .icon {
+  width: 26px;
+  height: 26px;
+}
+
+.service__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.service__title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-brand-dark);
+}
+
+.service__text {
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.service__arrow {
+  color: var(--color-brand);
+  transition: transform var(--transition);
+}
+
+.service:hover .service__arrow {
+  transform: translate(2px, -2px);
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .services__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .services__layout {
+    margin-top: 28px;
+  }
+
+  .services__feature-img {
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .services__included {
+    grid-template-columns: 1fr;
+  }
+
+  .services__feature-body {
+    padding: 24px 20px;
+  }
+
+  .services__feature-title {
+    font-size: 22px;
+  }
+
+  .service {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .service__icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .service__title {
+    font-size: 17px;
+  }
+}

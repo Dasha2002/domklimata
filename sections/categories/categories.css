@@ -1,0 +1,311 @@
+/* ==========================================================================
+   Секция: Категории каталога
+   ========================================================================== */
+
+.categories {
+  padding-bottom: var(--section-y);
+}
+
+.categories__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+/* Бенто: главная категория 2x2, остальные по ячейке */
+.categories__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 272px;
+  gap: 16px;
+}
+
+/* --- Карточка ------------------------------------------------------------ */
+.category {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border-radius: var(--radius);
+  background-color: var(--color-brand-tint);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.category:hover {
+  border-color: #b6c7ca;
+  box-shadow: var(--shadow);
+}
+
+/* Без position: иначе растянутая ссылка встанет по размеру .category__body */
+.category__body {
+  max-width: 85%;
+}
+
+.category__title {
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+/* Растянутая ссылка: клик по любой точке карточки */
+.category__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.category__link:focus-visible {
+  outline: none;
+}
+
+.category:has(.category__link:focus-visible) {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.category__text {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.category__img {
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  z-index: -1;
+  width: 58%;
+  height: auto;
+  mix-blend-mode: multiply;
+  transition: transform 0.5s var(--ease);
+}
+
+.category:hover .category__img {
+  transform: scale(1.05);
+}
+
+.category__arrow {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  color: var(--color-brand);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.category:hover .category__arrow {
+  background-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* --- Главная категория --------------------------------------------------- */
+.category--main {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 40px;
+  background-color: var(--color-brand-soft);
+}
+
+.category--main .category__body {
+  max-width: 78%;
+}
+
+.category--main .category__title {
+  font-size: 34px;
+  letter-spacing: -0.02em;
+}
+
+.category--main .category__text {
+  margin-top: 12px;
+  font-size: 17px;
+}
+
+.category--main .category__img {
+  right: -24px;
+  bottom: -24px;
+  width: 62%;
+}
+
+.category--main .category__arrow {
+  left: 40px;
+  bottom: 40px;
+  width: 52px;
+  height: 52px;
+}
+
+.category__tags {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.category__tags a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-brand-dark);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.category__tags a:hover {
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+/* --- Варианты фона ------------------------------------------------------- */
+.category--dark {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+
+.category--dark:hover {
+  border-color: var(--color-brand);
+}
+
+.category--dark .category__title {
+  color: #fff;
+}
+
+.category--dark .category__text {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* На тёмном multiply превращает белый блок в серый, поэтому без него */
+.category--dark .category__img {
+  mix-blend-mode: normal;
+}
+
+.category--soft {
+  background-color: var(--color-brand-soft);
+}
+
+/* Котёл снят на сером фоне: без выреза, поэтому небольшой и с отступом */
+.category--soft .category__img {
+  width: 34%;
+  right: 24px;
+  bottom: 24px;
+  border-radius: 8px;
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .categories__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(240px, auto);
+  }
+
+  .category--main {
+    grid-row: span 1;
+    min-height: 320px;
+  }
+
+  .category--main .category__img {
+    width: 42%;
+  }
+
+  .category__body {
+    max-width: 58%;
+  }
+
+  .category--main .category__body {
+    max-width: 60%;
+  }
+
+  .category__img {
+    width: 42%;
+  }
+}
+
+@media (max-width: 640px) {
+  .categories__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .categories__grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 12px;
+  }
+
+  .category,
+  .category--main {
+    grid-column: auto;
+    min-height: 168px;
+    padding: 24px;
+  }
+
+  .category__body,
+  .category--main .category__body {
+    max-width: 62%;
+  }
+
+  .category__title,
+  .category--main .category__title {
+    font-size: 20px;
+  }
+
+  .category--main .category__text {
+    font-size: 15px;
+  }
+
+  .category__img,
+  .category--main .category__img {
+    right: -4px;
+    bottom: 50%;
+    width: 40%;
+    transform: translateY(50%);
+  }
+
+  .category:hover .category__img {
+    transform: translateY(50%);
+  }
+
+  .category--soft .category__img {
+    width: 26%;
+    right: 20px;
+    bottom: 50%;
+  }
+
+  .category__arrow {
+    display: none;
+  }
+
+  .category--main {
+    padding-bottom: 24px;
+  }
+
+  .category__tags {
+    margin-top: 16px;
+  }
+
+  .category--main .category__body {
+    max-width: 100%;
+  }
+
+  .category--main .category__img {
+    display: none;
+  }
+}

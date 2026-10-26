@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Страница не найдена | Дом Климата</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#014454">
+
+  <!-- Пути от корня: 404 отдаётся сервером по любому адресу,
+       и относительные ссылки сломались бы на вложенных URL -->
+  <link rel="icon" href="/img/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-root="/">
+
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div data-include="/sections/header/header.html"></div>
+
+  <main id="main">
+    <div data-include="/sections/not-found/not-found.html"></div>
+  </main>
+
+  <div data-include="/sections/footer/footer.html"></div>
+  <div data-include="/sections/request-modal/request-modal.html"></div>
+  <div data-include="/sections/cookie/cookie.html"></div>
+
+  <script src="/js/include-sections.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

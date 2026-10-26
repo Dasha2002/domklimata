@@ -1,0 +1,110 @@
+/* ==========================================================================
+   Секция: Первый экран
+   ========================================================================== */
+
+.hero {
+  padding-top: 40px;
+  padding-bottom: 24px;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: 48px;
+}
+
+.hero__title {
+  font-size: clamp(36px, 4.4vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.hero__text {
+  margin-top: 24px;
+  max-width: 44ch;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+/* Высота привязана к экрану, чтобы кнопки были видны без прокрутки */
+.hero__media {
+  height: clamp(400px, calc(100dvh - var(--header-top-h) - var(--header-main-h) - 64px), 640px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-brand-soft);
+}
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% center;
+}
+
+/* Появление: заголовок, текст и кнопки по очереди, фото вслед */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__content > *,
+  .hero__media {
+    animation: hero-in 0.8s var(--ease) both;
+  }
+
+  .hero__text { animation-delay: 0.08s; }
+  .hero__actions { animation-delay: 0.16s; }
+  .hero__media { animation-delay: 0.1s; }
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    padding-top: 24px;
+  }
+
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero__title {
+    max-width: 16ch;
+  }
+
+  .hero__media {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__text {
+    margin-top: 16px;
+    font-size: 17px;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    margin-top: 28px;
+  }
+
+  .hero__actions .button {
+    width: 100%;
+  }
+
+  .hero__media {
+    border-radius: var(--radius);
+  }
+}

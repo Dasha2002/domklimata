@@ -1,0 +1,330 @@
+/* ==========================================================================
+   Секция: Подбор оборудования
+   ========================================================================== */
+
+.selection {
+  padding-top: calc(var(--section-y) * 0.75);
+  padding-bottom: var(--section-y);
+}
+
+.selection__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-brand-soft);
+  overflow: hidden;
+}
+
+/* --- Вопросы ------------------------------------------------------------- */
+.selection__form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 48px;
+}
+
+.selection__lead {
+  margin-top: -12px;
+  font-size: 18px;
+  color: var(--color-muted);
+}
+
+.selection__group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.selection__label {
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.selection__label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.selection__area-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-brand);
+  font-variant-numeric: tabular-nums;
+}
+
+.selection__scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+/* Чипсы-радиокнопки */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  position: relative;
+  cursor: pointer;
+}
+
+.chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chip > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1.5px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  font-weight: 500;
+  transition: border-color var(--transition), background-color var(--transition), color var(--transition);
+}
+
+.chip .icon {
+  color: var(--color-brand);
+}
+
+.chip:hover > span {
+  border-color: var(--color-brand);
+}
+
+.chip input:checked + span {
+  border-color: var(--color-brand);
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+.chip input:checked + span .icon {
+  color: #fff;
+}
+
+.chip input:focus-visible + span {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.chips--compact .chip > span {
+  min-width: 56px;
+  justify-content: center;
+}
+
+/* Ползунок площади. Заполненную часть рисует градиент,
+   его границу app.js двигает через --fill */
+.range {
+  --fill: 10.7%;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--color-brand) var(--fill), #c3d4d7 var(--fill));
+}
+
+.range::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--color-brand) var(--fill), #c3d4d7 var(--fill));
+}
+
+.range::-webkit-slider-thumb {
+  width: 26px;
+  height: 26px;
+  margin-top: -10px;
+  border: 3px solid var(--color-surface);
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  box-shadow: 0 1px 4px rgba(1, 49, 61, 0.3);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--color-surface);
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  box-shadow: 0 1px 4px rgba(1, 49, 61, 0.3);
+}
+
+.range:focus-visible {
+  outline: none;
+}
+
+.range:focus-visible::-webkit-slider-thumb {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* --- Результат ----------------------------------------------------------- */
+.selection__result {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 40px 40px;
+  background-color: var(--color-brand);
+  color: #fff;
+  isolation: isolate;
+}
+
+.selection__result-img {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: -1;
+  width: 150px;
+  height: auto;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+}
+
+.selection__result-img.is-changing {
+  opacity: 0;
+}
+
+.selection__result-label {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.selection__result-type {
+  max-width: 11ch;
+  margin-top: 8px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.selection__specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.selection__specs dt {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.selection__specs dd {
+  margin-top: 4px;
+  font-size: 24px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.selection__note {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.selection__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 32px;
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .selection__panel {
+    grid-template-columns: 1fr;
+  }
+
+  .selection__result-img {
+    width: 130px;
+  }
+}
+
+@media (max-width: 640px) {
+  .selection__panel {
+    border-radius: var(--radius);
+  }
+
+  .selection__form {
+    gap: 24px;
+    padding: 28px 20px;
+  }
+
+  .selection__lead {
+    font-size: 16px;
+  }
+
+  .chips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .chips {
+    gap: 6px;
+  }
+
+  .chip > span {
+    width: 100%;
+    gap: 6px;
+    padding: 0 10px;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  .chips--compact {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .chips--compact .chip > span {
+    min-width: 0;
+    padding: 0 6px;
+  }
+
+  .selection__result {
+    padding: 28px 20px;
+  }
+
+  .selection__result-img {
+    width: 96px;
+    top: 20px;
+    right: 16px;
+  }
+
+  .selection__result-type {
+    font-size: 26px;
+  }
+
+  .selection__specs dd {
+    font-size: 20px;
+  }
+
+  .selection__actions {
+    flex-direction: column;
+  }
+
+  .selection__actions .button {
+    width: 100%;
+  }
+}
