@@ -9,6 +9,8 @@ document.addEventListener('sections:loaded', function () {
   initMobileMenu();
   initCatalogMenu();
   initSearchSuggest();
+  initHeroSlider();
+  initSmoothDetails();
   initSelection();
   initRequestModal();
   initPhoneMask();
@@ -20,13 +22,169 @@ document.addEventListener('sections:loaded', function () {
 
 var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+/* Первый экран: горизонтальная прокрутка, автосмена и свайпы. */
+function initHeroSlider() {
+  var hero = document.querySelector('.hero');
+  if (!hero || hero.dataset.initialized) return;
+  hero.dataset.initialized = 'true';
+  var slides = Array.from(hero.querySelectorAll('.hero__slide'));
+  var track = hero.querySelector('.hero__track');
+  var viewport = hero.querySelector('.hero__slides');
+  var current = 0;
+  var timer;
+  var paused = reducedMotion.matches;
+  var hovered = false;
+  var inView = true;
+  var touchStart = null;
+
+  function schedule() {
+    window.clearTimeout(timer);
+    if (!paused && !hovered && inView && !document.hidden && !hero.querySelector('.hero__content:focus-within')) {
+      timer = window.setTimeout(function () { show(current + 1, false); }, 7000);
+    }
+  }
+
+  function show(index, announce) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach(function (slide, i) {
+      var active = i === current;
+      slide.classList.toggle('is-active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+      slide.inert = !active;
+
+    });
+    track.style.transform = 'translateX(-' + current * 100 + '%)';
+    if (announce) hero.querySelector('[data-hero-status]').textContent = slides[current].getAttribute('aria-label');
+    schedule();
+  }
+
+  function select(index) { show(index, true); }
+  hero.querySelector('.hero__arrow--prev').addEventListener('click', function () { select(current - 1); });
+  hero.querySelector('.hero__arrow--next').addEventListener('click', function () { select(current + 1); });
+  hero.querySelectorAll('.hero__content').forEach(function (content) {
+    content.addEventListener('mouseenter', function () { hovered = true; schedule(); });
+    content.addEventListener('mouseleave', function () { hovered = false; schedule(); });
+  });
+  hero.addEventListener('focusin', schedule);
+  hero.addEventListener('focusout', function () { window.setTimeout(schedule, 0); });
+  hero.addEventListener('keydown', function (event) {
+    if (event.target.closest('input, textarea, select')) return;
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    if (viewport.contains(document.activeElement)) hero.querySelector('.hero__arrow--next').focus();
+    select(current + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+  viewport.addEventListener('touchstart', function (event) {
+    touchStart = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
+    window.clearTimeout(timer);
+  }, { passive: true });
+  viewport.addEventListener('touchend', function (event) {
+    if (!touchStart) return;
+    var dx = event.changedTouches[0].clientX - touchStart.x;
+    var dy = event.changedTouches[0].clientY - touchStart.y;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) select(current + (dx < 0 ? 1 : -1));
+    else schedule();
+    touchStart = null;
+  }, { passive: true });
+  viewport.addEventListener('touchcancel', function () { touchStart = null; schedule(); }, { passive: true });
+  // Горизонтальный жест тачпада: один слайд за жест, без пролистывания инерцией.
+  var wheelDistance = 0;
+  var wheelLocked = false;
+  var wheelEnd;
+  viewport.addEventListener('wheel', function (event) {
+    if (event.ctrlKey || Math.abs(event.deltaX) <= Math.abs(event.deltaY) * 1.2) return;
+    event.preventDefault();
+    window.clearTimeout(wheelEnd);
+    wheelEnd = window.setTimeout(function () { wheelDistance = 0; wheelLocked = false; }, 180);
+    if (wheelLocked) return;
+    var multiplier = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? viewport.clientWidth : 1;
+    wheelDistance += event.deltaX * multiplier;
+    if (Math.abs(wheelDistance) >= 40) {
+      select(current + (wheelDistance > 0 ? 1 : -1));
+      wheelLocked = true;
+    }
+  }, { passive: false });
+  document.addEventListener('visibilitychange', schedule);
+  reducedMotion.addEventListener('change', function (event) {
+    paused = event.matches; schedule();
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) { inView = entries[0].isIntersecting; schedule(); }).observe(hero);
+  }
+  hero.querySelector('.hero__controls').hidden = false;
+  schedule();
+}
+
+/* Плавное раскрытие с поддержкой быстрых повторных нажатий и групп details. */
+function initSmoothDetails() {
+  var items = Array.from(document.querySelectorAll('.page-details, .faq__item')).map(function (element) {
+    var item = {
+      element: element,
+      summary: element.querySelector('summary'),
+      body: element.querySelector('.page-details__body, .faq__answer'),
+      group: element.getAttribute('name'),
+      expanded: element.open,
+      animation: null
+    };
+    // JS управляет закрытием, чтобы нативная группа не обрывала анимацию.
+    element.removeAttribute('name');
+    item.summary.setAttribute('aria-expanded', String(item.expanded));
+    return item;
+  });
+
+  function expand(item, open) {
+    var element = item.element;
+    var start = element.getBoundingClientRect().height;
+    if (item.animation) {
+      item.animation.onfinish = null;
+      item.animation.cancel();
+    }
+    item.expanded = open;
+    item.summary.setAttribute('aria-expanded', String(open));
+    item.body.inert = !open;
+    element.classList.toggle('is-collapsing', !open);
+    function finish() {
+      element.open = open;
+      element.style.height = '';
+      element.style.overflow = '';
+      element.classList.remove('is-collapsing');
+      item.animation = null;
+    }
+    if (reducedMotion.matches || !element.animate) { finish(); return; }
+    element.style.height = start + 'px';
+    element.style.overflow = 'hidden';
+    element.open = true;
+    var style = getComputedStyle(element);
+    var border = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+    var end = item.summary.getBoundingClientRect().height + border;
+    if (open) end += item.body.getBoundingClientRect().height;
+    item.animation = element.animate([{ height: start + 'px' }, { height: end + 'px' }], {
+      duration: 420, easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
+    });
+    item.animation.onfinish = finish;
+  }
+
+  items.forEach(function (item) {
+    item.summary.addEventListener('click', function (event) {
+      event.preventDefault();
+      var open = !item.expanded;
+      if (open && item.group) {
+        items.forEach(function (other) {
+          if (other !== item && other.group === item.group && other.expanded) expand(other, false);
+        });
+      }
+      expand(item, open);
+    });
+  });
+}
+
 /* ==========================================================================
    Шапка
    ========================================================================== */
 
 /**
- * Мобильное меню: бургер раскрывает панель, id которой в aria-controls.
- * Закрывается по ссылке, Esc и при расширении окна до десктопа.
+ * Бургер раскрывает общую навигацию на всех размерах экрана.
+ * Закрывается по ссылке, клику снаружи и Esc.
  */
 function initMobileMenu() {
   var burger = document.querySelector('.header__burger');
@@ -40,7 +198,33 @@ function initMobileMenu() {
     burger.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
     menu.hidden = !isOpen;
     document.body.classList.toggle('is-locked', isOpen);
+    if (isOpen) {
+      var catalog = document.getElementById('catalog-menu');
+      var catalogButton = document.querySelector('.header__catalog');
+      if (catalog) catalog.hidden = true;
+      if (catalogButton) catalogButton.setAttribute('aria-expanded', 'false');
+    }
   }
+
+  var header = document.querySelector('.header');
+  var navigation = header.querySelector('.header__links');
+  var desktop = window.matchMedia('(min-width: 1025px)');
+  function updateBurger(isVisible) {
+    var show = !desktop.matches || !isVisible;
+    header.classList.toggle('is-navigation-hidden', show);
+    if (!show && !menu.hidden) setOpen(false);
+  }
+  if (navigation && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      updateBurger(entries[0].isIntersecting);
+    }, { threshold: 0 }).observe(navigation);
+    desktop.addEventListener('change', function () {
+      var rect = navigation.getBoundingClientRect();
+      updateBurger(rect.height > 0 && rect.bottom > 0);
+    });
+    var rect = navigation.getBoundingClientRect();
+    updateBurger(rect.height > 0 && rect.bottom > 0);
+  } else header.classList.add('is-navigation-hidden');
 
   burger.addEventListener('click', function () {
     setOpen(burger.getAttribute('aria-expanded') !== 'true');
@@ -55,10 +239,22 @@ function initMobileMenu() {
       setOpen(false);
       burger.focus();
     }
+    if (event.key === 'Tab' && !menu.hidden) {
+      var links = Array.from(menu.querySelectorAll('a[href], button'));
+      var first = links[0];
+      var last = links[links.length - 1];
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === burger)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        burger.focus();
+      }
+    }
   });
 
-  window.matchMedia('(min-width: 1025px)').addEventListener('change', function (event) {
-    if (event.matches) setOpen(false);
+  document.addEventListener('click', function (event) {
+    if (!menu.hidden && !menu.contains(event.target) && !burger.contains(event.target)) setOpen(false);
   });
 }
 
@@ -409,6 +605,9 @@ function initRequestForms() {
       phone: function (input) { return input.value.replace(/\D/g, '').length === 11; },
       consent: function (input) { return input.checked; }
     };
+    if (form.elements.email) {
+      rules.email = function (input) { return input.value.trim().length > 0 && input.validity.valid; };
+    }
 
     function setError(input, isInvalid) {
       var field = input.closest('.field');

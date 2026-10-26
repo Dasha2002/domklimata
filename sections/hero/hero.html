@@ -1,29 +1,55 @@
-<!-- ==========================================================================
-     Секция: Первый экран
-     Блок БЭМ: .hero
-     Интерьер сгенерирован нейросетью (см. README): это иллюстрация,
-     а не фото объекта. Заменить на реальную съёмку, когда появится.
-     ========================================================================== -->
-<section class="hero" aria-labelledby="hero-title">
-  <div class="hero__inner container">
-
-    <div class="hero__content">
-      <h1 class="hero__title" id="hero-title">Кондиционеры с&nbsp;установкой в&nbsp;Перми</h1>
-      <p class="hero__text">
-        Продаём, устанавливаем и обслуживаем кондиционеры, вентиляцию
-        и отопление. Гарантия на оборудование до 5 лет.
-      </p>
-      <div class="hero__actions">
-        <a class="button button--accent button--lg" href="#selection">Подобрать кондиционер</a>
-        <a class="button button--outline button--lg" href="{{root}}catalog/">Перейти в каталог</a>
+<!-- Три предложения в фирменном стиле. Источники фото описаны в README. -->
+<section class="hero" aria-label="Климатическое оборудование и услуги" aria-roledescription="карусель">
+  <div class="container">
+    <div class="hero__panel">
+      <div class="hero__slides" id="hero-slides" aria-live="off">
+        <div class="hero__track">
+        <div class="hero__slide is-active" id="hero-slide-1" role="group" aria-roledescription="слайд" aria-label="1 из 3: Климат для дома">
+          <div class="hero__content">
+            <p class="hero__eyebrow">Дом Климата · Пермь</p>
+            <h1 class="hero__title">Кондиционеры и&nbsp;климатическое оборудование в&nbsp;Перми</h1>
+            <p class="hero__text">Подберём, установим и&nbsp;обслужим технику для комфортной жизни. Гарантия на&nbsp;оборудование до&nbsp;5&nbsp;лет.</p>
+            <div class="hero__actions">
+              <a class="button button--accent button--lg" href="{{root}}catalog/">Перейти в каталог <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+              <button class="button button--outline button--lg" type="button" data-open-request>Рассчитать монтаж</button>
+            </div>
+          </div>
+          <picture class="hero__media">
+            <source media="(max-width: 640px)" srcset="{{root}}img/photos/hero-comfort-mobile.webp">
+            <img src="{{root}}img/photos/hero-comfort.webp" width="1536" height="1024" alt="Настенный кондиционер в светлой гостиной с серым диваном" fetchpriority="high">
+          </picture>
+        </div>
+        <div class="hero__slide" id="hero-slide-2" role="group" aria-roledescription="слайд" aria-label="2 из 3: Монтаж под ключ" aria-hidden="true" inert>
+          <div class="hero__content">
+            <p class="hero__eyebrow">От подбора до запуска</p>
+            <h2 class="hero__title">Монтаж кондиционера с&nbsp;заботой о&nbsp;вашем доме</h2>
+            <p class="hero__text">Рассчитаем, спроектируем и&nbsp;установим. Подберём место для блоков, проверим систему и&nbsp;покажем, как ей&nbsp;пользоваться.</p>
+            <div class="hero__actions">
+              <button class="button button--accent button--lg" type="button" data-open-request>Рассчитать монтаж <span class="icon icon--arrow-up-right" aria-hidden="true"></span></button>
+              <a class="button button--outline button--lg" href="{{root}}Installation/">Подробнее о монтаже</a>
+            </div>
+          </div>
+          <img class="hero__media hero__media--installation" src="{{root}}img/photos/installation.webp" width="844" height="508" alt="Монтажник со страховочным снаряжением работает на фасаде здания" loading="lazy">
+        </div>
+        <div class="hero__slide" id="hero-slide-3" role="group" aria-roledescription="слайд" aria-label="3 из 3: Подбор оборудования" aria-hidden="true" inert>
+          <div class="hero__content">
+            <p class="hero__eyebrow">Решение для вашего пространства</p>
+            <h2 class="hero__title">Свой климат для&nbsp;каждой комнаты</h2>
+            <p class="hero__text">Для квартиры, дома или офиса. Поможем выбрать кондиционер по&nbsp;площади помещения, мощности и&nbsp;вашим пожеланиям.</p>
+            <div class="hero__actions">
+              <a class="button button--accent button--lg" href="#selection">Подобрать кондиционер <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+              <a class="button button--outline button--lg" href="{{root}}catalog/">Смотреть каталог</a>
+            </div>
+          </div>
+          <img class="hero__media" src="{{root}}img/photos/maintenance.webp" width="642" height="385" alt="Настенный кондиционер Lessar в деревянном доме" loading="lazy">
+        </div>
+      </div>
+      </div>
+      <div class="hero__controls" hidden>
+        <button class="hero__arrow hero__arrow--prev" type="button" aria-label="Предыдущий слайд" aria-controls="hero-slides"><span class="icon icon--arrow-up-right" aria-hidden="true"></span></button>
+        <button class="hero__arrow hero__arrow--next" type="button" aria-label="Следующий слайд" aria-controls="hero-slides"><span class="icon icon--arrow-up-right" aria-hidden="true"></span></button>
       </div>
     </div>
-
-    <picture class="hero__media">
-      <source media="(max-width: 640px)" srcset="{{root}}img/photos/hero-interior-mobile.webp">
-      <img src="{{root}}img/photos/hero-interior.webp" width="1672" height="941"
-           alt="Светлая гостиная с настенным кондиционером" fetchpriority="high">
-    </picture>
-
+    <p class="visually-hidden" data-hero-status role="status" aria-atomic="true"></p>
   </div>
 </section>
