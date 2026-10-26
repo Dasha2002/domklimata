@@ -1,0 +1,18 @@
+/* Стили главной: каждая секция подключается отдельно, как в проекте «автостиль». */
+@import '../includes/header/header.css';
+@import '../includes/hero/hero.css';
+@import '../includes/advantages/advantages.css';
+@import '../includes/categories/categories.css';
+@import '../includes/area-selection/area-selection.css';
+@import '../includes/popular-products/popular-products.css';
+@import '../includes/climate-services/climate-services.css';
+@import '../includes/about-section/about-section.css';
+@import '../includes/brands/brands.css';
+@import '../includes/projects/projects.css';
+@import '../includes/reviews/reviews.css';
+@import '../includes/news/news.css';
+@import '../includes/faq/faq.css';
+@import '../includes/contacts-section/contacts-section.css';
+@import '../includes/footer/footer.css';
+@import '../includes/search-modal/search-modal.css';
+@import '../includes/calculator/calculator.css';

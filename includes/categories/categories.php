@@ -1,0 +1,5 @@
+<section class="section container categories" id="categories" aria-labelledby="categories-title">
+    <div class="section-heading"><div><span class="eyebrow">Каталог оборудования</span><h2 id="categories-title">Решения для <span class="gradient-text">вашего пространства</span></h2></div><a class="text-link" href="<?= original('/catalog/') ?>">Весь каталог <?= icon('arrow') ?></a></div>
+    <p class="section-intro">От уютной спальни до большого офиса — подберём технику под ваши задачи.</p>
+    <div class="category-grid"><?php foreach ($categories as $i => [$title, $description, $image, $url]): ?><a class="category-card <?= $i === 0 ? 'category-featured' : '' ?>" href="<?= e(original($url)) ?>"><span class="category-number">0<?= $i + 1 ?></span><h3><?= e($title) ?></h3><p><?= e($description) ?></p><img src="/assets/<?= e($image) ?>.webp" width="320" height="230" alt="<?= e($title) ?>" loading="lazy"><span class="round-arrow"><?= icon('arrow') ?></span></a><?php endforeach; ?></div>
+</section>

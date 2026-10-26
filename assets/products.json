@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Axioma Серия H inverter R32",
+    "model": "ASX07HZ1R/ASB07HZ1R",
+    "url": "/catalog/product/asx07hz1r/",
+    "image": "/upload/iblock/2ad/lx994f6qv17miahctpt31pwbxex0osu5.jpg",
+    "price": "Под заказ",
+    "asset": "product-1.jpg"
+  },
+  {
+    "name": "Axioma Серия H R32",
+    "model": "ASX07H1R/ASB07H1R",
+    "url": "/catalog/product/asx07h1r/",
+    "image": "/upload/iblock/2ad/lx994f6qv17miahctpt31pwbxex0osu5.jpg",
+    "price": "20&nbsp;790 р.",
+    "asset": "product-2.jpg"
+  },
+  {
+    "name": "Axioma Серия F Inverter",
+    "model": "ASX18FZ1/ASB18FZ1",
+    "url": "/catalog/product/asx07fz1/",
+    "image": "/upload/iblock/fd1/tf96gq9m0ykv6xxyullwkfcecy4equnh.jpg",
+    "price": "Под заказ",
+    "asset": "product-3.jpg"
+  },
+  {
+    "name": "Axioma Серия F",
+    "model": "ASX07F1/ASB07F1",
+    "url": "/catalog/product/asx07f1/",
+    "image": "/upload/iblock/ae7/gzulaot3aqxpwhqxof6ybvqbiqcp398r.jpg",
+    "price": "Под заказ",
+    "asset": "product-4.jpg"
+  },
+  {
+    "name": "Axioma Серия H Inverter",
+    "model": "ASX07HZ1/ASB07HZ1",
+    "url": "/catalog/product/asx09hz1/",
+    "image": "/upload/iblock/2ad/lx994f6qv17miahctpt31pwbxex0osu5.jpg",
+    "price": "Под заказ",
+    "asset": "product-5.jpg"
+  },
+  {
+    "name": "Axioma Серия H",
+    "model": "ASX07H1/ASB07H1",
+    "url": "/catalog/product/asx09h1/",
+    "image": "/upload/iblock/2ad/lx994f6qv17miahctpt31pwbxex0osu5.jpg",
+    "price": "Под заказ",
+    "asset": "product-6.jpg"
+  }
+]

@@ -1,0 +1,4 @@
+<section class="section container projects" id="projects" aria-labelledby="projects-title">
+    <div class="section-heading"><div><span class="eyebrow">От задачи — к результату</span><h2 id="projects-title">Климат, который <span class="gradient-text">мы создаём</span></h2></div><a class="text-link" href="<?= original('/news/') ?>">Наши работы <?= icon('arrow') ?></a></div>
+    <div class="project-grid"><?php foreach ([1, 8] as $i): if (!isset($articles[$i])) continue; $post = $articles[$i]; ?><a class="project-card" href="<?= e(original($post['url'])) ?>"><img src="/assets/article-<?= $i + 1 ?>.webp" alt="<?= e($post['title']) ?>" width="700" height="470" loading="lazy"><div><span><?= $i === 1 ? 'Квартира · 150 м²' : 'Монтаж · Пермь' ?></span><h3><?= e($post['title']) ?></h3><p><?= e($post['text']) ?></p><span class="round-arrow"><?= icon('diagonal') ?></span></div></a><?php endforeach; ?></div>
+</section>
