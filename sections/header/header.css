@@ -56,8 +56,8 @@
 /* --- Основная строка ----------------------------------------------------- */
 .header__main-inner {
   display: grid;
-  grid-template-columns: auto auto minmax(0, 1fr) auto auto auto auto;
-  grid-template-areas: "logo catalog search phone cart request burger";
+  grid-template-columns: auto auto minmax(0, 1fr) auto auto auto auto auto;
+  grid-template-areas: "logo catalog search phone account cart request burger";
   align-items: center;
   gap: 16px;
   height: var(--header-main-h);
@@ -217,6 +217,28 @@
   color: var(--color-muted);
 }
 
+/* Личный кабинет: та же кнопка-иконка, что у корзины */
+.header__account {
+  grid-area: account;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  color: var(--color-brand);
+  transition: background-color var(--transition);
+}
+
+.header__account:hover {
+  background-color: var(--color-brand-soft);
+}
+
+.header__account .icon {
+  width: 24px;
+  height: 24px;
+}
+
 .header__cart {
   grid-area: cart;
   position: relative;
@@ -243,8 +265,8 @@
   border-radius: 10px;
   background-color: var(--color-accent);
   font-size: 12px;
-  font-weight: 700;
-  color: var(--color-ink);
+  font-weight: 500;
+  color: #fff;
   font-variant-numeric: tabular-nums;
 }
 
@@ -411,7 +433,7 @@
 .header__burger { background: var(--color-brand-tint); border: 1px solid var(--color-line); }
 .header__burger:hover { background: var(--color-brand-soft); }
 .mobile-menu { position: absolute; top: 100%; left: 0; right: 0; max-height: calc(100dvh - var(--header-main-h) - 40px); overflow-y: auto; overscroll-behavior: contain; border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); background: var(--color-surface); box-shadow: var(--shadow); }
-.mobile-menu__inner { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 48px; padding-top: 32px; padding-bottom: 36px; }
+.mobile-menu__inner { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 48px; padding-top: 32px; padding-bottom: 36px; }
 .mobile-menu__nav { display: flex; flex-direction: column; align-items: flex-start; }
 .mobile-menu__title { margin-bottom: 14px; font-size: 13px; color: var(--color-muted); }
 .mobile-menu__nav a { display: block; padding: 9px 0; font-size: 18px; font-weight: 500; color: var(--color-brand-dark); }
@@ -419,13 +441,73 @@
 .mobile-menu__contacts { display: flex; flex-direction: column; gap: 12px; color: var(--color-muted); }
 .mobile-menu__phone { font-size: 20px; font-weight: 700; color: var(--color-brand-dark); }
 .mobile-menu__contacts .button { margin-top: 12px; align-self: flex-start; color: var(--color-brand-dark); }
+
+/* Каталог в меню: карточки с картинками из выпадающего «Каталога».
+   Отступ слева компенсирует внутренний padding карточки, чтобы картинки
+   стояли по одной линии с заголовками соседних колонок */
+.mobile-menu__catalog {
+  min-width: 0;
+}
+
+.mobile-menu__categories {
+  margin-left: -12px;
+}
 @media (prefers-reduced-motion: no-preference) {
  .mobile-menu:not([hidden]) .mobile-menu__inner { animation: navigation-in 0.25s var(--ease); }
  @keyframes navigation-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
 }
+/* Планшет: каталог строкой сверху, под ним разделы и контакты */
+@media (max-width: 1100px) {
+  .mobile-menu__inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 48px;
+  }
+
+  .mobile-menu__catalog {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (max-width: 760px) {
  .mobile-menu__inner { grid-template-columns: 1fr; gap: 24px; padding-top: 24px; padding-bottom: 28px; }
  .mobile-menu__contacts { padding-top: 24px; border-top: 1px solid var(--color-line); }
+
+  /* Телефон: карточки в столбик и компактнее. Подпись категории
+     не нужна, хватает картинки и названия */
+  .mobile-menu__categories {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .mobile-menu__categories .catalog-menu__item {
+    gap: 12px;
+    padding: 6px 12px;
+  }
+
+  .mobile-menu__categories .catalog-menu__item img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .mobile-menu__categories .catalog-menu__icon {
+    width: 26px;
+    height: 26px;
+    margin: 11px;
+  }
+
+  .mobile-menu__categories .catalog-menu__item strong {
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .mobile-menu__categories .catalog-menu__item small {
+    display: none;
+  }
+
+  .mobile-menu__nav {
+    padding-top: 24px;
+    border-top: 1px solid var(--color-line);
+  }
 }
 
 /* --- Адаптив ------------------------------------------------------------- */
@@ -460,8 +542,8 @@
   }
 
   .header__main-inner {
-    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
-    grid-template-areas: "logo search phone cart burger";
+    grid-template-columns: auto minmax(0, 1fr) auto auto auto auto;
+    grid-template-areas: "logo search phone account cart burger";
     gap: 8px;
   }
 
@@ -477,10 +559,10 @@
 
 @media (max-width: 640px) {
   .header__main-inner {
-    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    grid-template-columns: minmax(0, 1fr) auto auto auto auto;
     grid-template-areas:
-      "logo phone cart burger"
-      "search search search search";
+      "logo phone account cart burger"
+      "search search search search search";
     row-gap: 0;
     height: auto;
     padding-bottom: 12px;
@@ -494,6 +576,7 @@
   }
 
   .header__phone,
+  .header__account,
   .header__cart {
     width: 44px;
     height: 44px;

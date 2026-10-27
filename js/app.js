@@ -25,6 +25,8 @@ document.addEventListener('sections:loaded', function () {
   initProductPage();
   initMiniCart();
   initCart();
+  initPasswordToggles();
+  initAuth();
 });
 
 var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -208,7 +210,7 @@ function canAnimate(el) {
  * поворачивает иконку обратно, не дожидаясь конца анимации.
  */
 function initDetailsAnimation() {
-  document.querySelectorAll('.faq__item, .filters__group, .cart-summary__promo').forEach(function (details) {
+  document.querySelectorAll('.faq__item, .filters__group, .cart-summary__promo, .order__details').forEach(function (details) {
     var summary = details.querySelector('summary');
     var content = summary.nextElementSibling;
     var group = details.getAttribute('name');
@@ -338,8 +340,9 @@ function initMobileMenu() {
   function setOpen(isOpen) {
     burger.setAttribute('aria-expanded', String(isOpen));
     burger.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+    // Страница при открытом меню прокручивается: меню живёт внутри
+    // липкой шапки и едет вместе с ней
     menu.hidden = !isOpen;
-    document.body.classList.toggle('is-locked', isOpen);
     if (isOpen) {
       var catalog = document.getElementById('catalog-menu');
       var catalogButton = document.querySelector('.header__catalog');
@@ -1979,4 +1982,406 @@ function initCart() {
   });
 
   recalc();
+}
+
+/* ==========================================================================
+   Личный кабинет: вход, восстановление, регистрация, профиль
+   ========================================================================== */
+
+/**
+ * Кнопка «Показать пароль» в полях .password.
+ */
+function initPasswordToggles() {
+  document.querySelectorAll('[data-password-toggle]').forEach(function (button) {
+    var input = button.parentNode.querySelector('input');
+    var icon = button.querySelector('.icon');
+    button.addEventListener('click', function () {
+      var show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      button.setAttribute('aria-pressed', String(show));
+      button.setAttribute('aria-label', show ? 'Скрыть пароль' : 'Показать пароль');
+      icon.className = 'icon icon--' + (show ? 'eye-off' : 'eye');
+    });
+  });
+}
+
+/**
+ * Ошибка поля: класс на .field, aria-invalid, текст из элемента,
+ * id которого в aria-describedby оканчивается на -error.
+ */
+function setFieldError(input, isInvalid) {
+  var ids = (input.getAttribute('aria-describedby') || '').split(' ');
+  var errorId = ids.filter(function (id) { return /-error$/.test(id); })[0];
+  var error = errorId && document.getElementById(errorId);
+  var field = input.closest('.field');
+  if (field) field.classList.toggle('is-invalid', isInvalid);
+  input.setAttribute('aria-invalid', String(isInvalid));
+  if (error) error.hidden = !isInvalid;
+}
+
+/**
+ * Проверка формы по правилам { имя поля: функция(input) → true/false }.
+ * Возвращает первое неверное поле или null. Ошибка снимается, как только
+ * поле исправили.
+ */
+function validateForm(form, rules) {
+  var firstInvalid = null;
+  Object.keys(rules).forEach(function (name) {
+    var input = form.elements[name];
+    if (!input) return;
+    var isInvalid = !rules[name](input);
+    setFieldError(input, isInvalid);
+    if (isInvalid && !firstInvalid) firstInvalid = input;
+  });
+
+  if (!form.hasAttribute('data-validate-live')) {
+    form.setAttribute('data-validate-live', '');
+    form.addEventListener('input', function (event) {
+      var rule = rules[event.target.name];
+      if (rule && event.target.getAttribute('aria-invalid') === 'true' && rule(event.target)) {
+        setFieldError(event.target, false);
+      }
+    });
+  }
+
+  if (firstInvalid) firstInvalid.focus();
+  return firstInvalid;
+}
+
+var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/**
+ * Страница /personal/profile/: формы входа и личный кабинет.
+ * Форма выбирается параметром адреса (?forgot_password=yes, ?register=yes),
+ * раздел кабинета — ?section=. «Вход» в вёрстке — отметка в sessionStorage,
+ * на WordPress авторизацию проверяет сервер.
+ */
+function initAuth() {
+  var auth = document.querySelector('[data-auth]');
+  var account = document.querySelector('[data-account]');
+  if (!auth || !account) return;
+
+  var USER_KEY = 'dk-demo-user';
+  var views = auth.querySelectorAll('[data-auth-view]');
+  var forms = {
+    login: auth.querySelector('[data-auth-form="login"]'),
+    forgot: auth.querySelector('[data-auth-form="forgot"]'),
+    register: auth.querySelector('[data-auth-form="register"]')
+  };
+
+  function readUser() {
+    try { return JSON.parse(sessionStorage.getItem(USER_KEY)); } catch (e) { return null; }
+  }
+
+  function saveUser(user) {
+    try { sessionStorage.setItem(USER_KEY, JSON.stringify(user)); } catch (e) { /* нет доступа */ }
+  }
+
+  function viewFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('register') === 'yes') return 'register';
+    if (params.get('forgot_password') === 'yes') return 'forgot';
+    return 'login';
+  }
+
+  var TITLES = {
+    login: 'Вход в личный кабинет',
+    forgot: 'Восстановление пароля',
+    register: 'Регистрация',
+    account: 'Личный кабинет'
+  };
+
+  function showView(name) {
+    views.forEach(function (view) { view.hidden = view.getAttribute('data-auth-view') !== name; });
+    document.title = TITLES[name] + ' | Дом Климата';
+  }
+
+  function render() {
+    var user = readUser();
+    auth.hidden = Boolean(user);
+    account.hidden = !user;
+    if (user) {
+      fillAccount(user);
+      document.title = TITLES.account + ' | Дом Климата';
+      selectTab(new URLSearchParams(window.location.search).get('section'), false);
+    } else {
+      showView(viewFromUrl());
+    }
+  }
+
+  // Переход между формами без перезагрузки: ссылки обычные, с параметрами
+  auth.querySelectorAll('[data-auth-link]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      if (event.ctrlKey || event.metaKey || event.shiftKey) return;
+      event.preventDefault();
+      history.pushState(null, '', link.href);
+      showView(link.getAttribute('data-auth-link'));
+      var heading = auth.querySelector('[data-auth-view="' + link.getAttribute('data-auth-link') + '"] .auth__title');
+      heading.setAttribute('tabindex', '-1');
+      heading.focus();
+    });
+  });
+
+  window.addEventListener('popstate', render);
+
+  function busy(form, isBusy, text) {
+    var submit = form.querySelector('[type="submit"]');
+    if (!submit.dataset.text) submit.dataset.text = submit.textContent;
+    submit.disabled = isBusy;
+    submit.textContent = isBusy ? text : submit.dataset.text;
+  }
+
+  // Вход в профиль: адрес без параметров формы
+  function signIn(user) {
+    user.lastLogin = new Date().toISOString();
+    saveUser(user);
+    history.replaceState(null, '', window.location.pathname);
+    render();
+    window.scrollTo(0, 0);
+    document.getElementById('account-title').setAttribute('tabindex', '-1');
+    document.getElementById('account-title').focus();
+  }
+
+  /* --- Вход ---------------------------------------------------------------- */
+  forms.login.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var invalid = validateForm(forms.login, {
+      USER_LOGIN: function (input) { return input.value.trim().length > 0; },
+      USER_PASSWORD: function (input) { return input.value.length > 0; }
+    });
+    if (invalid) return;
+
+    busy(forms.login, true, 'Входим…');
+    // На WordPress — запрос к wp-login / REST; при ошибке показать .auth__error
+    sendRequest(new FormData(forms.login)).then(function () {
+      busy(forms.login, false);
+      signIn({ login: forms.login.elements.USER_LOGIN.value.trim() });
+      forms.login.reset();
+    });
+  });
+
+  /* --- Восстановление пароля ------------------------------------------- */
+  forms.forgot.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var invalid = validateForm(forms.forgot, {
+      USER_LOGIN: function (input) { return input.value.trim().length > 0; }
+    });
+    if (invalid) return;
+
+    busy(forms.forgot, true, 'Отправляем…');
+    sendRequest(new FormData(forms.forgot)).then(function () {
+      busy(forms.forgot, false);
+      forms.forgot.hidden = true;
+      var success = auth.querySelector('[data-auth-success]');
+      success.hidden = false;
+    });
+  });
+
+  /* --- Регистрация --------------------------------------------------------- */
+  forms.register.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var f = forms.register.elements;
+    var invalid = validateForm(forms.register, {
+      USER_LOGIN: function (input) { return input.value.trim().length >= 3; },
+      USER_EMAIL: function (input) { return EMAIL_RE.test(input.value.trim()); },
+      USER_PASSWORD: function (input) { return input.value.length >= 6; },
+      USER_CONFIRM_PASSWORD: function (input) { return input.value.length > 0 && input.value === f.USER_PASSWORD.value; },
+      consent: function (input) { return input.checked; }
+    });
+    if (invalid) return;
+
+    busy(forms.register, true, 'Создаём аккаунт…');
+    sendRequest(new FormData(forms.register)).then(function () {
+      busy(forms.register, false);
+      signIn({
+        login: f.USER_LOGIN.value.trim(),
+        email: f.USER_EMAIL.value.trim(),
+        name: f.USER_NAME.value.trim(),
+        lastName: f.USER_LAST_NAME.value.trim(),
+        registered: true
+      });
+      forms.register.reset();
+    });
+  });
+
+  /* --- Профиль: данные пользователя ---------------------------------------- */
+
+  // Данные из входа или регистрации подставляются поверх примера в разметке.
+  // Только что зарегистрированному пользователю пример личных данных
+  // не нужен: отчество, пол, телефон и адрес он заполнит сам
+  function fillAccount(user) {
+    if (user.registered && !user.cleared) {
+      account.querySelector('[name="SECOND_NAME"]').value = '';
+      account.querySelectorAll('[data-account-panel="personal"] input, [data-account-panel="personal"] textarea').forEach(function (input) {
+        if (input.type === 'radio') input.checked = input.value === '';
+        else input.value = '';
+      });
+      user.cleared = true;
+      saveUser(user);
+    }
+
+    ['login', 'email', 'name', 'lastName'].forEach(function (key) {
+      var input = account.querySelector('[data-account-field="' + key + '"]');
+      if (input && user[key]) input.value = user[key];
+    });
+    var title = account.querySelector('[data-account-field="title"]');
+    if (user.name) title.value = user.name;
+    account.querySelector('[data-account-greeting]').textContent = title.value || user.login;
+
+    if (user.lastLogin) {
+      var date = new Date(user.lastLogin);
+      var time = account.querySelector('[data-account-last-login]');
+      time.setAttribute('datetime', user.lastLogin);
+      time.textContent = date.toLocaleDateString('ru-RU') + ', ' +
+        date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+    }
+  }
+
+  /* --- Профиль: вкладки ---------------------------------------------------- */
+  var tabs = Array.prototype.slice.call(account.querySelectorAll('[data-account-tab]'));
+  var SECTIONS = tabs.map(function (tab) { return tab.getAttribute('data-account-tab'); });
+
+  function selectTab(name, focus) {
+    if (SECTIONS.indexOf(name) === -1) name = SECTIONS[0];
+    tabs.forEach(function (tab) {
+      var active = tab.getAttribute('data-account-tab') === name;
+      tab.setAttribute('aria-selected', String(active));
+      tab.tabIndex = active ? 0 : -1;
+      if (active && focus) tab.focus();
+    });
+    account.querySelectorAll('[data-account-panel]').forEach(function (panel) {
+      panel.hidden = panel.getAttribute('data-account-panel') !== name;
+    });
+
+    // Раздел в адресе, первый раздел — без параметра
+    var params = new URLSearchParams(window.location.search);
+    if (name === SECTIONS[0]) params.delete('section');
+    else params.set('section', name);
+    var query = params.toString();
+    history.replaceState(null, '', window.location.pathname + (query ? '?' + query : ''));
+  }
+
+  tabs.forEach(function (tab, index) {
+    tab.addEventListener('click', function () { selectTab(tab.getAttribute('data-account-tab'), false); });
+    // Стрелки по вкладкам, как в стандартном tablist
+    tab.addEventListener('keydown', function (event) {
+      var step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[event.key];
+      if (!step) return;
+      event.preventDefault();
+      selectTab(SECTIONS[(index + step + SECTIONS.length) % SECTIONS.length], true);
+    });
+  });
+
+  /* --- Профиль: сохранение разделов ---------------------------------------- */
+  var URL_RE = /^https?:\/\/[^\s.]+\.[^\s]+$/;
+  var phoneRule = function (input) {
+    return !input.value.trim() || input.value.replace(/\D/g, '').length === 11;
+  };
+  var zipRule = function (input) {
+    return !input.value.trim() || /^\d{6}$/.test(input.value.trim());
+  };
+  var PROFILE_RULES = {
+    LOGIN: function (input) { return input.value.trim().length >= 3; },
+    EMAIL: function (input) { return EMAIL_RE.test(input.value.trim()); },
+    PERSONAL_MOBILE: phoneRule,
+    PERSONAL_ZIP: zipRule,
+    WORK_PHONE: phoneRule,
+    WORK_ZIP: zipRule,
+    WORK_WWW: function (input) { return !input.value.trim() || URL_RE.test(input.value.trim()); }
+  };
+
+  account.querySelectorAll('[data-account-form]').forEach(function (form) {
+    var saved = form.querySelector('.account-form__saved');
+    var timer = null;
+
+    form.addEventListener('input', function () { saved.hidden = true; });
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (validateForm(form, PROFILE_RULES)) return;
+
+      busy(form, true, 'Сохраняем…');
+      // На WordPress — запрос на сохранение профиля
+      sendRequest(new FormData(form)).then(function () {
+        busy(form, false);
+        saved.hidden = false;
+        clearTimeout(timer);
+        timer = setTimeout(function () { saved.hidden = true; }, 4000);
+        if (form.elements.TITLE) {
+          account.querySelector('[data-account-greeting]').textContent =
+            form.elements.TITLE.value.trim() || form.elements.NAME.value.trim() || form.elements.LOGIN.value.trim();
+        }
+      });
+    });
+  });
+
+  // Индекс: только цифры
+  account.querySelectorAll('[data-zip]').forEach(function (input) {
+    input.addEventListener('input', function () { input.value = input.value.replace(/\D/g, '').slice(0, 6); });
+  });
+
+  /* --- Профиль: смена пароля ----------------------------------------------- */
+  var passwordModal = document.getElementById('password-modal');
+  var passwordForm = passwordModal.querySelector('[data-password-form]');
+  var passwordDone = passwordModal.querySelector('[data-password-done]');
+
+  function resetPasswordModal() {
+    passwordForm.reset();
+    passwordForm.hidden = false;
+    passwordDone.hidden = true;
+    passwordForm.querySelectorAll('input').forEach(function (input) {
+      setFieldError(input, false);
+      input.type = 'password';
+    });
+    passwordForm.querySelectorAll('[data-password-toggle]').forEach(function (button) {
+      button.setAttribute('aria-pressed', 'false');
+      button.setAttribute('aria-label', 'Показать пароль');
+      button.querySelector('.icon').className = 'icon icon--eye';
+    });
+  }
+
+  account.querySelector('[data-open-password]').addEventListener('click', function () {
+    resetPasswordModal();
+    passwordModal.showModal();
+    document.body.classList.add('is-locked');
+  });
+
+  passwordModal.querySelectorAll('[data-close-password]').forEach(function (button) {
+    button.addEventListener('click', function () { passwordModal.close(); });
+  });
+  passwordModal.addEventListener('click', function (event) {
+    if (event.target === passwordModal) passwordModal.close();
+  });
+  passwordModal.addEventListener('close', function () {
+    document.body.classList.remove('is-locked');
+  });
+
+  passwordForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var invalid = validateForm(passwordForm, {
+      NEW_PASSWORD: function (input) { return input.value.length >= 6; },
+      NEW_PASSWORD_CONFIRM: function (input) {
+        return input.value.length > 0 && input.value === passwordForm.elements.NEW_PASSWORD.value;
+      }
+    });
+    if (invalid) return;
+
+    busy(passwordForm, true, 'Сохраняем…');
+    sendRequest(new FormData(passwordForm)).then(function () {
+      busy(passwordForm, false);
+      passwordForm.hidden = true;
+      passwordDone.hidden = false;
+      passwordDone.querySelector('.button').focus();
+    });
+  });
+
+  /* --- Выход ----------------------------------------------------------- */
+  account.querySelector('[data-account-logout]').addEventListener('click', function () {
+    try { sessionStorage.removeItem(USER_KEY); } catch (e) { /* нет доступа */ }
+    history.replaceState(null, '', window.location.pathname);
+    render();
+    window.scrollTo(0, 0);
+    forms.login.elements.USER_LOGIN.focus();
+  });
+
+  render();
 }

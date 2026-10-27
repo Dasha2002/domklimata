@@ -1,0 +1,578 @@
+/* ==========================================================================
+   Секция: Личный кабинет
+   ========================================================================== */
+
+.account {
+  padding-top: 20px;
+  padding-bottom: var(--section-y);
+}
+
+.account__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+.account__title {
+  font-size: clamp(30px, 3.6vw, 44px);
+  letter-spacing: -0.03em;
+}
+
+.account__greeting {
+  margin-top: 6px;
+  font-size: 18px;
+  color: var(--color-muted);
+}
+
+.account__layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+
+/* --- Вкладки ------------------------------------------------------------- */
+.account__nav {
+  position: sticky;
+  top: calc(var(--header-main-h) + 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}
+
+.account__tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: left;
+  color: var(--color-ink);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.account__tab .icon {
+  color: var(--color-brand);
+}
+
+.account__tab:hover {
+  background-color: var(--color-brand-tint);
+}
+
+.account__tab[aria-selected="true"] {
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+.account__tab[aria-selected="true"] .icon {
+  color: #fff;
+}
+
+.account__tab-count {
+  margin-left: auto;
+  min-width: 24px;
+  padding: 1px 7px;
+  border-radius: 12px;
+  background-color: var(--color-brand-soft);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-brand);
+}
+
+.account__tab[aria-selected="true"] .account__tab-count {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* --- Панель раздела ------------------------------------------------------ */
+.account-panel {
+  padding: 32px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .account-panel:not([hidden]) {
+    animation: account-in 0.3s var(--ease);
+  }
+}
+
+@keyframes account-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.account-panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.account-panel__title {
+  font-size: 24px;
+}
+
+.account-panel__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.account-panel__meta .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-brand);
+}
+
+/* --- Формы --------------------------------------------------------------- */
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.account-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 16px;
+}
+
+.account-form__grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.account-form__wide {
+  grid-column: 1 / -1;
+}
+
+.account-form__span-2 {
+  grid-column: span 2;
+}
+
+.account-form__hint {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.account-form__group-title {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+/* Радиокнопки «Пол» в строку */
+.account-form__radios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  min-height: 50px;
+  align-items: center;
+}
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.radio input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-brand);
+  cursor: pointer;
+}
+
+/* Строка «Пароль» со ссылкой на смену */
+.account-form__password {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  background-color: var(--color-brand-tint);
+}
+
+.account-form__password-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  color: var(--color-brand);
+}
+
+.account-form__password-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.account-form__password-text strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.account-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+}
+
+.account-form__saved {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  color: var(--color-success);
+}
+
+/* --- Смена пароля -------------------------------------------------------- */
+.account-password {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.account-password__submit {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.account-password__done {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.account-password__done .button {
+  margin-top: 12px;
+}
+
+/* --- История заказов ----------------------------------------------------- */
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order {
+  padding: 20px 24px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+}
+
+.order__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.order__number {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-brand-dark);
+}
+
+.order__date {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.order__status {
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.order__status--progress {
+  background-color: #fff1e8;
+  color: #a2410f;
+}
+
+.order__status--done {
+  background-color: #e3f3ea;
+  color: var(--color-success);
+}
+
+.order__total {
+  min-width: 120px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: right;
+  color: var(--color-brand-dark);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.order__thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.order__thumbs li {
+  width: 72px;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.order__thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.order__details {
+  margin-top: 16px;
+  border-top: 1px solid var(--color-line);
+}
+
+.order__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 14px;
+  font-weight: 600;
+  color: var(--color-brand);
+  list-style: none;
+  cursor: pointer;
+}
+
+.order__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.order__toggle .icon {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition);
+}
+
+.order__details[open]:not(.is-closing) .order__toggle .icon {
+  transform: rotate(180deg);
+}
+
+.order__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.order__items {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.order__items li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 60px 110px;
+  gap: 12px;
+}
+
+.order__items span:nth-child(2) {
+  color: var(--color-muted);
+}
+
+.order__items strong {
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.order__info {
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-brand-tint);
+  font-size: 14px;
+}
+
+.order__info dt {
+  color: var(--color-muted);
+}
+
+.order__info dd {
+  font-weight: 500;
+  color: var(--color-brand-dark);
+}
+
+.account-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.account-empty__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background-color: var(--color-brand-tint);
+  color: var(--color-brand);
+}
+
+.account-empty__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-brand-dark);
+}
+
+.account-empty__text {
+  margin-bottom: 12px;
+  color: var(--color-muted);
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  /* minmax(0, 1fr): иначе колонка растягивается под ленту вкладок,
+     которая должна прокручиваться внутри себя */
+  .account__layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  /* Вкладки — лента с прокруткой вбок */
+  .account__nav {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .account__nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .account__tab {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .account-form__grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .account__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .account-panel {
+    padding: 20px;
+  }
+
+  .account-form__grid,
+  .account-form__grid--3 {
+    grid-template-columns: 1fr;
+  }
+
+  .account-form__span-2 {
+    grid-column: auto;
+  }
+
+  .account-form__password {
+    flex-wrap: wrap;
+  }
+
+  .account-form__password .button {
+    width: 100%;
+  }
+
+  .account-form__actions .button {
+    width: 100%;
+  }
+
+  .order {
+    padding: 16px;
+  }
+
+  .order__head {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .order__status {
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .order__total {
+    min-width: 0;
+  }
+
+  .order__items li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .order__items span:nth-child(2) {
+    display: none;
+  }
+
+  .order__info {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* При ошибке подсказка не нужна: ошибка говорит то же самое */
+.field.is-invalid .account-form__hint {
+  display: none;
+}

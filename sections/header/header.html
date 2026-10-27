@@ -79,6 +79,10 @@
         </span>
       </a>
 
+      <a class="header__account" href="{{root}}personal/profile/" aria-label="Личный кабинет">
+        <span class="icon icon--user" aria-hidden="true"></span>
+      </a>
+
       <a class="header__cart" href="{{root}}cart/" aria-label="Корзина">
         <span class="icon icon--shopping-cart" aria-hidden="true"></span>
         <!-- Число товаров. На WordPress: WC()->cart->get_cart_contents_count() -->
@@ -149,10 +153,54 @@
     </div>
   </div>
 
-  <!-- Общая навигация: доступна по бургеру на компьютере и телефоне. -->
+  <!-- Общая навигация: доступна по бургеру на компьютере и телефоне.
+       Каталог идёт первым: в магазине меню открывают ради него. Карточки
+       категорий те же, что в выпадающем «Каталоге» (классы .catalog-menu__*),
+       чтобы оба меню выглядели и менялись одинаково. -->
   <div class="mobile-menu" id="mobile-menu" hidden>
     <div class="mobile-menu__inner container">
-      <nav class="mobile-menu__nav" aria-label="Основное меню">
+      <nav class="mobile-menu__catalog" aria-label="Каталог оборудования">
+        <p class="mobile-menu__title">Каталог оборудования</p>
+        <ul class="catalog-menu__list mobile-menu__categories">
+          <li>
+            <a class="catalog-menu__item" href="{{root}}catalog/">
+              <span class="icon icon--layout-grid catalog-menu__icon" aria-hidden="true"></span>
+              <span><strong>Полный каталог</strong><small>Все оборудование без фильтров по типу</small></span>
+            </a>
+          </li>
+          <li>
+            <a class="catalog-menu__item" href="{{root}}catalog/?category=bitovie_konditsioneri">
+              <img src="{{root}}img/categories/home.webp" width="64" height="64" alt="" loading="lazy">
+              <span><strong>Бытовые кондиционеры</strong><small>Квартиры, дома, небольшие офисы</small></span>
+            </a>
+          </li>
+          <li>
+            <a class="catalog-menu__item" href="{{root}}catalog/?category=multisplit_sistemi">
+              <img src="{{root}}img/categories/multi.webp" width="64" height="64" alt="" loading="lazy">
+              <span><strong>Мультисплит-системы</strong><small>Один наружный блок на несколько комнат</small></span>
+            </a>
+          </li>
+          <li>
+            <a class="catalog-menu__item" href="{{root}}catalog/?category=polupromishlennie_konditsioneri">
+              <img src="{{root}}img/categories/commercial.webp" width="64" height="64" alt="" loading="lazy">
+              <span><strong>Полупромышленные</strong><small>Кассетные и канальные для бизнеса</small></span>
+            </a>
+          </li>
+          <li>
+            <a class="catalog-menu__item" href="{{root}}catalog/?category=ventilyatsiya">
+              <img src="{{root}}img/categories/ventilation.webp" width="64" height="64" alt="" loading="lazy">
+              <span><strong>Вентиляция</strong><small>Приточные установки и рекуператоры</small></span>
+            </a>
+          </li>
+          <li>
+            <a class="catalog-menu__item" href="{{root}}catalog/?category=otoplenie">
+              <img src="{{root}}img/categories/heating.webp" width="64" height="64" alt="" loading="lazy">
+              <span><strong>Отопление</strong><small>Котлы и тепловое оборудование</small></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <nav class="mobile-menu__nav" aria-label="Разделы сайта">
         <p class="mobile-menu__title">Разделы сайта</p>
         <a href="{{root}}index.html">Главная</a>
         <a href="{{root}}ventilyatsiya/">Вентиляция</a>
@@ -161,14 +209,6 @@
         <a href="{{root}}dostavka-i-oplata/">Доставка и оплата</a>
         <a href="{{root}}news/">Блог</a>
         <a href="{{root}}kontakty/">Контакты</a>
-      </nav>
-      <nav class="mobile-menu__nav" aria-label="Каталог оборудования">
-        <p class="mobile-menu__title">Каталог оборудования</p>
-        <a href="{{root}}catalog/konditsionirovanie/bitovie_konditsioneri/">Бытовые кондиционеры</a>
-        <a href="{{root}}catalog/konditsionirovanie/multisplit_sistemi/">Мультисплит-системы</a>
-        <a href="{{root}}catalog/konditsionirovanie/polupromishlennie_konditsioneri/">Полупромышленные</a>
-        <a href="{{root}}catalog/ventilyatsiya/">Вентиляция</a>
-        <a href="{{root}}catalog/otoplenie/">Отопление</a>
       </nav>
       <div class="mobile-menu__contacts">
         <p class="mobile-menu__title">Всегда на связи</p>

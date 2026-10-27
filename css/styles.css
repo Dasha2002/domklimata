@@ -15,6 +15,7 @@
 @import url("request-form.css");
 @import url("breadcrumbs.css");
 @import url("product-card.css");
+@import url("password.css");
 
 /* --- Общие секции всех страниц ------------------------------------------- */
 @import url("../sections/header/header.css");
@@ -45,6 +46,10 @@
 
 /* --- Корзина и оформление (/cart/) --------------------------------------- */
 @import url("../sections/cart/cart.css");
+
+/* --- Личный кабинет (/personal/profile/) -------------------------------- */
+@import url("../sections/auth/auth.css");
+@import url("../sections/account/account.css");
 
 /* --- Страница 404 -------------------------------------------------------- */
 @import url("../sections/not-found/not-found.css");

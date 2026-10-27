@@ -1,0 +1,247 @@
+/* ==========================================================================
+   Секция: Вход, восстановление пароля, регистрация
+   ========================================================================== */
+
+.auth {
+  padding-top: 20px;
+  padding-bottom: var(--section-y);
+}
+
+.auth__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: start;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.auth__card {
+  padding: 40px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}
+
+/* Вход и восстановление — короткие формы, им не нужна вся ширина */
+.auth__view[data-auth-view="login"],
+.auth__view[data-auth-view="forgot"] {
+  max-width: 460px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .auth__view:not([hidden]) {
+    animation: auth-in 0.3s var(--ease);
+  }
+}
+
+@keyframes auth-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.auth__title {
+  font-size: clamp(28px, 3vw, 36px);
+  letter-spacing: -0.025em;
+}
+
+.auth__text {
+  margin-top: 10px;
+  max-width: 48ch;
+  color: var(--color-muted);
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.auth__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 16px;
+}
+
+.auth__hint {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.auth__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.auth__small-link {
+  font-size: 14px;
+}
+
+.auth__submit {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.auth__error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background-color: #fdecea;
+  font-size: 14px;
+  color: var(--color-error);
+}
+
+.auth__switch {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-muted);
+}
+
+.auth__switch .text-link {
+  margin-left: 4px;
+}
+
+/* --- Письмо отправлено --------------------------------------------------- */
+.auth__success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 28px;
+  padding: 24px;
+  border-radius: var(--radius);
+  background-color: var(--color-brand-tint);
+}
+
+.auth__success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background-color: #e3f3ea;
+  color: var(--color-success);
+}
+
+.auth__success-icon .icon {
+  width: 26px;
+  height: 26px;
+}
+
+.auth__success-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-brand-dark);
+}
+
+.auth__success-text {
+  color: var(--color-muted);
+}
+
+/* --- Панель «Что даёт личный кабинет» ------------------------------------ */
+.auth__aside {
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+.auth__aside-title {
+  font-size: 24px;
+  color: #fff;
+}
+
+.auth__benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.auth__benefits li {
+  display: flex;
+  gap: 16px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.auth__benefits strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.auth__benefit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-accent);
+}
+
+.auth__benefit-icon .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.auth__aside-contact {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.auth__aside-contact a {
+  display: block;
+  margin-top: 4px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.auth__aside-contact a:hover {
+  color: var(--color-accent);
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .auth__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .auth__layout {
+    margin-top: 16px;
+    gap: 20px;
+  }
+
+  .auth__card,
+  .auth__aside {
+    padding: 24px 20px;
+  }
+
+  .auth__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* При ошибке подсказка не нужна: ошибка говорит то же самое */
+.field.is-invalid .auth__hint {
+  display: none;
+}
