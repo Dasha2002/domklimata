@@ -1,0 +1,355 @@
+<!-- ==========================================================================
+     Секция: Корзина и оформление заказа (/cart/)
+     Блоки БЭМ: .cart (раскладка), .cart-item (строка товара),
+     .checkout (форма), .cart-summary (итог), .cart-bar (панель на телефоне),
+     .cart-toast (отмена удаления).
+     Поведение в app.js: initCart.
+
+     Корзина и оформление на одной странице: для небольшого магазина
+     лишний шаг только теряет покупателей.
+
+     Товары и итог — корзина со скриншота текущего сайта. На WordPress
+     строки выводит цикл по WC()->cart, количество и удаление уходят
+     запросом, форма — стандартный checkout WooCommerce с этими же полями.
+     В вёрстке «В корзину» на других страницах эту корзину не наполняет.
+     ========================================================================== -->
+<section class="cart" aria-labelledby="cart-title" data-cart>
+  <div class="container">
+
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <ol class="breadcrumbs__list">
+        <li class="breadcrumbs__item"><a href="{{root}}index.html">Главная</a></li>
+        <li class="breadcrumbs__item" aria-current="page">Корзина</li>
+      </ol>
+    </nav>
+
+    <div class="cart__head">
+      <h1 class="cart__title" id="cart-title">Корзина</h1>
+      <p class="cart__count" data-cart-count-text>4 товара</p>
+    </div>
+
+    <div class="cart__layout" data-cart-layout>
+      <div class="cart__main">
+
+        <!-- Товары -->
+        <ul class="cart-list" data-cart-items>
+          <li class="cart-item" data-price="21500" data-installable>
+            <a class="cart-item__media" href="{{root}}catalog/product/asx07h1r/?area=35" tabindex="-1" aria-hidden="true">
+              <img src="{{root}}img/products/daichi-mes-epsilon.webp" width="640" height="480" alt="" loading="lazy">
+            </a>
+            <div class="cart-item__info">
+              <h2 class="cart-item__title"><a href="{{root}}catalog/product/asx07h1r/?area=35">DAICHIxMES Epsilon_UNL_A</a></h2>
+              <p class="cart-item__meta">До 35&nbsp;м², модель E35AVQ1_UNL_A/E35FV1_UNL_A</p>
+              <p class="cart-item__status"><span class="icon icon--truck" aria-hidden="true"></span>Доставка 1-3 дня</p>
+            </div>
+            <div class="cart-item__qty">
+              <div class="stepper">
+                <button class="stepper__button" type="button" data-qty-minus aria-label="Меньше: DAICHIxMES Epsilon_UNL_A">
+                  <span class="icon icon--minus" aria-hidden="true"></span>
+                </button>
+                <input class="stepper__input" type="number" name="qty[e35avq1_unl_a]" value="1" min="1" max="99"
+                       inputmode="numeric" form="checkout-form" aria-label="Количество: DAICHIxMES Epsilon_UNL_A" data-qty>
+                <button class="stepper__button" type="button" data-qty-plus aria-label="Больше: DAICHIxMES Epsilon_UNL_A">
+                  <span class="icon icon--plus" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p class="cart-item__unit" data-unit-price hidden>21&nbsp;500&nbsp;₽ за шт.</p>
+            </div>
+            <p class="cart-item__sum" data-line-total>21&nbsp;500&nbsp;₽</p>
+            <button class="cart-item__remove" type="button" data-cart-remove aria-label="Удалить из корзины: DAICHIxMES Epsilon_UNL_A">
+              <span class="icon icon--trash" aria-hidden="true"></span>
+            </button>
+          </li>
+
+          <li class="cart-item" data-price="20790" data-installable>
+            <a class="cart-item__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+              <img src="{{root}}img/products/axioma-h.webp" width="640" height="480" alt="" loading="lazy">
+            </a>
+            <div class="cart-item__info">
+              <h2 class="cart-item__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma Серия H R32</a></h2>
+              <p class="cart-item__meta">До 20&nbsp;м², модель ASX07H1R/ASB07H1R</p>
+              <p class="cart-item__status"><span class="icon icon--truck" aria-hidden="true"></span>Доставка 1-3 дня</p>
+            </div>
+            <div class="cart-item__qty">
+              <div class="stepper">
+                <button class="stepper__button" type="button" data-qty-minus aria-label="Меньше: Axioma Серия H R32">
+                  <span class="icon icon--minus" aria-hidden="true"></span>
+                </button>
+                <input class="stepper__input" type="number" name="qty[asx07h1r]" value="1" min="1" max="99"
+                       inputmode="numeric" form="checkout-form" aria-label="Количество: Axioma Серия H R32" data-qty>
+                <button class="stepper__button" type="button" data-qty-plus aria-label="Больше: Axioma Серия H R32">
+                  <span class="icon icon--plus" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p class="cart-item__unit" data-unit-price hidden>20&nbsp;790&nbsp;₽ за шт.</p>
+            </div>
+            <p class="cart-item__sum" data-line-total>20&nbsp;790&nbsp;₽</p>
+            <button class="cart-item__remove" type="button" data-cart-remove aria-label="Удалить из корзины: Axioma Серия H R32">
+              <span class="icon icon--trash" aria-hidden="true"></span>
+            </button>
+          </li>
+
+          <li class="cart-item" data-price="7400">
+            <a class="cart-item__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+              <img src="{{root}}img/products/awc_m20.webp" width="640" height="480" alt="" loading="lazy">
+            </a>
+            <div class="cart-item__info">
+              <h2 class="cart-item__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma AWC</a></h2>
+              <p class="cart-item__meta">Модель AWC-M20</p>
+              <p class="cart-item__status"><span class="icon icon--truck" aria-hidden="true"></span>Доставка 1-3 дня</p>
+            </div>
+            <div class="cart-item__qty">
+              <div class="stepper">
+                <button class="stepper__button" type="button" data-qty-minus aria-label="Меньше: Axioma AWC">
+                  <span class="icon icon--minus" aria-hidden="true"></span>
+                </button>
+                <input class="stepper__input" type="number" name="qty[awc_m20]" value="1" min="1" max="99"
+                       inputmode="numeric" form="checkout-form" aria-label="Количество: Axioma AWC" data-qty>
+                <button class="stepper__button" type="button" data-qty-plus aria-label="Больше: Axioma AWC">
+                  <span class="icon icon--plus" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p class="cart-item__unit" data-unit-price hidden>7&nbsp;400&nbsp;₽ за шт.</p>
+            </div>
+            <p class="cart-item__sum" data-line-total>7&nbsp;400&nbsp;₽</p>
+            <button class="cart-item__remove" type="button" data-cart-remove aria-label="Удалить из корзины: Axioma AWC">
+              <span class="icon icon--trash" aria-hidden="true"></span>
+            </button>
+          </li>
+
+          <li class="cart-item" data-price="58990" data-installable>
+            <a class="cart-item__media" href="{{root}}catalog/product/asx07h1r/?area=50" tabindex="-1" aria-hidden="true">
+              <img src="{{root}}img/products/axioma-f-inverter.webp" width="640" height="480" alt="" loading="lazy">
+            </a>
+            <div class="cart-item__info">
+              <h2 class="cart-item__title"><a href="{{root}}catalog/product/asx07h1r/?area=50">Axioma Серия F Inverter</a></h2>
+              <p class="cart-item__meta">До 50&nbsp;м², модель ASX18FZ1/ASB18FZ1</p>
+              <p class="cart-item__status"><span class="icon icon--truck" aria-hidden="true"></span>Доставка 1-3 дня</p>
+            </div>
+            <div class="cart-item__qty">
+              <div class="stepper">
+                <button class="stepper__button" type="button" data-qty-minus aria-label="Меньше: Axioma Серия F Inverter">
+                  <span class="icon icon--minus" aria-hidden="true"></span>
+                </button>
+                <input class="stepper__input" type="number" name="qty[asx18fz1]" value="1" min="1" max="99"
+                       inputmode="numeric" form="checkout-form" aria-label="Количество: Axioma Серия F Inverter" data-qty>
+                <button class="stepper__button" type="button" data-qty-plus aria-label="Больше: Axioma Серия F Inverter">
+                  <span class="icon icon--plus" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p class="cart-item__unit" data-unit-price hidden>58&nbsp;990&nbsp;₽ за шт.</p>
+            </div>
+            <p class="cart-item__sum" data-line-total>58&nbsp;990&nbsp;₽</p>
+            <button class="cart-item__remove" type="button" data-cart-remove aria-label="Удалить из корзины: Axioma Серия F Inverter">
+              <span class="icon icon--trash" aria-hidden="true"></span>
+            </button>
+          </li>
+        </ul>
+
+        <!-- Оформление -->
+        <form class="checkout" id="checkout-form" action="#" method="post" novalidate>
+          <fieldset class="checkout__block">
+            <legend class="checkout__title">Получатель</legend>
+            <div class="checkout__fields checkout__fields--3">
+              <div class="field">
+                <label class="field__label" for="checkout-name">Имя</label>
+                <input class="field__input" id="checkout-name" name="name" type="text" autocomplete="name"
+                       maxlength="80" required aria-describedby="checkout-name-error">
+                <p class="field__error" id="checkout-name-error" hidden>Напишите, как к вам обращаться</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="checkout-phone">Телефон</label>
+                <input class="field__input" id="checkout-phone" name="phone" type="tel" inputmode="tel"
+                       autocomplete="tel" placeholder="+7 (___) ___-__-__" required
+                       aria-describedby="checkout-phone-error" data-phone>
+                <p class="field__error" id="checkout-phone-error" hidden>Введите номер полностью: 10 цифр после +7</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="checkout-email">E-mail <span class="field__optional">(необязательно)</span></label>
+                <input class="field__input" id="checkout-email" name="email" type="email" autocomplete="email"
+                       maxlength="120" aria-describedby="checkout-email-hint checkout-email-error">
+                <p class="checkout__hint" id="checkout-email-hint">Пришлём чек и статус заказа</p>
+                <p class="field__error" id="checkout-email-error" hidden>Проверьте адрес: например, name@mail.ru</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="checkout__block">
+            <legend class="checkout__title">Получение</legend>
+            <div class="checkout__options">
+              <label class="option">
+                <input type="radio" name="delivery" value="delivery" checked>
+                <span class="option__box">
+                  <span class="icon icon--truck option__icon" aria-hidden="true"></span>
+                  <span class="option__text">
+                    <strong>Доставка</strong>
+                    По Перми и краю за 1-3 дня. По Перми бесплатно от 20&nbsp;000&nbsp;₽
+                  </span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="delivery" value="pickup">
+                <span class="option__box">
+                  <span class="icon icon--building-store option__icon" aria-hidden="true"></span>
+                  <span class="option__text">
+                    <strong>Самовывоз</strong>
+                    Пермь, ул. Трамвайная, 27, офис 4. Пн‑Пт,&nbsp;9:00‑18:00
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="field checkout__address" data-checkout-address>
+              <label class="field__label" for="checkout-address">Адрес доставки</label>
+              <input class="field__input" id="checkout-address" name="address" type="text"
+                     autocomplete="street-address" placeholder="Город, улица, дом, квартира" maxlength="200"
+                     aria-describedby="checkout-address-error">
+              <p class="field__error" id="checkout-address-error" hidden>Укажите адрес, чтобы мы рассчитали доставку</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="checkout__block">
+            <legend class="checkout__title">Оплата</legend>
+            <div class="checkout__options checkout__options--2">
+              <label class="option">
+                <input type="radio" name="payment" value="online" checked>
+                <span class="option__box">
+                  <span class="icon icon--credit-card option__icon" aria-hidden="true"></span>
+                  <span class="option__text"><strong>Онлайн</strong>Картой или по СБП</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="payment" value="office">
+                <span class="option__box">
+                  <span class="icon icon--building-store option__icon" aria-hidden="true"></span>
+                  <span class="option__text"><strong>В офисе</strong>Картой или наличными</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="payment" value="installments">
+                <span class="option__box">
+                  <span class="icon icon--receipt option__icon" aria-hidden="true"></span>
+                  <span class="option__text"><strong>Частями</strong>«Долями» или рассрочка Т-Банка</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="payment" value="invoice">
+                <span class="option__box">
+                  <span class="icon icon--briefcase option__icon" aria-hidden="true"></span>
+                  <span class="option__text"><strong>По счёту</strong>Для организаций</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="field checkout__comment">
+            <label class="field__label" for="checkout-comment">Комментарий к заказу <span class="field__optional">(необязательно)</span></label>
+            <textarea class="field__input" id="checkout-comment" name="comment" rows="3" maxlength="1000"
+                      placeholder="Удобное время звонка, этаж, нужен ли пропуск"></textarea>
+          </div>
+        </form>
+      </div>
+
+      <!-- Итог -->
+      <aside class="cart-summary" aria-labelledby="summary-title">
+        <h2 class="cart-summary__title" id="summary-title">Ваш заказ</h2>
+
+        <dl class="cart-summary__rows">
+          <div>
+            <dt data-summary-items-label>Товары, 4&nbsp;шт.</dt>
+            <dd data-summary-items>108&nbsp;680&nbsp;₽</dd>
+          </div>
+          <div>
+            <dt>Доставка</dt>
+            <dd data-summary-delivery>Бесплатно</dd>
+          </div>
+        </dl>
+        <p class="cart-summary__note" data-summary-note>По Перми. За пределами города стоимость рассчитает менеджер.</p>
+
+        <label class="cart-summary__install" data-summary-install>
+          <input type="checkbox" name="installation" value="yes" form="checkout-form">
+          <span>
+            <strong>Нужен монтаж</strong>
+            Стоимость рассчитает менеджер при звонке
+          </span>
+        </label>
+
+        <details class="cart-summary__promo">
+          <summary class="cart-summary__promo-toggle">
+            <span class="icon icon--discount" aria-hidden="true"></span>
+            Есть промокод?
+            <span class="icon icon--chevron-down" aria-hidden="true"></span>
+          </summary>
+          <div class="cart-summary__promo-body">
+            <div class="cart-summary__promo-row">
+              <label class="visually-hidden" for="checkout-promo">Промокод</label>
+              <input class="field__input" id="checkout-promo" name="promo" type="text" form="checkout-form"
+                     autocomplete="off" maxlength="40" placeholder="Промокод">
+              <button class="button button--outline" type="button" data-promo-apply>Применить</button>
+            </div>
+            <!-- Скидку считает сервер. В вёрстке код уходит в заказ -->
+            <p class="cart-summary__promo-note" data-promo-note hidden>Промокод добавлен к заказу, менеджер проверит его при подтверждении.</p>
+          </div>
+        </details>
+
+        <div class="cart-summary__total">
+          <span>Итого</span>
+          <strong data-summary-total>108&nbsp;680&nbsp;₽</strong>
+        </div>
+
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" name="consent" required form="checkout-form" aria-describedby="checkout-consent-error">
+            <span>Согласен на обработку персональных данных по <a href="{{root}}politika/" target="_blank">политике конфиденциальности</a></span>
+          </label>
+          <p class="field__error" id="checkout-consent-error" hidden>Без согласия мы не сможем принять заказ</p>
+        </div>
+
+        <button class="button button--primary button--lg cart-summary__submit" type="submit" form="checkout-form" data-checkout-submit>
+          Оформить заказ
+        </button>
+        <p class="cart-summary__error" role="alert" data-checkout-error hidden>Не удалось отправить заказ. Позвоните нам: +7 (342) 271-77-11</p>
+        <p class="cart-summary__hint">Менеджер позвонит в рабочее время, чтобы подтвердить заказ и время доставки.</p>
+      </aside>
+    </div>
+
+    <!-- Пустая корзина -->
+    <div class="cart-state" data-cart-empty hidden>
+      <span class="cart-state__icon"><span class="icon icon--shopping-cart-off" aria-hidden="true"></span></span>
+      <h2 class="cart-state__title">В корзине пока пусто</h2>
+      <p class="cart-state__text">Подберите кондиционер в каталоге или оставьте заявку: поможем с выбором и рассчитаем монтаж.</p>
+      <div class="cart-state__actions">
+        <a class="button button--primary button--lg" href="{{root}}catalog/">Перейти в каталог</a>
+        <button class="button button--outline button--lg" type="button" data-open-request>Оставить заявку</button>
+      </div>
+    </div>
+
+    <!-- Заказ оформлен -->
+    <div class="cart-state" data-cart-success hidden tabindex="-1">
+      <span class="cart-state__icon cart-state__icon--success"><span class="icon icon--check" aria-hidden="true"></span></span>
+      <h2 class="cart-state__title">Заказ принят</h2>
+      <p class="cart-state__text">Менеджер позвонит в рабочее время, чтобы подтвердить заказ, доставку и оплату.</p>
+      <div class="cart-state__actions">
+        <a class="button button--primary button--lg" href="{{root}}catalog/">Вернуться в каталог</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Итог и кнопка внизу экрана на телефоне, пока не видна сводка -->
+  <div class="cart-bar" data-cart-bar>
+    <div class="cart-bar__total">
+      <span>Итого</span>
+      <strong data-summary-total>108&nbsp;680&nbsp;₽</strong>
+    </div>
+    <button class="button button--primary" type="button" data-cart-bar-go>Оформить</button>
+  </div>
+
+  <!-- Отмена удаления -->
+  <div class="cart-toast" role="status" data-cart-toast hidden>
+    <span data-cart-toast-text>Товар удалён</span>
+    <button class="cart-toast__undo" type="button" data-cart-undo>
+      <span class="icon icon--arrow-back-up" aria-hidden="true"></span>
+      Вернуть
+    </button>
+  </div>
+</section>

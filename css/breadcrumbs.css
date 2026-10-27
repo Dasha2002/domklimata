@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Хлебные крошки
+   Общий компонент внутренних страниц. Последний пункт — текущая
+   страница: без ссылки, с aria-current="page".
+   ========================================================================== */
+
+.breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Разделитель рисуем шевроном той же маской, что и иконки */
+.breadcrumbs__item + .breadcrumbs__item::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  margin: 0 6px;
+  background-color: #9aabaf;
+  -webkit-mask: url("../img/icons/chevron-right.svg") center / contain no-repeat;
+  mask: url("../img/icons/chevron-right.svg") center / contain no-repeat;
+}
+
+.breadcrumbs__item a {
+  transition: color var(--transition);
+}
+
+.breadcrumbs__item a:hover {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.breadcrumbs__item[aria-current="page"] {
+  color: var(--color-ink);
+}

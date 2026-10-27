@@ -1,0 +1,204 @@
+/* ==========================================================================
+   Секция: Шапка каталога
+   ========================================================================== */
+
+.cat-hero {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.cat-hero__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 440px;
+  align-items: end;
+  gap: 40px;
+}
+
+.cat-hero__title {
+  margin-top: 16px;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.cat-hero__text {
+  margin-top: 14px;
+  max-width: 60ch;
+  font-size: 17px;
+  color: var(--color-muted);
+}
+
+/* --- Плашка «Поможем с выбором» ------------------------------------------ */
+.cat-hero__help {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-height: 132px;
+  border-radius: var(--radius);
+  background-color: var(--color-brand-soft);
+  overflow: hidden;
+  text-align: left;
+  isolation: isolate;
+}
+
+.cat-hero__help-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 58%;
+  padding: 20px 0 20px 24px;
+}
+
+.cat-hero__help-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-brand-dark);
+}
+
+.cat-hero__help-sub {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.cat-hero__help-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  width: 46%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% center;
+  /* Фото уходит в фон плашки мягким краем */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 35%);
+  mask-image: linear-gradient(to right, transparent, #000 35%);
+}
+
+.cat-hero__help-arrow {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  color: var(--color-brand);
+  box-shadow: var(--shadow);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.cat-hero__help:hover .cat-hero__help-arrow {
+  background-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* --- Категории ----------------------------------------------------------- */
+.cat-nav {
+  margin-top: 28px;
+}
+
+.cat-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.cat-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cat-nav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1.5px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: border-color var(--transition), background-color var(--transition), color var(--transition);
+}
+
+.cat-nav__link:hover {
+  border-color: var(--color-brand);
+}
+
+.cat-nav__link[aria-current="page"] {
+  border-color: var(--color-brand);
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .cat-hero__top {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .cat-hero__help {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cat-hero {
+    padding-top: 16px;
+  }
+
+  .cat-hero__text {
+    font-size: 16px;
+  }
+
+  .cat-hero__help {
+    min-height: 112px;
+  }
+
+  .cat-hero__help-text {
+    width: 66%;
+    padding-left: 18px;
+  }
+
+  .cat-hero__help-title {
+    font-size: 18px;
+  }
+
+  .cat-hero__help-img {
+    width: 40%;
+  }
+
+  .cat-hero__help-arrow {
+    width: 36px;
+    height: 36px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  /* На телефоне категории — лента с прокруткой до края экрана */
+  .cat-nav {
+    margin-right: calc(var(--container-padding) * -1);
+    margin-left: calc(var(--container-padding) * -1);
+    padding: 0 var(--container-padding);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  /* Отступ после последнего пункта: правый padding прокручиваемого
+     контейнера браузеры учитывают не всегда */
+  .cat-nav__list {
+    flex-wrap: nowrap;
+  }
+
+  .cat-nav__list::after {
+    content: "";
+    flex: 0 0 calc(var(--container-padding) - 6px);
+  }
+}

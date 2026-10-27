@@ -1,0 +1,439 @@
+/* ==========================================================================
+   Карточка товара
+   Общий компонент: каталог, а позже похожие товары и подборки.
+   Сетка .product-grid, модификатор .product-grid--list — вид списком.
+   Поведение в app.js (initProductCards): выбор площади меняет модель,
+   цену, статус и кнопку, избранное, корзина.
+   ========================================================================== */
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.product-card:hover {
+  border-color: #b6c7ca;
+  box-shadow: var(--shadow);
+}
+
+/* --- Избранное ----------------------------------------------------------- */
+.product-card__fav {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-brand-tint);
+  color: var(--color-brand);
+  transition: background-color var(--transition), color var(--transition), transform 0.15s ease;
+}
+
+.product-card__fav:hover {
+  background-color: var(--color-brand-soft);
+}
+
+.product-card__fav:active {
+  transform: scale(0.92);
+}
+
+.product-card__fav[aria-pressed="true"] {
+  color: var(--color-accent);
+}
+
+.product-card__fav[aria-pressed="true"] .icon {
+  --icon: url("../img/icons/heart-filled.svg");
+}
+
+/* --- Фото ---------------------------------------------------------------- */
+.product-card__media {
+  display: block;
+  aspect-ratio: 4 / 3;
+  margin: -4px -4px 12px;
+  border-radius: var(--radius-sm);
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.product-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s var(--ease);
+}
+
+.product-card:hover .product-card__media img {
+  transform: scale(1.04);
+}
+
+/* --- Текст --------------------------------------------------------------- */
+.product-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-card__title {
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.product-card__title a {
+  transition: color var(--transition);
+}
+
+.product-card__title a:hover {
+  color: var(--color-brand);
+}
+
+.product-card__model {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--color-muted);
+  overflow-wrap: anywhere;
+}
+
+/* --- Площадь (модификации) ----------------------------------------------- */
+.product-card__sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.product-card__sizes-label {
+  width: 100%;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+/* Чипса-радиокнопка. Используется и в фильтрах (там checkbox) */
+.size {
+  position: relative;
+  cursor: pointer;
+}
+
+.size input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.size span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1.5px solid var(--color-line);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  transition: border-color var(--transition), background-color var(--transition), color var(--transition);
+}
+
+.size:hover span {
+  border-color: var(--color-brand);
+}
+
+.size input:checked + span {
+  border-color: var(--color-brand);
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+.size input:focus-visible + span {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* --- Метки --------------------------------------------------------------- */
+.product-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.product-card__tags li {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background-color: var(--color-brand-tint);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-brand);
+}
+
+/* --- Цена и статус ------------------------------------------------------- */
+.product-card__offer {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.product-card__price {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-brand-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.product-card__price--none {
+  font-size: 19px;
+  color: var(--color-muted);
+}
+
+.product-card__status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.product-card__status .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-brand);
+}
+
+/* --- Кнопки -------------------------------------------------------------- */
+.product-card__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.product-card__actions .button {
+  min-height: 44px;
+  padding: 0 10px;
+  font-size: 15px;
+}
+
+.product-card__cart.is-added {
+  background-color: var(--color-success);
+}
+
+/* --- Вид списком --------------------------------------------------------- */
+/* Тело карточки «растворяется» (display: contents), и его части
+   раскладываются по сетке карточки: фото, описание, цена с кнопками */
+.product-grid--list {
+  grid-template-columns: 1fr;
+}
+
+.product-grid--list .product-card {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 240px;
+  grid-template-rows: auto auto auto 1fr;
+  grid-template-areas:
+    "media title offer"
+    "media model offer"
+    "media sizes offer"
+    "media tags actions";
+  column-gap: 28px;
+  padding: 20px 20px 20px 16px;
+}
+
+.product-grid--list .product-card__body {
+  display: contents;
+}
+
+.product-grid--list .product-card__media {
+  grid-area: media;
+  margin: 0;
+}
+
+.product-grid--list .product-card__title { grid-area: title; padding-right: 48px; }
+.product-grid--list .product-card__model { grid-area: model; }
+.product-grid--list .product-card__sizes { grid-area: sizes; align-self: start; }
+.product-grid--list .product-card__tags { grid-area: tags; align-self: start; }
+
+/* Отступ сверху — место под кнопку избранного */
+.product-grid--list .product-card__offer {
+  grid-area: offer;
+  margin-top: 44px;
+  padding-top: 0;
+}
+
+.product-grid--list .product-card__actions {
+  grid-area: actions;
+  grid-template-columns: 1fr;
+  align-self: end;
+  margin-top: 12px;
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1100px) and (min-width: 1025px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product-grid--list .product-card {
+    grid-template-columns: 160px minmax(0, 1fr);
+    grid-template-areas:
+      "media title"
+      "media model"
+      "media sizes"
+      "media tags"
+      "offer offer"
+      "actions actions";
+  }
+
+  .product-grid--list .product-card__offer {
+    margin-top: 16px;
+  }
+
+  .product-grid--list .product-card__actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .product-grid,
+  .product-grid--list {
+    grid-template-columns: 1fr;
+  }
+
+  /* На телефоне вид списком не нужен: карточка и так во всю ширину */
+  .product-grid--list .product-card {
+    display: flex;
+    padding: 16px;
+  }
+
+  .product-grid--list .product-card__body {
+    display: flex;
+  }
+
+  .product-grid--list .product-card__media {
+    margin: -4px -4px 12px;
+  }
+
+  .product-grid--list .product-card__title {
+    padding-right: 0;
+  }
+
+  .product-grid--list .product-card__offer {
+    margin-top: auto;
+    padding-top: 16px;
+  }
+}
+
+/* ==========================================================================
+   Компактная карточка: похожие товары и подборки
+   ========================================================================== */
+.product-mini {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.product-mini:hover {
+  border-color: #b6c7ca;
+  box-shadow: var(--shadow);
+}
+
+.product-mini__media {
+  display: block;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-sm);
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.product-mini__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-mini__title {
+  font-size: 15px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.product-mini__title a:hover {
+  color: var(--color-brand);
+}
+
+.product-mini__meta {
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.product-mini__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.product-mini__price {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-brand-dark);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.product-mini__cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-brand-soft);
+  color: var(--color-brand);
+  transition: background-color var(--transition), color var(--transition), transform 0.15s ease;
+}
+
+.product-mini__cart:hover {
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+.product-mini__cart:active {
+  transform: scale(0.94);
+}
+
+.product-mini__cart.is-added {
+  background-color: var(--color-success);
+  color: #fff;
+}

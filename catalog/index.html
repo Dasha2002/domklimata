@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог кондиционеров и климатического оборудования в Перми | Дом Климата</title>
+  <meta name="description" content="Кондиционеры, мультисплит-системы, вентиляция и отопление в Перми. Подбор по площади, доставка и монтаж. Дом Климата: +7 (342) 271-77-11.">
+  <meta name="theme-color" content="#014454">
+
+  <link rel="icon" href="../img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <link rel="preload" href="../fonts/Onest-Cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-root="../">
+
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <!-- Секции подключаются скриптом js/include-sections.js.
+       Пути с ../ — страница лежит на уровень глубже главной.
+       Заявка внизу — та же секция, что на главной. -->
+
+  <div data-include="../sections/header/header.html"></div>
+
+  <main id="main">
+    <div data-include="../sections/cat-hero/cat-hero.html"></div>
+    <div data-include="../sections/cat-listing/cat-listing.html"></div>
+    <div data-include="../sections/cta/cta.html"></div>
+  </main>
+
+  <div data-include="../sections/footer/footer.html"></div>
+
+  <!-- Модалка заявки и cookie нужны на каждой странице -->
+  <div data-include="../sections/request-modal/request-modal.html"></div>
+  <div data-include="../sections/cookie/cookie.html"></div>
+
+  <script src="../js/include-sections.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>

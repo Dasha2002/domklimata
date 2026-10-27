@@ -99,7 +99,9 @@
   transition: transform var(--transition), background-color var(--transition), color var(--transition);
 }
 
-.faq__item[open] .faq__toggle {
+/* is-closing ставит app.js на время анимации закрытия: иконка
+   поворачивается обратно сразу, а не после схлопывания */
+.faq__item[open]:not(.is-closing) .faq__toggle {
   transform: rotate(45deg);
   background-color: var(--color-brand);
   color: #fff;
@@ -118,19 +120,6 @@
   color: var(--color-brand);
   text-decoration: underline;
   text-underline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .faq__item[open] .faq__answer {
-    animation: faq-open 0.35s var(--ease);
-  }
-}
-
-@keyframes faq-open {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
 }
 
 /* --- Адаптив ------------------------------------------------------------- */

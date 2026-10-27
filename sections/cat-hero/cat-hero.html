@@ -1,0 +1,91 @@
+<!-- ==========================================================================
+     Секция: Шапка каталога (/catalog/)
+     Блок БЭМ: .cat-hero
+     Хлебные крошки, заголовок, плашка «Поможем с выбором» и категории.
+
+     Категория — параметр адреса, а не отдельная страница:
+       /catalog/                                  все товары
+       /catalog/?category=bitovie_konditsioneri   бытовые кондиционеры
+     Заголовок и описание категории лежат в data-title / data-text её
+     ссылки. app.js при смене категории подставляет их в h1, описание,
+     крошки и <title>. На WordPress это делает сервер по тому же параметру.
+     ========================================================================== -->
+<section class="cat-hero" aria-labelledby="cat-hero-title">
+  <div class="container">
+
+    <div class="cat-hero__top">
+      <div class="cat-hero__main">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <ol class="breadcrumbs__list" data-catalog-breadcrumbs>
+            <li class="breadcrumbs__item"><a href="{{root}}index.html">Главная</a></li>
+            <li class="breadcrumbs__item" aria-current="page">Каталог</li>
+          </ol>
+        </nav>
+
+        <h1 class="cat-hero__title" id="cat-hero-title" data-catalog-title>Каталог оборудования</h1>
+        <p class="cat-hero__text" data-catalog-text>Кондиционеры, вентиляция и отопление для квартир, домов и офисов. Подбор, доставка и монтаж в Перми.</p>
+      </div>
+
+      <button class="cat-hero__help" type="button" data-open-request
+              data-request-comment="Нужна помощь с выбором оборудования из каталога.">
+        <span class="cat-hero__help-text">
+          <span class="cat-hero__help-title">Поможем с выбором</span>
+          <span class="cat-hero__help-sub">Подберём модель под ваше помещение и рассчитаем монтаж</span>
+        </span>
+        <img class="cat-hero__help-img" src="{{root}}img/photos/consultation.webp" width="794" height="656" alt="">
+        <span class="cat-hero__help-arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+      </button>
+    </div>
+
+    <nav class="cat-nav" aria-label="Категории каталога">
+      <ul class="cat-nav__list">
+        <li>
+          <a class="cat-nav__link" href="{{root}}catalog/" data-category="" aria-current="page"
+             data-title="Каталог оборудования"
+             data-text="Кондиционеры, вентиляция и отопление для квартир, домов и офисов. Подбор, доставка и монтаж в Перми.">Все товары</a>
+        </li>
+        <li>
+          <a class="cat-nav__link" href="{{root}}catalog/?category=bitovie_konditsioneri" data-category="bitovie_konditsioneri"
+             data-title="Бытовые кондиционеры"
+             data-text="Настенные сплит-системы для квартир, домов и небольших офисов. Подберём модель по площади и установим.">Бытовые кондиционеры</a>
+        </li>
+        <li>
+          <a class="cat-nav__link" href="{{root}}catalog/?category=multisplit_sistemi" data-category="multisplit_sistemi"
+             data-title="Мультисплит-системы"
+             data-text="Один наружный блок на фасаде и отдельный внутренний блок в каждой комнате.">Мультисплит-системы</a>
+        </li>
+        <li>
+          <a class="cat-nav__link" href="{{root}}catalog/?category=polupromishlennie_konditsioneri" data-category="polupromishlennie_konditsioneri"
+             data-title="Полупромышленные кондиционеры"
+             data-text="Кассетные, канальные и напольно-потолочные кондиционеры для офисов, магазинов и кафе.">Полупромышленные</a>
+        </li>
+        <li>
+          <a class="cat-nav__link" href="{{root}}catalog/?category=mobilnie_konditsioneri" data-category="mobilnie_konditsioneri"
+             data-title="Мобильные кондиционеры"
+             data-text="Переносные кондиционеры: не нужен монтаж наружного блока на фасаде.">Мобильные</a>
+        </li>
+        <li>
+          <a class="cat-nav__link" href="{{root}}catalog/?category=okonnie_konditsioneri" data-category="okonnie_konditsioneri"
+             data-title="Оконные кондиционеры"
+             data-text="Моноблоки, которые устанавливаются в оконный проём.">Оконные</a>
+        </li>
+        <li>
+          <a class="cat-nav__link" href="{{root}}catalog/?category=ventilyatsiya" data-category="ventilyatsiya"
+             data-title="Вентиляция"
+             data-text="Приточные установки и рекуператоры: свежий воздух в доме и офисе.">Вентиляция</a>
+        </li>
+        <li>
+          <a class="cat-nav__link" href="{{root}}catalog/?category=otoplenie" data-category="otoplenie"
+             data-title="Отопление"
+             data-text="Котлы и тепловое оборудование для дома.">Отопление</a>
+        </li>
+        <li>
+          <a class="cat-nav__link" href="{{root}}catalog/?category=aksessuari" data-category="aksessuari"
+             data-title="Аксессуары"
+             data-text="Комплектующие для кондиционеров: пульты, помпы, модули управления.">Аксессуары</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</section>

@@ -168,7 +168,7 @@ h3, h4 {
 /* Заявка. Одна на всём сайте, всегда оранжевая */
 .button--accent {
   background-color: var(--color-accent);
-  color: var(--color-brand-soft);
+  color: #fff;
 }
 
 .button--accent:hover {

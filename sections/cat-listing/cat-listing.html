@@ -1,0 +1,894 @@
+<!-- ==========================================================================
+     Секция: Список товаров с фильтрами (/catalog/)
+     Блок БЭМ: .cat-listing, фильтры .filters, панель .cat-toolbar.
+     Карточка товара — общий компонент css/product-card.css.
+
+     Категория, фильтры и сортировка хранятся в адресе (search params):
+       /catalog/?category=bitovie_konditsioneri&brand=Axioma&area=35&sort=price-asc
+     Форма — обычный GET с этими же именами полей, поэтому на WordPress
+     сервер читает те же параметры и отдаёт отфильтрованный список.
+     В вёрстке фильтрует app.js (initCatalog) по товарам на странице
+     и обновляет адрес без перезагрузки.
+
+     Ссылки товаров: в вёрстке все карточки ведут на пример страницы
+     товара /catalog/product/asx07h1r/ (выбранная площадь — ?area=).
+     На WordPress у каждого товара свой адрес: the_permalink().
+
+     Товары, модели, цены и статусы — снимок текущего сайта, по нескольку
+     позиций из каждой категории. Признак «Инвертор» проставлен по названию
+     модели: на WordPress он берётся из атрибута товара.
+     ========================================================================== -->
+<section class="cat-listing" id="catalog-listing" aria-label="Товары">
+  <div class="cat-listing__inner container">
+
+    <!-- Фильтры. До 1024px выезжают панелью по кнопке «Фильтры» -->
+    <aside class="filters" id="catalog-filters" aria-labelledby="filters-title">
+      <div class="filters__head">
+        <h2 class="filters__title" id="filters-title">Фильтры</h2>
+        <button class="filters__reset" type="button" data-filters-reset>Сбросить все</button>
+        <button class="filters__close" type="button" data-filters-close aria-label="Закрыть фильтры">
+          <span class="icon icon--x" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <form class="filters__form" id="catalog-filter-form" action="{{root}}catalog/" method="get">
+        <!-- Категорию задают ссылки .cat-nav, в форме она едет скрытым полем -->
+        <input type="hidden" name="category" value="">
+
+        <details class="filters__group" open>
+          <summary class="filters__summary">Бренд<span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
+          <div class="filters__options">
+            <label class="check"><input type="checkbox" name="brand" value="Axioma"><span class="check__label">Axioma</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="brand" value="Midea"><span class="check__label">Midea</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="brand" value="Kentatsu"><span class="check__label">Kentatsu</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="brand" value="Aurum"><span class="check__label">Aurum</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="brand" value="Bosch"><span class="check__label">Bosch</span><span class="check__count" data-filter-count></span></label>
+            <div class="filters__more" data-filters-more hidden>
+              <label class="check"><input type="checkbox" name="brand" value="DAICHIxMES"><span class="check__label">DAICHIxMES</span><span class="check__count" data-filter-count></span></label>
+              <label class="check"><input type="checkbox" name="brand" value="DAICHIxMTC"><span class="check__label">DAICHIxMTC</span><span class="check__count" data-filter-count></span></label>
+              <label class="check"><input type="checkbox" name="brand" value="Daichi"><span class="check__label">Daichi</span><span class="check__count" data-filter-count></span></label>
+              <label class="check"><input type="checkbox" name="brand" value="Daikin"><span class="check__label">Daikin</span><span class="check__count" data-filter-count></span></label>
+            </div>
+            <button class="filters__toggle" type="button" data-filters-more-toggle aria-expanded="false">Показать ещё</button>
+          </div>
+        </details>
+
+        <details class="filters__group" open>
+          <summary class="filters__summary">Площадь помещения, м²<span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
+          <div class="filters__chips">
+            <label class="size"><input type="checkbox" name="area" value="20"><span>20</span></label>
+            <label class="size"><input type="checkbox" name="area" value="25"><span>25</span></label>
+            <label class="size"><input type="checkbox" name="area" value="35"><span>35</span></label>
+            <label class="size"><input type="checkbox" name="area" value="50"><span>50</span></label>
+            <label class="size"><input type="checkbox" name="area" value="70"><span>70</span></label>
+            <label class="size"><input type="checkbox" name="area" value="100"><span>100</span></label>
+            <label class="size"><input type="checkbox" name="area" value="140"><span>140</span></label>
+          </div>
+        </details>
+
+        <details class="filters__group" open>
+          <summary class="filters__summary">Цена, ₽<span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
+          <div class="filters__range">
+            <label class="filters__range-field">
+              <span class="visually-hidden">Цена от, рублей</span>
+              <span aria-hidden="true">от</span>
+              <input type="number" name="price_from" inputmode="numeric" min="0" step="1000" placeholder="0" data-price-min>
+            </label>
+            <label class="filters__range-field">
+              <span class="visually-hidden">Цена до, рублей</span>
+              <span aria-hidden="true">до</span>
+              <input type="number" name="price_to" inputmode="numeric" min="0" step="1000" placeholder="0" data-price-max>
+            </label>
+          </div>
+        </details>
+
+        <details class="filters__group" open>
+          <summary class="filters__summary">Инвертор<span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
+          <div class="filters__options">
+            <label class="check"><input type="checkbox" name="inverter" value="yes"><span class="check__label">Да</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="inverter" value="no"><span class="check__label">Нет</span><span class="check__count" data-filter-count></span></label>
+          </div>
+        </details>
+
+        <details class="filters__group" open>
+          <summary class="filters__summary">Наличие<span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
+          <div class="filters__options">
+            <label class="check"><input type="checkbox" name="stock" value="price"><span class="check__label">Можно купить на сайте</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="stock" value="order"><span class="check__label">Под заказ</span><span class="check__count" data-filter-count></span></label>
+          </div>
+        </details>
+
+        <!-- Без скрипта форма уходит запросом на сервер -->
+        <noscript><button class="button button--primary" type="submit">Применить</button></noscript>
+      </form>
+
+      <div class="filters__footer">
+        <button class="button button--primary filters__apply" type="button" data-filters-close>Показать <span data-found-text>27 товаров</span></button>
+      </div>
+    </aside>
+
+    <div class="cat-listing__main">
+
+      <div class="cat-toolbar">
+        <button class="cat-toolbar__filters button button--outline" type="button"
+                data-filters-open aria-controls="catalog-filters" aria-expanded="false">
+          <span class="icon icon--adjustments-horizontal" aria-hidden="true"></span>
+          Фильтры
+          <span class="cat-toolbar__badge" data-active-count hidden></span>
+        </button>
+
+        <p class="cat-toolbar__found" aria-live="polite">Найдено <span data-found-text>27 товаров</span></p>
+
+        <label class="cat-toolbar__sort">
+          <span class="icon icon--arrows-sort" aria-hidden="true"></span>
+          <span class="visually-hidden">Сортировка</span>
+          <!-- Поле формы фильтров (атрибут form), чтобы сортировка уходила в GET вместе с ними -->
+          <select name="sort" form="catalog-filter-form" data-catalog-sort>
+            <option value="default">Популярные</option>
+            <option value="price-asc">Сначала дешевле</option>
+            <option value="price-desc">Сначала дороже</option>
+          </select>
+        </label>
+
+        <div class="cat-toolbar__view" role="group" aria-label="Вид списка">
+          <button type="button" data-catalog-view="grid" aria-pressed="true" aria-label="Плиткой">
+            <span class="icon icon--layout-grid" aria-hidden="true"></span>
+          </button>
+          <button type="button" data-catalog-view="list" aria-pressed="false" aria-label="Списком">
+            <span class="icon icon--list" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Выбранные фильтры. Чипсы собирает app.js -->
+      <div class="cat-active" data-active-filters hidden>
+        <ul class="cat-active__list" data-active-list></ul>
+        <button class="cat-active__reset" type="button" data-filters-reset>Сбросить все</button>
+      </div>
+
+      <ul class="product-grid" data-product-grid>
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="DAICHIxMTC" data-inverter="no" data-areas="20 25 35 50" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: DAICHIxMTC Beta 1_UNL_A">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/daichi-mtc-beta.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">DAICHIxMTC Beta 1_UNL_A</a></h3>
+            <p class="product-card__model" data-card-model>B20AVQ1_UNL_A/B20FV1_UNL_A</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-b20avq1_unl_a" value="20" data-model="B20AVQ1_UNL_A/B20FV1_UNL_A" data-price="" data-status="order" checked><span>20</span></label>
+              <label class="size"><input type="radio" name="size-b20avq1_unl_a" value="25" data-model="B25AVQ1_UNL_A/B25FV1_UNL_A" data-price="" data-status="order"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-b20avq1_unl_a" value="35" data-model="B35AVQ1_UNL_A/B35FV1_UNL_A" data-price="" data-status="order"><span>35</span></label>
+              <label class="size"><input type="radio" name="size-b20avq1_unl_a" value="50" data-model="B50AVQ1_UNL_A/B50FV1_UNL_A" data-price="" data-status="order"><span>50</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Под заказ</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--clock" aria-hidden="true"></span><span>Поставка до 7 дней</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="DAICHIxMES" data-inverter="no" data-areas="20 25 35 50" data-prices="21500 32000">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: DAICHIxMES Epsilon_UNL_A">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/daichi-mes-epsilon.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">DAICHIxMES Epsilon_UNL_A</a></h3>
+            <p class="product-card__model" data-card-model>E35AVQ1_UNL_A/E35FV1_UNL_A</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-e35avq1_unl_a" value="20" data-model="E20AVQ1_UNL_A/E20FV1_UNL_A" data-price="" data-status="request"><span>20</span></label>
+              <label class="size"><input type="radio" name="size-e35avq1_unl_a" value="25" data-model="E25AVQ1_UNL_A/E25FV1_UNL_A" data-price="" data-status="request"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-e35avq1_unl_a" value="35" data-model="E35AVQ1_UNL_A/E35FV1_UNL_A" data-price="21500" data-status="price" checked><span>35</span></label>
+              <label class="size"><input type="radio" name="size-e35avq1_unl_a" value="50" data-model="E50AVQ1_UNL_A/E50FV1_UNL_A" data-price="32000" data-status="price"><span>50</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>21&nbsp;500&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Aurum" data-inverter="yes" data-areas="20 25" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Aurum PRIZE Inverter">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/aurum-prize-inverter.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Aurum PRIZE Inverter</a></h3>
+            <p class="product-card__model" data-card-model>ARC07-WDTE2</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-arc07_wdte2_i" value="20" data-model="ARC07-WDTE2" data-price="" data-status="order" checked><span>20</span></label>
+              <label class="size"><input type="radio" name="size-arc07_wdte2_i" value="25" data-model="ARC09-WDTE2" data-price="" data-status="order"><span>25</span></label>
+            </fieldset>
+            <ul class="product-card__tags"><li>Инвертор</li></ul>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Под заказ</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--clock" aria-hidden="true"></span><span>Поставка до 7 дней</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Aurum" data-inverter="no" data-areas="25 50" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Aurum PRIZE">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/aurum-prize.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Aurum PRIZE</a></h3>
+            <p class="product-card__model" data-card-model>ARC09-WNTE2</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-arc18_wnte2_i" value="25" data-model="ARC09-WNTE2" data-price="" data-status="order" checked><span>25</span></label>
+              <label class="size"><input type="radio" name="size-arc18_wnte2_i" value="50" data-model="ARC18-WNTE2" data-price="" data-status="order"><span>50</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Под заказ</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--clock" aria-hidden="true"></span><span>Поставка до 7 дней</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="yes" data-areas="20 25 35 50 70" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия H inverter R32">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/axioma-h.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma Серия H inverter R32</a></h3>
+            <p class="product-card__model" data-card-model>ASX07HZ1R/ASB07HZ1R</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-asx07hz1r" value="20" data-model="ASX07HZ1R/ASB07HZ1R" data-price="" data-status="order" checked><span>20</span></label>
+              <label class="size"><input type="radio" name="size-asx07hz1r" value="25" data-model="ASX09HZ1R/ASB09HZ1R" data-price="" data-status="order"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-asx07hz1r" value="35" data-model="ASX12HZ1R/ASB12HZ1R" data-price="" data-status="order"><span>35</span></label>
+              <label class="size"><input type="radio" name="size-asx07hz1r" value="50" data-model="ASX18HZ1R/ASB18HZ1R" data-price="" data-status="order"><span>50</span></label>
+              <label class="size"><input type="radio" name="size-asx07hz1r" value="70" data-model="ASX24HZ1R/ASB24HZ1R" data-price="" data-status="order"><span>70</span></label>
+            </fieldset>
+            <ul class="product-card__tags"><li>Инвертор</li><li>Фреон R32</li></ul>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Под заказ</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--clock" aria-hidden="true"></span><span>Поставка до 7 дней</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="no" data-areas="20 25 35 50 70" data-prices="20790 22890 31190 51490 64690">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия H R32">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/axioma-h.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma Серия H R32</a></h3>
+            <p class="product-card__model" data-card-model>ASX07H1R/ASB07H1R</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-asx07h1r" value="20" data-model="ASX07H1R/ASB07H1R" data-price="20790" data-status="price" checked><span>20</span></label>
+              <label class="size"><input type="radio" name="size-asx07h1r" value="25" data-model="ASX09H1R/ASB09H1R" data-price="22890" data-status="price"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-asx07h1r" value="35" data-model="ASX12H1R/ASB12H1R" data-price="31190" data-status="price"><span>35</span></label>
+              <label class="size"><input type="radio" name="size-asx07h1r" value="50" data-model="ASX18H1R/ASB18H1R" data-price="51490" data-status="price"><span>50</span></label>
+              <label class="size"><input type="radio" name="size-asx07h1r" value="70" data-model="ASX24H1R/ASB24H1R" data-price="64690" data-status="price"><span>70</span></label>
+            </fieldset>
+            <ul class="product-card__tags"><li>Фреон R32</li></ul>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>20&nbsp;790&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="yes" data-areas="20 25 35 50 70" data-prices="58990">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия F Inverter">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/axioma-f-inverter.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma Серия F Inverter</a></h3>
+            <p class="product-card__model" data-card-model>ASX18FZ1/ASB18FZ1</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-asx07fz1" value="20" data-model="ASX07FZ1/ASB07FZ1" data-price="" data-status="request"><span>20</span></label>
+              <label class="size"><input type="radio" name="size-asx07fz1" value="25" data-model="ASX09FZ1/ASB09FZ1" data-price="" data-status="request"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-asx07fz1" value="35" data-model="ASX12FZ1/ASB12FZ1" data-price="" data-status="request"><span>35</span></label>
+              <label class="size"><input type="radio" name="size-asx07fz1" value="50" data-model="ASX18FZ1/ASB18FZ1" data-price="58990" data-status="price" checked><span>50</span></label>
+              <label class="size"><input type="radio" name="size-asx07fz1" value="70" data-model="ASX24FZ1/ASB24FZ1" data-price="" data-status="order"><span>70</span></label>
+            </fieldset>
+            <ul class="product-card__tags"><li>Инвертор</li></ul>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>58&nbsp;990&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="no" data-areas="20 25 35 50 70" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия F">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/axioma-f.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma Серия F</a></h3>
+            <p class="product-card__model" data-card-model>ASX07F1/ASB07F1</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-asx07f1" value="20" data-model="ASX07F1/ASB07F1" data-price="" data-status="order" checked><span>20</span></label>
+              <label class="size"><input type="radio" name="size-asx07f1" value="25" data-model="ASX09F1/ASB09F1" data-price="" data-status="order"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-asx07f1" value="35" data-model="ASX12F1/ASB12F1" data-price="" data-status="order"><span>35</span></label>
+              <label class="size"><input type="radio" name="size-asx07f1" value="50" data-model="ASX18F1/ASB18F1" data-price="" data-status="order"><span>50</span></label>
+              <label class="size"><input type="radio" name="size-asx07f1" value="70" data-model="ASX24F1/ASB24F1" data-price="" data-status="order"><span>70</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Под заказ</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--clock" aria-hidden="true"></span><span>Поставка до 7 дней</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="yes" data-areas="20 25 35 50 70" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия H Inverter">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/axioma-h.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma Серия H Inverter</a></h3>
+            <p class="product-card__model" data-card-model>ASX07HZ1/ASB07HZ1</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-asx09hz1" value="20" data-model="ASX07HZ1/ASB07HZ1" data-price="" data-status="order" checked><span>20</span></label>
+              <label class="size"><input type="radio" name="size-asx09hz1" value="25" data-model="ASX09HZ1/ASB09HZ1" data-price="" data-status="order"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-asx09hz1" value="35" data-model="ASX12HZ1/ASB12HZ1" data-price="" data-status="order"><span>35</span></label>
+              <label class="size"><input type="radio" name="size-asx09hz1" value="50" data-model="ASX18HZ1/ASB18HZ1" data-price="" data-status="order"><span>50</span></label>
+              <label class="size"><input type="radio" name="size-asx09hz1" value="70" data-model="ASX24HZ1/ASB24HZ1" data-price="" data-status="order"><span>70</span></label>
+            </fieldset>
+            <ul class="product-card__tags"><li>Инвертор</li></ul>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Под заказ</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--clock" aria-hidden="true"></span><span>Поставка до 7 дней</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="no" data-areas="20 25 35 50 70" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия H">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/axioma-h.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma Серия H</a></h3>
+            <p class="product-card__model" data-card-model>ASX07H1/ASB07H1</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-asx09h1" value="20" data-model="ASX07H1/ASB07H1" data-price="" data-status="order" checked><span>20</span></label>
+              <label class="size"><input type="radio" name="size-asx09h1" value="25" data-model="ASX09H1/ASB09H1" data-price="" data-status="order"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-asx09h1" value="35" data-model="ASX12H1A/ASB12H1A" data-price="" data-status="order"><span>35</span></label>
+              <label class="size"><input type="radio" name="size-asx09h1" value="50" data-model="ASX18H1A/ASB18H1A" data-price="" data-status="order"><span>50</span></label>
+              <label class="size"><input type="radio" name="size-asx09h1" value="70" data-model="ASX24H1/ASB24H1" data-price="" data-status="order"><span>70</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Под заказ</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--clock" aria-hidden="true"></span><span>Поставка до 7 дней</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Bosch" data-inverter="no" data-areas="25 70" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Bosch Climate 6000i">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/bosch-climate-6000i.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Bosch Climate 6000i</a></h3>
+            <p class="product-card__model" data-card-model>CL6001iU</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-cl6001iu_70_e" value="25" data-model="CL6001iU" data-price="" data-status="order" checked><span>25</span></label>
+              <label class="size"><input type="radio" name="size-cl6001iu_70_e" value="70" data-model="CL6001iU" data-price="" data-status="order"><span>70</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Под заказ</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--clock" aria-hidden="true"></span><span>Поставка до 7 дней</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Bosch" data-inverter="no" data-areas="20 25 35 50 70" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Bosch Climate Line 2000">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/bosch-climate-line-2000.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Bosch Climate Line 2000</a></h3>
+            <p class="product-card__model" data-card-model>CLL2000</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-cll2000_23" value="20" data-model="CLL2000" data-price="" data-status="order" checked><span>20</span></label>
+              <label class="size"><input type="radio" name="size-cll2000_23" value="25" data-model="CLL2000" data-price="" data-status="order"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-cll2000_23" value="35" data-model="CLL2000" data-price="" data-status="order"><span>35</span></label>
+              <label class="size"><input type="radio" name="size-cll2000_23" value="50" data-model="CLL2000" data-price="" data-status="order"><span>50</span></label>
+              <label class="size"><input type="radio" name="size-cll2000_23" value="70" data-model="CLL2000" data-price="" data-status="order"><span>70</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Под заказ</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--clock" aria-hidden="true"></span><span>Поставка до 7 дней</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="multisplit_sistemi" data-brand="" data-inverter="" data-areas="" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Мульти-сплит система для двух комнат">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/multi-split-sistema-dlya-dvukh-komnat.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Мульти-сплит система для двух комнат</a></h3>
+            <p class="product-card__model" data-card-model></p>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Цена по запросу</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--phone" aria-hidden="true"></span><span>Цену уточнит менеджер</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="multisplit_sistemi" data-brand="" data-inverter="" data-areas="" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Мульти-сплит система для трех комнат">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/multi-split-sistema-dlya-trekh-komnat.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Мульти-сплит система для трех комнат</a></h3>
+            <p class="product-card__model" data-card-model></p>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Цена по запросу</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--phone" aria-hidden="true"></span><span>Цену уточнит менеджер</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="multisplit_sistemi" data-brand="" data-inverter="" data-areas="" data-prices="">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Мульти-сплит система для четырех комнат">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/multi-split-sistema-dlya-chetyrekh-komnat.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Мульти-сплит система для четырех комнат</a></h3>
+            <p class="product-card__model" data-card-model></p>
+            <div class="product-card__offer">
+              <p class="product-card__price product-card__price--none" data-card-price>Цена по запросу</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--phone" aria-hidden="true"></span><span>Цену уточнит менеджер</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart hidden>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="polupromishlennie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="50 70 100 140 160" data-prices="71990 90290 119790 149390">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MTI-1-P/MOU-L">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/mti_18hw1n1p_qb6_mox330u_18hn1_lqb6.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Midea MTI-1-P/MOU-L</a></h3>
+            <p class="product-card__model" data-card-model>MTI-18HW1N1P-QB6/MOX330U-18HN1-LQB6</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-mti_18hw1n1p_qb6_mox330u_18hn1_lqb6" value="50" data-model="MTI-18HW1N1P-QB6/MOX330U-18HN1-LQB6" data-price="71990" data-status="price" checked><span>50</span></label>
+              <label class="size"><input type="radio" name="size-mti_18hw1n1p_qb6_mox330u_18hn1_lqb6" value="70" data-model="MTI-24HW1N1P-Q(A)/MOX431U-24HN1-LQ" data-price="90290" data-status="price"><span>70</span></label>
+              <label class="size"><input type="radio" name="size-mti_18hw1n1p_qb6_mox330u_18hn1_lqb6" value="100" data-model="MTI-36HW1N1P-R/MOU-36HN1-LR" data-price="119790" data-status="price"><span>100</span></label>
+              <label class="size"><input type="radio" name="size-mti_18hw1n1p_qb6_mox330u_18hn1_lqb6" value="140" data-model="MTI-48HW1N1P-R/MOU-48HN1-LRR" data-price="149390" data-status="price"><span>140</span></label>
+              <label class="size"><input type="radio" name="size-mti_18hw1n1p_qb6_mox330u_18hn1_lqb6" value="160" data-model="MTI-60HW1N1P-R/MOU-55HN1-LR" data-price="" data-status="order"><span>160</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>71&nbsp;990&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="polupromishlennie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="70 100 140 160" data-prices="90290 119790 149390">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MCD1/MOU-L">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/mcd1_24hrn1_mox431u_24hn1_lq_mbq4_04a1.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Midea MCD1/MOU-L</a></h3>
+            <p class="product-card__model" data-card-model>MCD1-24HRN1-Q/MOX431U-24HN1-LQ/T-MBQ4-04A1</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-mcd1_24hrn1_mox431u_24hn1_lq_mbq4_04a1" value="70" data-model="MCD1-24HRN1-Q/MOX431U-24HN1-LQ/T-MBQ4-04A1" data-price="90290" data-status="price" checked><span>70</span></label>
+              <label class="size"><input type="radio" name="size-mcd1_24hrn1_mox431u_24hn1_lq_mbq4_04a1" value="100" data-model="MCD1-36HRN1-R/MOU-36HN1-LR/T-MBQ4-04A1" data-price="119790" data-status="price"><span>100</span></label>
+              <label class="size"><input type="radio" name="size-mcd1_24hrn1_mox431u_24hn1_lq_mbq4_04a1" value="140" data-model="MCD1-48HRN1-R/MOU-48HN1-LRR/T-MBQ4-04A1" data-price="149390" data-status="price"><span>140</span></label>
+              <label class="size"><input type="radio" name="size-mcd1_24hrn1_mox431u_24hn1_lq_mbq4_04a1" value="160" data-model="MCD1-60HRN1-R/MOU-55HN1-LR/T-MBQ4-04A1" data-price="" data-status="order"><span>160</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>90&nbsp;290&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="polupromishlennie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="35 50" data-prices="61590 66190">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MCA3/MOU-L">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/mca3_12hrn1_qc2_mox330_12hn1_lq_mbq4_03e.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Midea MCA3/MOU-L</a></h3>
+            <p class="product-card__model" data-card-model>MCA3-12HRN1-QC2/MOX330-12HN1-LQ/T-MBQ4-03E</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-mca3_12hrn1_qc2_mox330_12hn1_lq_mbq4_03e" value="35" data-model="MCA3-12HRN1-QC2/MOX330-12HN1-LQ/T-MBQ4-03E" data-price="61590" data-status="price" checked><span>35</span></label>
+              <label class="size"><input type="radio" name="size-mca3_12hrn1_qc2_mox330_12hn1_lq_mbq4_03e" value="50" data-model="MCA3-18HRN1-QB6/MOX330U-18HN1-LQB6/T-MBQ4-03E" data-price="66190" data-status="price"><span>50</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>61&nbsp;590&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="mobilnie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="" data-prices="27990 29990">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MPPHA">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/mppha_07crn7_q.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Midea MPPHA</a></h3>
+            <p class="product-card__model" data-card-model>MPPHA-07CRN7-Q</p>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>от 27&nbsp;990&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="mobilnie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="35" data-prices="49990">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MPPDB">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/mppdb_12hrn1_q.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Midea MPPDB</a></h3>
+            <p class="product-card__model" data-card-model>MPPDB-12HRN1-Q</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-mppdb_12hrn1_q" value="35" data-model="MPPDB-12HRN1-Q" data-price="49990" data-status="price" checked><span>35</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>49&nbsp;990&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="okonnie_konditsioneri" data-brand="Axioma" data-inverter="no" data-areas="20 25 17" data-prices="20990 27990 33490">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma ASJC">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/asjc07_nm1a.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma ASJC</a></h3>
+            <p class="product-card__model" data-card-model>ASJC07-NM1A</p>
+            <fieldset class="product-card__sizes">
+              <legend class="product-card__sizes-label">Площадь, м²</legend>
+              <label class="size"><input type="radio" name="size-asjc07_nm1a" value="20" data-model="ASJC07-NM1A" data-price="27990" data-status="price" checked><span>20</span></label>
+              <label class="size"><input type="radio" name="size-asjc07_nm1a" value="25" data-model="ASJC09-NM1A" data-price="33490" data-status="price"><span>25</span></label>
+              <label class="size"><input type="radio" name="size-asjc07_nm1a" value="17" data-model="ASJC05-NM1A" data-price="20990" data-status="price"><span>до 17</span></label>
+            </fieldset>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>27&nbsp;990&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="aksessuari" data-brand="Axioma" data-inverter="" data-areas="" data-prices="7400">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma AWC">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/awc_m20.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma AWC</a></h3>
+            <p class="product-card__model" data-card-model>AWC-M20</p>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>7&nbsp;400&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="aksessuari" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="5500 5600">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu KPU65">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/kpu65_d.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Kentatsu KPU65</a></h3>
+            <p class="product-card__model" data-card-model>KPU65-D</p>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>от 5&nbsp;500&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="ventilyatsiya" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="488000 531000 557000">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu Компакт RR">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/kompakt_rr_310_z2.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Kentatsu Компакт RR</a></h3>
+            <p class="product-card__model" data-card-model>Компакт</p>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>от 488&nbsp;000&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="otoplenie" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="47599 48599 49599">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu Nobby Electro KBP(E)">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/nobby_electro_kbp_09.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Kentatsu Nobby Electro KBP(E)</a></h3>
+            <p class="product-card__model" data-card-model>Nobby</p>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>от 47&nbsp;599&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="otoplenie" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="8099 9999 45899">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu ANTEI RIB">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/antei_rib_3000.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Kentatsu ANTEI RIB</a></h3>
+            <p class="product-card__model" data-card-model>ANTEI</p>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>от 8&nbsp;099&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="product-card" data-category="otoplenie" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="57599 61699 73399">
+          <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu Nobby Smart II">
+            <span class="icon icon--heart" aria-hidden="true"></span>
+          </button>
+          <a class="product-card__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+            <img src="{{root}}img/products/nobby_smart_ii_32_2csf.webp" width="640" height="480" alt="" loading="lazy">
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title"><a href="{{root}}catalog/product/asx07h1r/">Kentatsu Nobby Smart II</a></h3>
+            <p class="product-card__model" data-card-model>Nobby</p>
+            <div class="product-card__offer">
+              <p class="product-card__price" data-card-price>от 57&nbsp;599&nbsp;₽</p>
+              <p class="product-card__status" data-card-status><span class="icon icon--truck" aria-hidden="true"></span><span>Доставка по Перми</span></p>
+            </div>
+            <div class="product-card__actions">
+              <a class="button button--outline product-card__more" href="{{root}}catalog/product/asx07h1r/">Подробнее</a>
+              <button class="button button--primary product-card__cart" type="button" data-add-cart>В корзину</button>
+              <button class="button button--accent product-card__ask" type="button" data-open-request hidden>Узнать цену</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="cat-empty" data-catalog-empty hidden>
+        <p class="cat-empty__title">По этим фильтрам ничего не нашлось</p>
+        <p class="cat-empty__text">Уберите часть условий или оставьте заявку: подберём модель под ваше помещение.</p>
+        <div class="cat-empty__actions">
+          <button class="button button--outline" type="button" data-filters-reset>Сбросить фильтры</button>
+          <button class="button button--accent" type="button" data-open-request>Оставить заявку</button>
+        </div>
+      </div>
+
+      <!-- Пагинация. На WordPress: woocommerce_pagination, ссылки сохраняют
+           параметры фильтра. В вёрстке скрывается, пока выбран фильтр или категория -->
+      <nav class="pagination" aria-label="Страницы каталога">
+        <a class="pagination__arrow" aria-disabled="true" aria-label="Предыдущая страница">
+          <span class="icon icon--chevron-left" aria-hidden="true"></span>
+        </a>
+        <ul class="pagination__list">
+          <li><a class="pagination__link" href="{{root}}catalog/" aria-current="page">1</a></li>
+          <li><a class="pagination__link" href="{{root}}catalog/page/2/">2</a></li>
+          <li><a class="pagination__link" href="{{root}}catalog/page/3/">3</a></li>
+          <li><a class="pagination__link" href="{{root}}catalog/page/4/">4</a></li>
+          <li><a class="pagination__link" href="{{root}}catalog/page/5/">5</a></li>
+        </ul>
+        <a class="pagination__arrow" href="{{root}}catalog/page/2/" aria-label="Следующая страница">
+          <span class="icon icon--chevron-right" aria-hidden="true"></span>
+        </a>
+      </nav>
+
+    </div>
+  </div>
+</section>

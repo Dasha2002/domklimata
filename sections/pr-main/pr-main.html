@@ -1,0 +1,222 @@
+<!-- ==========================================================================
+     Секция: Карточка товара, первый экран
+     Блок БЭМ: .pr-main, галерея .pr-gallery, покупка .pr-buy
+     Поведение в app.js: initGallery (фото, лупа), initProductPage (площадь).
+
+     Модификация — параметр адреса ?area=25, как в каталоге: ссылка
+     с карточки каталога открывает товар сразу с выбранной площадью.
+     Данные модификаций — в data-атрибутах радиокнопок .pr-buy__sizes.
+     На WordPress это вариации товара WooCommerce.
+
+     Название, модели, цены и характеристики — страница товара на текущем
+     сайте (/catalog/product/asx07h1r/). Плитки собраны из характеристик,
+     описание пересказывает их же.
+     ========================================================================== -->
+<section class="pr-main" aria-labelledby="pr-title">
+  <div class="container">
+
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <ol class="breadcrumbs__list">
+        <li class="breadcrumbs__item"><a href="{{root}}index.html">Главная</a></li>
+        <li class="breadcrumbs__item"><a href="{{root}}catalog/">Каталог</a></li>
+        <li class="breadcrumbs__item"><a href="{{root}}catalog/?category=bitovie_konditsioneri">Бытовые кондиционеры</a></li>
+        <li class="breadcrumbs__item" aria-current="page">Axioma Серия H R32</li>
+      </ol>
+    </nav>
+
+    <div class="pr-main__grid">
+
+      <!-- Заголовок -->
+      <div class="pr-head">
+        <h1 class="pr-head__title" id="pr-title">Axioma Серия H R32</h1>
+        <p class="pr-head__subtitle">Настенная сплит-система, до <span data-pr-area>20</span>&nbsp;м²</p>
+        <div class="pr-head__meta">
+          <p class="pr-head__model">Модель: <span data-pr-model>ASX07H1R/ASB07H1R</span></p>
+          <a class="pr-head__brand" href="{{root}}catalog/?brand=Axioma">Все товары Axioma</a>
+          <button class="pr-head__fav" type="button" aria-pressed="false" data-pr-fav>
+            <span class="icon icon--heart" aria-hidden="true"></span>
+            <span data-pr-fav-text>В избранное</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Галерея -->
+      <div class="pr-gallery" data-gallery>
+        <div class="pr-gallery__stage">
+          <img class="pr-gallery__image" src="{{root}}img/products/axioma-h-r32/01.webp" width="1200" height="1200"
+               alt="Axioma Серия H R32: внутренний блок, наружный блок и пульт" fetchpriority="high" data-gallery-main>
+          <button class="pr-gallery__nav pr-gallery__nav--prev" type="button" aria-label="Предыдущее фото" data-gallery-prev>
+            <span class="icon icon--chevron-left" aria-hidden="true"></span>
+          </button>
+          <button class="pr-gallery__nav pr-gallery__nav--next" type="button" aria-label="Следующее фото" data-gallery-next>
+            <span class="icon icon--chevron-right" aria-hidden="true"></span>
+          </button>
+          <button class="pr-gallery__zoom" type="button" data-gallery-zoom>
+            <span class="icon icon--zoom-in" aria-hidden="true"></span>
+            Увеличить
+          </button>
+        </div>
+
+        <ul class="pr-gallery__thumbs" aria-label="Фотографии товара">
+          <li>
+            <button class="pr-gallery__thumb" type="button" aria-current="true" aria-label="Фото 1: комплект"
+                    data-gallery-thumb data-src="{{root}}img/products/axioma-h-r32/01.webp"
+                    data-alt="Axioma Серия H R32: внутренний блок, наружный блок и пульт">
+              <img src="{{root}}img/products/axioma-h-r32/01-thumb.webp" width="240" height="240" alt="">
+            </button>
+          </li>
+          <li>
+            <button class="pr-gallery__thumb" type="button" aria-label="Фото 2: внутренний блок"
+                    data-gallery-thumb data-src="{{root}}img/products/axioma-h-r32/02.webp"
+                    data-alt="Axioma Серия H R32: внутренний блок">
+              <img src="{{root}}img/products/axioma-h-r32/02-thumb.webp" width="240" height="240" alt="" loading="lazy">
+            </button>
+          </li>
+          <li>
+            <button class="pr-gallery__thumb" type="button" aria-label="Фото 3: наружный блок"
+                    data-gallery-thumb data-src="{{root}}img/products/axioma-h-r32/03.webp"
+                    data-alt="Axioma Серия H R32: наружный блок">
+              <img src="{{root}}img/products/axioma-h-r32/03-thumb.webp" width="240" height="240" alt="" loading="lazy">
+            </button>
+          </li>
+        </ul>
+
+        <!-- Увеличенное фото -->
+        <dialog class="lightbox" aria-label="Фотографии товара" data-lightbox>
+          <img class="lightbox__image" src="" alt="" data-lightbox-image>
+          <button class="lightbox__close" type="button" aria-label="Закрыть" data-lightbox-close>
+            <span class="icon icon--x" aria-hidden="true"></span>
+          </button>
+          <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото" data-gallery-prev>
+            <span class="icon icon--chevron-left" aria-hidden="true"></span>
+          </button>
+          <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото" data-gallery-next>
+            <span class="icon icon--chevron-right" aria-hidden="true"></span>
+          </button>
+          <p class="lightbox__counter" data-lightbox-counter>1 / 3</p>
+        </dialog>
+      </div>
+
+      <!-- Главное о товаре -->
+      <div class="pr-info">
+        <ul class="pr-features">
+          <li class="pr-feature">
+            <span class="pr-feature__icon"><span class="icon icon--home" aria-hidden="true"></span></span>
+            <span class="pr-feature__text">
+              <strong>до <span data-pr-area>20</span>&nbsp;м²</strong>
+              <span>Площадь помещения</span>
+            </span>
+          </li>
+          <li class="pr-feature">
+            <span class="pr-feature__icon"><span class="icon icon--snowflake" aria-hidden="true"></span></span>
+            <span class="pr-feature__text">
+              <strong>Охлаждение</strong>
+              <span>при +15…+43&nbsp;°C на улице</span>
+            </span>
+          </li>
+          <li class="pr-feature">
+            <span class="pr-feature__icon"><span class="icon icon--sun" aria-hidden="true"></span></span>
+            <span class="pr-feature__text">
+              <strong>Обогрев</strong>
+              <span>при −7…+24&nbsp;°C на улице</span>
+            </span>
+          </li>
+          <li class="pr-feature">
+            <span class="pr-feature__icon"><span class="icon icon--volume" aria-hidden="true"></span></span>
+            <span class="pr-feature__text">
+              <strong>От 32 дБ(А)</strong>
+              <span>Шум внутреннего блока</span>
+            </span>
+          </li>
+          <li class="pr-feature">
+            <span class="pr-feature__icon"><span class="icon icon--leaf" aria-hidden="true"></span></span>
+            <span class="pr-feature__text">
+              <strong>Фреон R32</strong>
+              <span>Хладагент нового поколения</span>
+            </span>
+          </li>
+          <li class="pr-feature">
+            <span class="pr-feature__icon"><span class="icon icon--shield-check" aria-hidden="true"></span></span>
+            <span class="pr-feature__text">
+              <strong>Гарантия</strong>
+              <span>Официальная, от производителя</span>
+            </span>
+          </li>
+        </ul>
+
+        <div class="pr-about">
+          <h2 class="pr-about__title">Коротко о модели</h2>
+          <p class="pr-about__text">
+            Настенная сплит-система Axioma серии H на хладагенте R32. Охлаждает
+            летом и подогревает воздух в межсезонье. Выпускается в пяти
+            типоразмерах для помещений от 20 до 70&nbsp;м².
+          </p>
+          <a class="text-link" href="#specs">Все характеристики</a>
+        </div>
+      </div>
+
+      <!-- Покупка -->
+      <aside class="pr-buy" aria-label="Покупка">
+        <div class="pr-buy__card">
+          <div class="pr-buy__top">
+            <p class="pr-buy__status" data-pr-status>
+              <span class="icon icon--truck" aria-hidden="true"></span>
+              <span>Доставка 1-3 дня</span>
+            </p>
+          </div>
+
+          <fieldset class="pr-buy__sizes">
+            <legend class="pr-buy__label">Площадь помещения, м²</legend>
+            <label class="size"><input type="radio" name="pr-area" value="20" data-model="ASX07H1R/ASB07H1R" data-price="20790" checked><span>20</span></label>
+            <label class="size"><input type="radio" name="pr-area" value="25" data-model="ASX09H1R/ASB09H1R" data-price="22890"><span>25</span></label>
+            <label class="size"><input type="radio" name="pr-area" value="35" data-model="ASX12H1R/ASB12H1R" data-price="31190"><span>35</span></label>
+            <label class="size"><input type="radio" name="pr-area" value="50" data-model="ASX18H1R/ASB18H1R" data-price="51490"><span>50</span></label>
+            <label class="size"><input type="radio" name="pr-area" value="70" data-model="ASX24H1R/ASB24H1R" data-price="64690"><span>70</span></label>
+          </fieldset>
+
+          <p class="pr-buy__price" data-pr-price>20&nbsp;790&nbsp;₽</p>
+
+          <div class="pr-buy__perks">
+            <p class="pr-buy__perk">
+              <span class="icon icon--truck" aria-hidden="true"></span>
+              <span><strong>Бесплатная доставка</strong> по Перми при заказе от 20&nbsp;000&nbsp;₽</span>
+            </p>
+            <p class="pr-buy__perk">
+              <span class="icon icon--credit-card" aria-hidden="true"></span>
+              <span>Картой, по СБП, «Долями» или в рассрочку</span>
+            </p>
+          </div>
+
+          <div class="pr-buy__actions">
+            <button class="button button--primary button--lg" type="button" data-pr-cart>
+              <span class="icon icon--shopping-cart" aria-hidden="true"></span>
+              <span data-pr-cart-text>В корзину</span>
+            </button>
+            <button class="button button--outline button--lg" type="button" data-open-request data-pr-install>
+              <span class="icon icon--tool" aria-hidden="true"></span>
+              Заказать монтаж
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Монтаж -->
+      <div class="pr-install">
+        <h2 class="pr-install__title">Что входит в монтаж</h2>
+        <div class="pr-install__body">
+          <img class="pr-install__img" src="{{root}}img/photos/installation.webp" width="844" height="508"
+               alt="Монтажник устанавливает наружный блок на фасаде" loading="lazy">
+          <ul class="pr-install__list">
+            <li><span class="icon icon--check" aria-hidden="true"></span>Установка наружного и внутреннего блока</li>
+            <li><span class="icon icon--check" aria-hidden="true"></span>Отверстие в стене до 4&nbsp;см</li>
+            <li><span class="icon icon--check" aria-hidden="true"></span>Трасса и питание до 3&nbsp;м</li>
+            <li><span class="icon icon--check" aria-hidden="true"></span>Дренаж и кабель до 4&nbsp;м</li>
+            <li><span class="icon icon--check" aria-hidden="true"></span>Пусконаладка и показ режимов</li>
+          </ul>
+        </div>
+        <a class="text-link" href="{{root}}Installation/">Подробнее о монтаже</a>
+      </div>
+
+    </div>
+  </div>
+</section>

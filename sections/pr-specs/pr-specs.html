@@ -1,0 +1,71 @@
+<!-- ==========================================================================
+     Секция: Характеристики, доставка и оплата
+     Блок БЭМ: .pr-specs
+     Характеристики — как на странице товара текущего сайта. На WordPress
+     это атрибуты товара: группы «Основные» и «Технические» выводятся
+     циклом по ним.
+     ========================================================================== -->
+<section class="pr-specs" id="specs" aria-labelledby="specs-title">
+  <div class="container">
+    <h2 class="section-title" id="specs-title">Характеристики</h2>
+
+    <div class="pr-specs__layout">
+      <div class="pr-specs__groups">
+        <div class="pr-specs__group">
+          <h3 class="pr-specs__group-title">Основные</h3>
+          <dl class="pr-specs__list">
+            <div><dt>Бренд</dt><dd>Axioma</dd></div>
+            <div><dt>Серия</dt><dd>Серия H R32</dd></div>
+            <div><dt>Тип внутреннего блока</dt><dd>Настенный</dd></div>
+            <div><dt>Режимы работы</dt><dd>Охлаждение и обогрев</dd></div>
+            <div><dt>Инвертор</dt><dd>Нет</dd></div>
+            <div><dt>Хладагент</dt><dd>R32</dd></div>
+            <div><dt>Цвет</dt><dd>Белый</dd></div>
+            <div><dt>Страна производства</dt><dd>Китай</dd></div>
+          </dl>
+        </div>
+
+        <div class="pr-specs__group">
+          <h3 class="pr-specs__group-title">Технические</h3>
+          <dl class="pr-specs__list">
+            <div><dt>Потребляемая мощность, охлаждение</dt><dd>1,55&nbsp;кВт</dd></div>
+            <div><dt>Потребляемая мощность, обогрев</dt><dd>1,42&nbsp;кВт</dd></div>
+            <div><dt>Рабочие температуры, охлаждение</dt><dd>+15…+43&nbsp;°C</dd></div>
+            <div><dt>Рабочие температуры, обогрев</dt><dd>−7…+24&nbsp;°C</dd></div>
+            <div><dt>Уровень шума внутреннего блока</dt><dd>43&nbsp;/&nbsp;32&nbsp;дБ(А)</dd></div>
+            <div><dt>Трубопровод жидкости, Ø</dt><dd>6,35&nbsp;мм</dd></div>
+            <div><dt>Трубопровод газа, Ø</dt><dd>12,7&nbsp;мм</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <aside class="pr-specs__aside" aria-labelledby="delivery-title">
+        <h3 class="pr-specs__aside-title" id="delivery-title">Доставка и оплата</h3>
+        <ul class="pr-specs__terms">
+          <li>
+            <span class="pr-specs__term-icon"><span class="icon icon--truck" aria-hidden="true"></span></span>
+            <span>
+              <strong>Доставка за 1-3 дня</strong>
+              По Перми и области. Бесплатно по Перми при заказе от 20&nbsp;000&nbsp;₽, иначе 1&nbsp;000&nbsp;₽.
+            </span>
+          </li>
+          <li>
+            <span class="pr-specs__term-icon"><span class="icon icon--credit-card" aria-hidden="true"></span></span>
+            <span>
+              <strong>Оплата</strong>
+              Картой или по СБП онлайн, картой или наличными в офисе, по счёту. Доступны «Долями» и рассрочка от Т-Банка.
+            </span>
+          </li>
+          <li>
+            <span class="pr-specs__term-icon"><span class="icon icon--shield-check" aria-hidden="true"></span></span>
+            <span>
+              <strong>Гарантия и сервис</strong>
+              Официальная гарантия производителя. Обслуживание и ремонт в нашем сервисном центре.
+            </span>
+          </li>
+        </ul>
+        <a class="text-link" href="{{root}}dostavka-i-oplata/">Подробнее о доставке и оплате</a>
+      </aside>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,589 @@
+/* ==========================================================================
+   Секция: Карточка товара, первый экран
+   Раскладка по областям сетки:
+     десктоп  — галерея | заголовок и главное | покупка и монтаж
+     планшет  — заголовок сверху, галерея | покупка, главное | монтаж
+     телефон  — одна колонка: заголовок, фото, покупка, главное, монтаж
+   ========================================================================== */
+
+.pr-main {
+  padding-top: 20px;
+  padding-bottom: 64px;
+}
+
+.pr-main__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4.2fr) minmax(0, 3.4fr);
+  grid-template-areas:
+    "gallery head buy"
+    "gallery info buy"
+    "gallery info install";
+  align-items: start;
+  gap: 24px 32px;
+  margin-top: 16px;
+}
+
+.pr-head { grid-area: head; }
+.pr-gallery { grid-area: gallery; }
+.pr-info { grid-area: info; }
+.pr-buy { grid-area: buy; }
+.pr-install { grid-area: install; }
+
+/* --- Заголовок ----------------------------------------------------------- */
+.pr-head__title {
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.pr-head__subtitle {
+  margin-top: 8px;
+  font-size: 18px;
+  color: var(--color-muted);
+}
+
+.pr-head__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.pr-head__model {
+  overflow-wrap: anywhere;
+}
+
+.pr-head__brand {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-decoration-color: rgba(1, 68, 84, 0.35);
+  text-underline-offset: 3px;
+}
+
+.pr-head__brand:hover {
+  text-decoration-color: currentColor;
+}
+
+.pr-head__fav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-brand);
+}
+
+.pr-head__fav .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.pr-head__fav[aria-pressed="true"] {
+  color: var(--color-accent-hover);
+}
+
+/* Маска напрямую, а не через --icon: url() в переменной браузер может
+   разрешить относительно другого файла стилей */
+.pr-head__fav[aria-pressed="true"] .icon {
+  -webkit-mask-image: url("../../img/icons/heart-filled.svg");
+  mask-image: url("../../img/icons/heart-filled.svg");
+}
+
+/* --- Галерея ------------------------------------------------------------- */
+/* Липнет к верху, пока справа прокручивается описание */
+.pr-gallery {
+  position: sticky;
+  top: calc(var(--header-main-h) + 16px);
+}
+
+.pr-gallery__stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.pr-gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+
+.pr-gallery__image.is-changing {
+  animation: pr-gallery-fade 0.3s var(--ease);
+}
+
+@keyframes pr-gallery-fade {
+  from {
+    opacity: 0.2;
+  }
+}
+
+.pr-gallery__nav {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  color: var(--color-brand-dark);
+  box-shadow: var(--shadow);
+  transition: background-color var(--transition), transform 0.15s ease;
+}
+
+.pr-gallery__nav:hover {
+  background-color: var(--color-brand-soft);
+}
+
+.pr-gallery__nav:active {
+  transform: scale(0.94);
+}
+
+.pr-gallery__nav--prev { left: 16px; }
+.pr-gallery__nav--next { right: 16px; }
+
+.pr-gallery__zoom {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-brand-dark);
+  box-shadow: var(--shadow);
+  transition: background-color var(--transition);
+}
+
+.pr-gallery__zoom:hover {
+  background-color: var(--color-brand-soft);
+}
+
+.pr-gallery__thumbs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.pr-gallery__thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 4px;
+  border: 1.5px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background-color: #fff;
+  transition: border-color var(--transition);
+}
+
+.pr-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pr-gallery__thumb:hover {
+  border-color: #9fb6ba;
+}
+
+.pr-gallery__thumb[aria-current="true"] {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 1px var(--color-brand);
+}
+
+/* --- Увеличенное фото ---------------------------------------------------- */
+.lightbox {
+  width: min(1100px, calc(100% - 32px));
+  height: min(820px, calc(100dvh - 32px));
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.lightbox::backdrop {
+  background-color: rgba(1, 34, 42, 0.75);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox[open] {
+    animation: lightbox-in 0.3s var(--ease);
+  }
+}
+
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.lightbox__image {
+  width: 100%;
+  height: 100%;
+  padding: 48px 72px;
+  object-fit: contain;
+}
+
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-brand-tint);
+  color: var(--color-brand-dark);
+  transition: background-color var(--transition);
+}
+
+.lightbox__close:hover,
+.lightbox__nav:hover {
+  background-color: var(--color-brand-soft);
+}
+
+.lightbox__close {
+  top: 16px;
+  right: 16px;
+}
+
+.lightbox__nav {
+  top: 50%;
+  margin-top: -24px;
+}
+
+.lightbox__nav--prev { left: 16px; }
+.lightbox__nav--next { right: 16px; }
+
+.lightbox__counter {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: var(--color-brand-tint);
+  font-size: 14px;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Плитки характеристик ------------------------------------------------ */
+.pr-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.pr-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius);
+  background-color: var(--color-brand-tint);
+}
+
+.pr-feature__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  color: var(--color-brand);
+}
+
+.pr-feature__icon .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.pr-feature__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--color-muted);
+}
+
+.pr-feature__text strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.pr-about {
+  margin-top: 24px;
+}
+
+.pr-about__title {
+  font-size: 18px;
+}
+
+.pr-about__text {
+  margin-top: 8px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+/* --- Покупка ------------------------------------------------------------- */
+.pr-buy__card {
+  padding: 24px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+.pr-buy__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background-color: #e3f3ea;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+.pr-buy__status .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.pr-buy__sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.pr-buy__label {
+  width: 100%;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.pr-buy__price {
+  margin-top: 18px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-brand-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.pr-buy__perks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: var(--radius);
+  background-color: var(--color-brand-tint);
+}
+
+.pr-buy__perk {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.pr-buy__perk strong {
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.pr-buy__perk .icon {
+  margin-top: 1px;
+  color: var(--color-brand);
+}
+
+.pr-buy__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.pr-buy__actions .button {
+  width: 100%;
+}
+
+.pr-buy__actions .button.is-added {
+  background-color: var(--color-success);
+}
+
+/* --- Монтаж -------------------------------------------------------------- */
+.pr-install {
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-brand-soft);
+}
+
+.pr-install__title {
+  font-size: 18px;
+}
+
+.pr-install__body {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.pr-install__img {
+  width: 100%;
+  height: 100%;
+  min-height: 140px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  object-position: 30% center;
+}
+
+.pr-install__list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.pr-install__list li {
+  display: flex;
+  gap: 6px;
+}
+
+.pr-install__list .icon {
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  color: var(--color-brand);
+}
+
+/* На десктопе колонка узкая: фото над списком, а не сбоку */
+@media (min-width: 1181px) {
+  .pr-install__body {
+    grid-template-columns: 1fr;
+  }
+
+  .pr-install__img {
+    height: 120px;
+    min-height: 0;
+    object-position: center 40%;
+  }
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .pr-main__grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "head head"
+      "gallery buy"
+      "info install";
+  }
+
+  .pr-gallery {
+    position: static;
+  }
+}
+
+@media (max-width: 760px) {
+  .pr-main {
+    padding-bottom: 48px;
+  }
+
+  .pr-main__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "head"
+      "gallery"
+      "buy"
+      "info"
+      "install";
+    gap: 20px;
+  }
+
+  .pr-gallery__stage {
+    border-radius: var(--radius);
+  }
+
+  .pr-gallery__nav {
+    width: 38px;
+    height: 38px;
+    margin-top: -19px;
+  }
+
+  .pr-gallery__nav--prev { left: 10px; }
+  .pr-gallery__nav--next { right: 10px; }
+
+  .pr-gallery__zoom {
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .pr-buy__card {
+    padding: 20px;
+    box-shadow: none;
+  }
+
+  .pr-buy__price {
+    font-size: 32px;
+  }
+
+  .lightbox {
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+  }
+
+  .lightbox__image {
+    padding: 64px 12px;
+  }
+
+  .lightbox__nav {
+    top: auto;
+    bottom: 12px;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .pr-features {
+    grid-template-columns: 1fr;
+  }
+}
