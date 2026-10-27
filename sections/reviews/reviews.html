@@ -1,0 +1,111 @@
+<!-- ==========================================================================
+     Секция: Отзывы
+     Блок БЭМ: .reviews, отзыв .review
+     Лента прокручивается вбок, стрелки в app.js (initReviews).
+
+     ПРИМЕР ДЛЯ ВЁРСТКИ: тексты, имена и даты отзывов придуманы.
+     Перед запуском заменить реальными отзывами с Яндекс Карт, 2ГИС
+     и ВКонтакте (по ТЗ: HTML-отзывы, а не виджет). Оценки площадок
+     в шапке секции — с текущего сайта.
+     ========================================================================== -->
+<section class="reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="container">
+    <div class="reviews__head">
+      <div>
+        <h2 class="section-title" id="reviews-title">Отзывы клиентов</h2>
+        <p class="reviews__rating">
+          <span class="icon icon--star-filled" aria-hidden="true"></span>
+          4,8 на Яндекс Картах, 4,7 в 2ГИС, 5,0 во ВКонтакте
+        </p>
+      </div>
+      <div class="reviews__controls">
+        <button class="reviews__arrow" type="button" aria-label="Предыдущие отзывы" data-reviews-prev>
+          <span class="icon icon--chevron-left" aria-hidden="true"></span>
+        </button>
+        <button class="reviews__arrow" type="button" aria-label="Следующие отзывы" data-reviews-next>
+          <span class="icon icon--chevron-right" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+
+    <ul class="reviews__list" data-reviews-list tabindex="0" aria-label="Отзывы, прокручиваются вбок">
+      <li class="review">
+        <p class="review__stars" aria-label="Оценка 5 из 5">
+          <span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span>
+        </p>
+        <blockquote class="review__text">
+          <p>Помогли выбрать кондиционер в спальню, приехали на следующий день после оплаты. Монтажники работали аккуратно, за собой всё убрали.</p>
+        </blockquote>
+        <footer class="review__author">
+          <strong>Анастасия Миронова</strong>
+          <span>Яндекс Карты, сентябрь 2026</span>
+        </footer>
+      </li>
+      <li class="review">
+        <p class="review__stars" aria-label="Оценка 5 из 5">
+          <span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span>
+        </p>
+        <blockquote class="review__text">
+          <p>Ставили мультисплит на три комнаты в новой квартире. Трассы проложили до ремонта, сейчас ничего не видно. Всё объяснили по каждому пульту.</p>
+        </blockquote>
+        <footer class="review__author">
+          <strong>Дмитрий Шестаков</strong>
+          <span>2ГИС, август 2026</span>
+        </footer>
+      </li>
+      <li class="review">
+        <p class="review__stars" aria-label="Оценка 4 из 5">
+          <span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled review__star-off" aria-hidden="true"></span>
+        </p>
+        <blockquote class="review__text">
+          <p>Кондиционер хороший, монтаж качественный. Пришлось подождать пару дней, модели не было на складе, но менеджер сразу об этом предупредил.</p>
+        </blockquote>
+        <footer class="review__author">
+          <strong>Елена Корякина</strong>
+          <span>Яндекс Карты, июль 2026</span>
+        </footer>
+      </li>
+      <li class="review">
+        <p class="review__stars" aria-label="Оценка 5 из 5">
+          <span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span>
+        </p>
+        <blockquote class="review__text">
+          <p>Заказывали чистку двух кондиционеров перед летом. Приехали в оговорённое время, показали, что было внутри фильтров. Теперь обращаемся каждый год.</p>
+        </blockquote>
+        <footer class="review__author">
+          <strong>Игорь Вагапов</strong>
+          <span>ВКонтакте, май 2026</span>
+        </footer>
+      </li>
+      <li class="review">
+        <p class="review__stars" aria-label="Оценка 5 из 5">
+          <span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span>
+        </p>
+        <blockquote class="review__text">
+          <p>Нужно было охладить небольшой офис. Предложили два варианта по цене, подобрали по площади, установили в выходной, чтобы не мешать работе.</p>
+        </blockquote>
+        <footer class="review__author">
+          <strong>Ольга Пермякова</strong>
+          <span>2ГИС, апрель 2026</span>
+        </footer>
+      </li>
+      <li class="review">
+        <p class="review__stars" aria-label="Оценка 5 из 5">
+          <span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span>
+        </p>
+        <blockquote class="review__text">
+          <p>Купили кондиционер в рассрочку, оформили прямо в офисе за полчаса. Монтаж в тот же день, работает тихо.</p>
+        </blockquote>
+        <footer class="review__author">
+          <strong>Руслан Габдуллин</strong>
+          <span>Яндекс Карты, март 2026</span>
+        </footer>
+      </li>
+    </ul>
+
+    <div class="reviews__links">
+      <a class="text-link" href="https://yandex.ru/profile/76776545967" target="_blank" rel="noopener noreferrer">Отзывы на Яндекс Картах</a>
+      <a class="text-link" href="https://2gis.ru/perm/geo/70000001112847418" target="_blank" rel="noopener noreferrer">Отзывы в 2ГИС</a>
+    </div>
+  </div>
+</section>

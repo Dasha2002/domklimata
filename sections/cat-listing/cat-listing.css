@@ -154,6 +154,22 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Цвет: кружок-образец перед названием */
+.check__label:has(.check__swatch) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check__swatch {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(1, 49, 61, 0.2);
+  border-radius: 50%;
+  background: var(--swatch);
+}
+
 /* Значение без товаров: видно, но выбрать нельзя */
 .check.is-empty {
   opacity: 0.45;
@@ -423,6 +439,17 @@
 
 .pagination__arrow[aria-disabled="true"] {
   opacity: 0.4;
+}
+
+/* Пропуск номеров между первой, текущей и последней страницей */
+.pagination__gap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 24px;
+  height: 44px;
+  padding-bottom: 10px;
+  color: var(--color-muted);
 }
 
 /* ==========================================================================

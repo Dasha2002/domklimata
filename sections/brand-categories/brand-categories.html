@@ -1,0 +1,40 @@
+<!-- ==========================================================================
+     Секция: Категории товаров бренда
+     Блок БЭМ: .brand-categories
+     Только категории, где у бренда есть товары, с их количеством.
+     Ссылки — каталог с фильтром бренда (и типа блока внутри категории):
+       /catalog/?category=polupromishlennie_konditsioneri&brand=Midea&unit=cassette
+     Количество — снимок каталога в вёрстке, на WordPress считается запросом.
+     ========================================================================== -->
+<section class="brand-categories" aria-labelledby="brand-categories-title">
+  <div class="container">
+    <h2 class="section-title" id="brand-categories-title">Оборудование Midea в каталоге</h2>
+
+    <ul class="brand-categories__list">
+      <li class="brand-category">
+        <img class="brand-category__img" src="{{root}}img/categories/commercial.webp" width="160" height="160" alt="" loading="lazy">
+        <div class="brand-category__body">
+          <h3 class="brand-category__title">
+            <a href="{{root}}catalog/?category=polupromishlennie_konditsioneri&amp;brand=Midea">Полупромышленные кондиционеры</a>
+          </h3>
+          <p class="brand-category__count">3 товара</p>
+          <p class="brand-category__text">Для офисов, магазинов, кафе и больших помещений до 160&nbsp;м².</p>
+          <ul class="brand-category__subs" aria-label="Типы внутреннего блока">
+            <li><a href="{{root}}catalog/?category=polupromishlennie_konditsioneri&amp;brand=Midea&amp;unit=cassette">Кассетные <span>2</span></a></li>
+            <li><a href="{{root}}catalog/?category=polupromishlennie_konditsioneri&amp;brand=Midea&amp;unit=duct">Канальные <span>1</span></a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="brand-category">
+        <img class="brand-category__img" src="{{root}}img/products/mppha_07crn7_q.webp" width="640" height="480" alt="" loading="lazy">
+        <div class="brand-category__body">
+          <h3 class="brand-category__title">
+            <a href="{{root}}catalog/?category=mobilnie_konditsioneri&amp;brand=Midea">Мобильные кондиционеры</a>
+          </h3>
+          <p class="brand-category__count">2 товара</p>
+          <p class="brand-category__text">Без монтажа: для съёмной квартиры, дачи или помещения, где нельзя повесить наружный блок.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>

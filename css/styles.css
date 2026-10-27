@@ -16,6 +16,7 @@
 @import url("breadcrumbs.css");
 @import url("product-card.css");
 @import url("password.css");
+@import url("socials.css");
 
 /* --- Общие секции всех страниц ------------------------------------------- */
 @import url("../sections/header/header.css");
@@ -32,6 +33,12 @@
 @import url("../sections/brands/brands.css");
 @import url("../sections/faq/faq.css");
 @import url("../sections/cta/cta.css");
+@import url("../sections/page-request/page-request.css");
+@import url("../sections/popular/popular.css");
+@import url("../sections/projects/projects.css");
+@import url("../sections/reviews/reviews.css");
+@import url("../sections/articles/articles.css");
+@import url("../sections/contacts/contacts.css");
 
 /* --- Каталог (/catalog/) ------------------------------------------------- */
 /* Одна страница на весь каталог: категория и фильтры — параметры адреса
@@ -41,8 +48,18 @@
 
 /* --- Товар (/catalog/product/<слаг>/) ------------------------------------ */
 @import url("../sections/pr-main/pr-main.css");
+@import url("../sections/pr-desc/pr-desc.css");
 @import url("../sections/pr-specs/pr-specs.css");
+@import url("../sections/pr-reviews/pr-reviews.css");
 @import url("../sections/pr-similar/pr-similar.css");
+@import url("../sections/pr-articles/pr-articles.css");
+
+/* --- Бренд (/catalog/brands/<бренд>/) ----------------------------------- */
+@import url("../sections/brand-hero/brand-hero.css");
+@import url("../sections/brand-categories/brand-categories.css");
+@import url("../sections/brand-products/brand-products.css");
+@import url("../sections/brand-about/brand-about.css");
+@import url("../sections/brand-faq/brand-faq.css");
 
 /* --- Корзина и оформление (/cart/) --------------------------------------- */
 @import url("../sections/cart/cart.css");

@@ -5,7 +5,7 @@
      Поведение в app.js: initAccount.
 
      Показывается после входа на том же адресе /personal/profile/.
-     Вкладка — параметр адреса ?section=personal|work|orders (по умолчанию
+     Вкладка — параметр адреса ?section=personal|work|orders|favorites (по умолчанию
      регистрационная информация), ссылкой можно открыть нужный раздел.
 
      Значения полей и заказы — пример для вёрстки. На WordPress поля
@@ -55,6 +55,12 @@
           <span class="icon icon--package" aria-hidden="true"></span>
           История заказов
           <span class="account__tab-count">2</span>
+        </button>
+        <button class="account__tab" type="button" role="tab" id="account-tab-favorites"
+                aria-controls="account-panel-favorites" aria-selected="false" tabindex="-1" data-account-tab="favorites">
+          <span class="icon icon--heart" aria-hidden="true"></span>
+          Избранное
+          <span class="account__tab-count" data-favorites-count hidden></span>
         </button>
       </div>
 
@@ -386,6 +392,45 @@
             <span class="account-empty__icon"><span class="icon icon--package" aria-hidden="true"></span></span>
             <p class="account-empty__title">Заказов пока нет</p>
             <p class="account-empty__text">Здесь появятся заказы, оформленные с этого аккаунта.</p>
+            <a class="button button--primary" href="{{root}}catalog/">Перейти в каталог</a>
+          </div>
+        </section>
+
+        <!-- Избранное. В вёрстке список собирает app.js (initAccountFavorites)
+             из localStorage по шаблону ниже; сердечки ставятся в карточках
+             каталога и на странице товара. На WordPress сервер выводит эту же
+             разметку .favorites из избранного пользователя -->
+        <section class="account-panel" role="tabpanel" id="account-panel-favorites"
+                 aria-labelledby="account-tab-favorites" data-account-panel="favorites" hidden>
+          <div class="account-panel__head">
+            <h2 class="account-panel__title">Избранное</h2>
+            <p class="account-panel__meta" data-favorites-meta>Товары, отмеченные сердечком в каталоге</p>
+          </div>
+
+          <ul class="favorites" data-favorites-list></ul>
+
+          <template data-favorite-template>
+            <li class="product-mini">
+              <a class="product-mini__media" href="" tabindex="-1" aria-hidden="true" data-favorite-link>
+                <img src="" width="640" height="480" alt="" loading="lazy" data-favorite-img>
+              </a>
+              <div class="product-mini__body">
+                <h3 class="product-mini__title"><a href="" data-favorite-link data-favorite-title></a></h3>
+                <p class="product-mini__meta" data-favorite-meta></p>
+                <div class="product-mini__bottom">
+                  <p class="product-mini__price" data-favorite-price></p>
+                  <button class="product-mini__cart" type="button" data-favorite-remove>
+                    <span class="icon icon--trash" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </template>
+
+          <div class="account-empty" data-favorites-empty hidden>
+            <span class="account-empty__icon"><span class="icon icon--heart" aria-hidden="true"></span></span>
+            <p class="account-empty__title">В избранном пока пусто</p>
+            <p class="account-empty__text">Отмечайте товары сердечком в каталоге, чтобы вернуться к ним позже.</p>
             <a class="button button--primary" href="{{root}}catalog/">Перейти в каталог</a>
           </div>
         </section>

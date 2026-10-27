@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Секция: Заявка на внутренних страницах (.cta--page)
+   Основа — блок .cta (sections/cta/cta.css). Форма здесь длиннее, чем
+   на главной (e-mail, тип помещения), поэтому колонка формы шире,
+   а телефон и e-mail стоят в одну строку (.request-form__row)
+   ========================================================================== */
+
+.cta--page .cta__panel {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: start;
+  gap: 48px;
+}
+
+@media (max-width: 1024px) {
+  .cta--page .cta__panel {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

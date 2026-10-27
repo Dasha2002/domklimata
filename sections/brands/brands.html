@@ -3,6 +3,8 @@
      Блок БЭМ: .brands
      Бегущая лента: app.js (initMarquee) дублирует список для бесшовного
      цикла. При prefers-reduced-motion лента стоит, логотипы переносятся.
+     Логотип ведёт на страницу бренда (/catalog/brands/<бренд>/). Пока
+     свёрстан шаблон Midea, остальные ведут в каталог с фильтром ?brand=.
      ========================================================================== -->
 <section class="brands" aria-labelledby="brands-title">
   <div class="container">
@@ -12,14 +14,14 @@
 
   <div class="brands__marquee" data-marquee>
     <ul class="brands__track">
-      <li class="brands__item"><img src="{{root}}img/brands/daikin.webp" width="360" height="128" alt="Daikin" loading="lazy"></li>
-      <li class="brands__item"><img src="{{root}}img/brands/midea.webp" width="360" height="128" alt="Midea" loading="lazy"></li>
-      <li class="brands__item"><img src="{{root}}img/brands/haier.webp" width="360" height="128" alt="Haier" loading="lazy"></li>
-      <li class="brands__item"><img src="{{root}}img/brands/axioma.webp" width="360" height="128" alt="Axioma" loading="lazy"></li>
-      <li class="brands__item"><img src="{{root}}img/brands/lessar.webp" width="360" height="128" alt="Lessar" loading="lazy"></li>
-      <li class="brands__item"><img src="{{root}}img/brands/kentatsu.webp" width="360" height="128" alt="Kentatsu" loading="lazy"></li>
-      <li class="brands__item"><img src="{{root}}img/brands/daichi.webp" width="360" height="128" alt="Daichi" loading="lazy"></li>
-      <li class="brands__item"><img src="{{root}}img/brands/royalclima.webp" width="360" height="128" alt="Royal Clima" loading="lazy"></li>
+      <li class="brands__item"><a href="{{root}}catalog/?brand=Daikin" aria-label="Daikin: товары бренда"><img src="{{root}}img/brands/daikin.webp" width="360" height="128" alt="Daikin" loading="lazy"></a></li>
+      <li class="brands__item"><a href="{{root}}catalog/brands/midea/" aria-label="Midea: страница бренда"><img src="{{root}}img/brands/midea.webp" width="360" height="128" alt="Midea" loading="lazy"></a></li>
+      <li class="brands__item"><a href="{{root}}catalog/?brand=Haier" aria-label="Haier: товары бренда"><img src="{{root}}img/brands/haier.webp" width="360" height="128" alt="Haier" loading="lazy"></a></li>
+      <li class="brands__item"><a href="{{root}}catalog/?brand=Axioma" aria-label="Axioma: товары бренда"><img src="{{root}}img/brands/axioma.webp" width="360" height="128" alt="Axioma" loading="lazy"></a></li>
+      <li class="brands__item"><a href="{{root}}catalog/?brand=Lessar" aria-label="Lessar: товары бренда"><img src="{{root}}img/brands/lessar.webp" width="360" height="128" alt="Lessar" loading="lazy"></a></li>
+      <li class="brands__item"><a href="{{root}}catalog/?brand=Kentatsu" aria-label="Kentatsu: товары бренда"><img src="{{root}}img/brands/kentatsu.webp" width="360" height="128" alt="Kentatsu" loading="lazy"></a></li>
+      <li class="brands__item"><a href="{{root}}catalog/?brand=Daichi" aria-label="Daichi: товары бренда"><img src="{{root}}img/brands/daichi.webp" width="360" height="128" alt="Daichi" loading="lazy"></a></li>
+      <li class="brands__item"><a href="{{root}}catalog/?brand=Royal%20Clima" aria-label="Royal Clima: товары бренда"><img src="{{root}}img/brands/royalclima.webp" width="360" height="128" alt="Royal Clima" loading="lazy"></a></li>
     </ul>
   </div>
 </section>

@@ -1,0 +1,73 @@
+<!-- ==========================================================================
+     Секция: Описание модели и «Для какого помещения подходит»
+     Блок БЭМ: .pr-desc, навигация по странице .pr-nav
+     Текст описания на WordPress — описание товара (the_content) или серии.
+     Подсказка о помещении берётся из data-room выбранной модификации
+     (радиокнопки .pr-buy__sizes), её подставляет app.js (initProductPage).
+     ========================================================================== -->
+<section class="pr-desc" id="description" aria-labelledby="desc-title">
+  <div class="container">
+
+    <!-- Быстрые переходы по длинной странице товара -->
+    <nav class="pr-nav" aria-label="Разделы страницы товара">
+      <ul class="pr-nav__list">
+        <li><a class="pr-nav__link" href="#description">Описание</a></li>
+        <li><a class="pr-nav__link" href="#specs">Характеристики</a></li>
+        <li><a class="pr-nav__link" href="#product-reviews">Отзывы <span class="pr-nav__count">3</span></a></li>
+        <li><a class="pr-nav__link" href="#product-faq">Вопросы</a></li>
+        <li><a class="pr-nav__link" href="#similar">Похожие товары</a></li>
+      </ul>
+    </nav>
+
+    <div class="pr-desc__layout">
+      <div class="pr-desc__text">
+        <h2 class="section-title" id="desc-title">Описание</h2>
+        <div class="pr-desc__copy">
+          <p>
+            Axioma серии H&nbsp;— настенная сплит-система для квартиры, дома
+            или небольшого офиса. Летом охлаждает, а в межсезонье подогревает
+            воздух, пока не включили отопление.
+          </p>
+          <p>
+            Модель работает на фреоне R32: он переносит тепло эффективнее
+            привычного R410A и меньше вредит климату. Компрессор неинверторный:
+            кондиционер включается и выключается, удерживая заданную температуру.
+            Такая техника дешевле инверторной и проще в ремонте, поэтому её
+            берут в спальню, на дачу и в помещения, где кондиционер нужен
+            только летом.
+          </p>
+          <p>
+            Внутренний блок на тихой скорости шумит от 32&nbsp;дБ(А)&nbsp;— это
+            уровень шёпота, спать не мешает. Серия выпускается в пяти
+            типоразмерах, от 20 до 70&nbsp;м², поэтому одинаковые кондиционеры
+            можно поставить во все комнаты.
+          </p>
+          <p>
+            Нужен кондиционер для обогрева зимой? Посмотрите инверторную версию
+            <a href="{{root}}catalog/product/asx07h1r/">Axioma Серия H inverter R32</a>:
+            она греет при более низкой температуре на улице.
+          </p>
+        </div>
+      </div>
+
+      <aside class="pr-room" aria-labelledby="room-title">
+        <span class="pr-room__icon"><span class="icon icon--home" aria-hidden="true"></span></span>
+        <h2 class="pr-room__title" id="room-title">Для какого помещения подходит</h2>
+        <p class="pr-room__lead" aria-live="polite">
+          Подходит для <span data-pr-room>спальни, кабинета или небольшой комнаты</span>
+          площадью до&nbsp;<span data-pr-area>20</span>&nbsp;м².
+        </p>
+        <p class="pr-room__note">
+          Площадь рассчитана на потолки до 3&nbsp;м. Если окна выходят на
+          солнечную сторону или в комнате много техники и людей, берите модель
+          на ступень мощнее.
+        </p>
+        <button class="button button--outline pr-room__button" type="button" data-open-request
+                data-request-comment="Подбор кондиционера по замерам: Axioma Серия H R32.">
+          <span class="icon icon--ruler-measure" aria-hidden="true"></span>
+          Подобрать по замерам
+        </button>
+      </aside>
+    </div>
+  </div>
+</section>

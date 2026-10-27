@@ -2,8 +2,8 @@
    Секция: Подбор оборудования
    ========================================================================== */
 
+/* Подбор идёт после категорий: их нижнего отступа достаточно */
 .selection {
-  padding-top: calc(var(--section-y) * 0.75);
   padding-bottom: var(--section-y);
 }
 
@@ -326,5 +326,55 @@
 
   .selection__actions .button {
     width: 100%;
+  }
+}
+
+/* --- Диапазоны площади из ТЗ: ссылки на фильтр каталога ------------------ */
+.selection__areas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 20px;
+}
+
+.selection__areas-title {
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.selection__areas-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.selection__area {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1.5px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: border-color var(--transition), background-color var(--transition), color var(--transition);
+}
+
+.selection__area:hover {
+  border-color: var(--color-brand);
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .selection__areas {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .selection__area {
+    padding: 0 14px;
   }
 }

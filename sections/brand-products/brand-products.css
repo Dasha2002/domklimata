@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Секция: Товары бренда
+   Сетка карточек — общая .product-grid (css/product-card.css)
+   ========================================================================== */
+
+.brand-products {
+  padding-bottom: var(--section-y);
+}
+
+.brand-products__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 640px) {
+  .brand-products__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+}

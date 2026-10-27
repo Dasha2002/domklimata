@@ -406,6 +406,24 @@
   color: var(--color-muted);
 }
 
+/* «Полный каталог» в меню «Каталог» и в меню бургера — главная кнопка, как button--primary */
+.catalog-menu__item--all {
+  background-color: var(--color-brand);
+}
+
+.catalog-menu__item--all:hover {
+  background-color: var(--color-brand-dark);
+}
+
+.catalog-menu__item--all .catalog-menu__icon,
+.catalog-menu__item--all strong {
+  color: #fff;
+}
+
+.catalog-menu__item--all small {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 .catalog-menu__aside {
   align-self: start;
   display: flex;
@@ -440,7 +458,8 @@
 .mobile-menu__nav a:hover { color: var(--color-brand); text-decoration: underline; text-underline-offset: 4px; }
 .mobile-menu__contacts { display: flex; flex-direction: column; gap: 12px; color: var(--color-muted); }
 .mobile-menu__phone { font-size: 20px; font-weight: 700; color: var(--color-brand-dark); }
-.mobile-menu__contacts .button { margin-top: 12px; align-self: flex-start; color: var(--color-brand-dark); }
+.mobile-menu__contacts .button { margin-top: 12px; align-self: flex-start; }
+.mobile-menu__socials { margin-top: 4px; }
 
 /* Каталог в меню: карточки с картинками из выпадающего «Каталога».
    Отступ слева компенсирует внутренний padding карточки, чтобы картинки
@@ -451,6 +470,12 @@
 
 .mobile-menu__categories {
   margin-left: -12px;
+}
+
+/* У залитой кнопки «Полный каталог» фон виден, поэтому сдвиг списка
+   ей возвращаем: левый край вровень с контейнером */
+.mobile-menu__categories .catalog-menu__item--all {
+  margin-left: 12px;
 }
 @media (prefers-reduced-motion: no-preference) {
  .mobile-menu:not([hidden]) .mobile-menu__inner { animation: navigation-in 0.25s var(--ease); }
@@ -498,6 +523,12 @@
   .mobile-menu__categories .catalog-menu__item strong {
     font-size: 17px;
     font-weight: 500;
+  }
+
+  /* «Полный каталог» — кнопка по ширине текста, а не во всю строку */
+  .mobile-menu__categories .catalog-menu__item--all {
+    display: inline-flex;
+    padding-right: 20px;
   }
 
   .mobile-menu__categories .catalog-menu__item small {

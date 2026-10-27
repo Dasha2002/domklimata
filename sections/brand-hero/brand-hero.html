@@ -1,0 +1,54 @@
+<!-- ==========================================================================
+     Секция: Первый экран страницы бренда (/catalog/brands/<бренд>/)
+     Блок БЭМ: .brand-hero
+     Крошки, логотип, H1, короткое описание, факты о бренде, кнопки
+     и сертификат дилера (если есть).
+     На WordPress — шаблон таксономии бренда (pa_brand или product_brand):
+     логотип, описание и факты — поля термина, сертификат — поле-картинка.
+     Факты о Midea — из открытых данных компании (midea.com).
+     ========================================================================== -->
+<section class="brand-hero" aria-labelledby="brand-title">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <ol class="breadcrumbs__list">
+        <li class="breadcrumbs__item"><a href="{{root}}index.html">Главная</a></li>
+        <li class="breadcrumbs__item"><a href="{{root}}catalog/">Каталог</a></li>
+        <li class="breadcrumbs__item" aria-current="page">Midea</li>
+      </ol>
+    </nav>
+
+    <div class="brand-hero__panel">
+      <div class="brand-hero__content">
+        <img class="brand-hero__logo" src="{{root}}img/brands/midea.webp" width="360" height="128" alt="Midea">
+        <h1 class="brand-hero__title" id="brand-title">Кондиционеры Midea в&nbsp;Перми</h1>
+        <p class="brand-hero__text">
+          Midea&nbsp;— один из крупнейших в мире производителей климатической
+          техники. Продаём полупромышленные и мобильные кондиционеры бренда,
+          устанавливаем и обслуживаем их в своём сервисном центре.
+        </p>
+
+        <dl class="brand-hero__facts">
+          <div><dt>с 1968</dt><dd>история компании</dd></div>
+          <div><dt>с 1985</dt><dd>выпускает кондиционеры</dd></div>
+          <div><dt>Дилер</dt><dd>официальный, с сертификатом</dd></div>
+        </dl>
+
+        <div class="brand-hero__actions">
+          <a class="button button--primary button--lg" href="{{root}}catalog/?brand=Midea">Все товары Midea</a>
+          <button class="button button--outline button--lg" type="button" data-open-request
+                  data-request-comment="Подбор оборудования Midea.">Подобрать модель</button>
+        </div>
+      </div>
+
+      <!-- Сертификат дилера: клик открывает его в полном размере -->
+      <a class="brand-hero__certificate" href="{{root}}img/content/certificate-21.webp" target="_blank" rel="noopener">
+        <img src="{{root}}img/content/certificate-21.webp" width="1320" height="912"
+             alt="Сертификат официального дилера климатического оборудования Midea" fetchpriority="high">
+        <span class="brand-hero__certificate-caption">
+          <span class="icon icon--shield-check" aria-hidden="true"></span>
+          Официальный дилер Midea в Перми
+        </span>
+      </a>
+    </div>
+  </div>
+</section>

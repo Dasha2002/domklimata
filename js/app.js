@@ -9,8 +9,6 @@ document.addEventListener('sections:loaded', function () {
   initMobileMenu();
   initCatalogMenu();
   initSearchSuggest();
-  initHeroSlider();
-  initSmoothDetails();
   initSelection();
   initRequestModal();
   initPhoneMask();
@@ -23,169 +21,18 @@ document.addEventListener('sections:loaded', function () {
   initDetailsAnimation();
   initGallery();
   initProductPage();
+  initProductReviews();
   initMiniCart();
   initCart();
   initPasswordToggles();
+  // Избранное раньше входа: счётчик на вкладке должен быть до того,
+  // как лента вкладок подкрутится к активной
+  initAccountFavorites();
   initAuth();
+  initReviews();
 });
 
 var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-/* Первый экран: горизонтальная прокрутка, автосмена и свайпы. */
-function initHeroSlider() {
-  var hero = document.querySelector('.hero');
-  if (!hero || hero.dataset.initialized) return;
-  hero.dataset.initialized = 'true';
-  var slides = Array.from(hero.querySelectorAll('.hero__slide'));
-  var track = hero.querySelector('.hero__track');
-  var viewport = hero.querySelector('.hero__slides');
-  var current = 0;
-  var timer;
-  var paused = reducedMotion.matches;
-  var hovered = false;
-  var inView = true;
-  var touchStart = null;
-
-  function schedule() {
-    window.clearTimeout(timer);
-    if (!paused && !hovered && inView && !document.hidden && !hero.querySelector('.hero__content:focus-within')) {
-      timer = window.setTimeout(function () { show(current + 1, false); }, 7000);
-    }
-  }
-
-  function show(index, announce) {
-    current = (index + slides.length) % slides.length;
-    slides.forEach(function (slide, i) {
-      var active = i === current;
-      slide.classList.toggle('is-active', active);
-      slide.setAttribute('aria-hidden', String(!active));
-      slide.inert = !active;
-
-    });
-    track.style.transform = 'translateX(-' + current * 100 + '%)';
-    if (announce) hero.querySelector('[data-hero-status]').textContent = slides[current].getAttribute('aria-label');
-    schedule();
-  }
-
-  function select(index) { show(index, true); }
-  hero.querySelector('.hero__arrow--prev').addEventListener('click', function () { select(current - 1); });
-  hero.querySelector('.hero__arrow--next').addEventListener('click', function () { select(current + 1); });
-  hero.querySelectorAll('.hero__content').forEach(function (content) {
-    content.addEventListener('mouseenter', function () { hovered = true; schedule(); });
-    content.addEventListener('mouseleave', function () { hovered = false; schedule(); });
-  });
-  hero.addEventListener('focusin', schedule);
-  hero.addEventListener('focusout', function () { window.setTimeout(schedule, 0); });
-  hero.addEventListener('keydown', function (event) {
-    if (event.target.closest('input, textarea, select')) return;
-    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-    event.preventDefault();
-    if (viewport.contains(document.activeElement)) hero.querySelector('.hero__arrow--next').focus();
-    select(current + (event.key === 'ArrowRight' ? 1 : -1));
-  });
-  viewport.addEventListener('touchstart', function (event) {
-    touchStart = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
-    window.clearTimeout(timer);
-  }, { passive: true });
-  viewport.addEventListener('touchend', function (event) {
-    if (!touchStart) return;
-    var dx = event.changedTouches[0].clientX - touchStart.x;
-    var dy = event.changedTouches[0].clientY - touchStart.y;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) select(current + (dx < 0 ? 1 : -1));
-    else schedule();
-    touchStart = null;
-  }, { passive: true });
-  viewport.addEventListener('touchcancel', function () { touchStart = null; schedule(); }, { passive: true });
-  // Горизонтальный жест тачпада: один слайд за жест, без пролистывания инерцией.
-  var wheelDistance = 0;
-  var wheelLocked = false;
-  var wheelEnd;
-  viewport.addEventListener('wheel', function (event) {
-    if (event.ctrlKey || Math.abs(event.deltaX) <= Math.abs(event.deltaY) * 1.2) return;
-    event.preventDefault();
-    window.clearTimeout(wheelEnd);
-    wheelEnd = window.setTimeout(function () { wheelDistance = 0; wheelLocked = false; }, 180);
-    if (wheelLocked) return;
-    var multiplier = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? viewport.clientWidth : 1;
-    wheelDistance += event.deltaX * multiplier;
-    if (Math.abs(wheelDistance) >= 40) {
-      select(current + (wheelDistance > 0 ? 1 : -1));
-      wheelLocked = true;
-    }
-  }, { passive: false });
-  document.addEventListener('visibilitychange', schedule);
-  reducedMotion.addEventListener('change', function (event) {
-    paused = event.matches; schedule();
-  });
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) { inView = entries[0].isIntersecting; schedule(); }).observe(hero);
-  }
-  hero.querySelector('.hero__controls').hidden = false;
-  schedule();
-}
-
-/* Плавное раскрытие с поддержкой быстрых повторных нажатий и групп details. */
-function initSmoothDetails() {
-  var items = Array.from(document.querySelectorAll('.page-details, .faq__item')).map(function (element) {
-    var item = {
-      element: element,
-      summary: element.querySelector('summary'),
-      body: element.querySelector('.page-details__body, .faq__answer'),
-      group: element.getAttribute('name'),
-      expanded: element.open,
-      animation: null
-    };
-    // JS управляет закрытием, чтобы нативная группа не обрывала анимацию.
-    element.removeAttribute('name');
-    item.summary.setAttribute('aria-expanded', String(item.expanded));
-    return item;
-  });
-
-  function expand(item, open) {
-    var element = item.element;
-    var start = element.getBoundingClientRect().height;
-    if (item.animation) {
-      item.animation.onfinish = null;
-      item.animation.cancel();
-    }
-    item.expanded = open;
-    item.summary.setAttribute('aria-expanded', String(open));
-    item.body.inert = !open;
-    element.classList.toggle('is-collapsing', !open);
-    function finish() {
-      element.open = open;
-      element.style.height = '';
-      element.style.overflow = '';
-      element.classList.remove('is-collapsing');
-      item.animation = null;
-    }
-    if (reducedMotion.matches || !element.animate) { finish(); return; }
-    element.style.height = start + 'px';
-    element.style.overflow = 'hidden';
-    element.open = true;
-    var style = getComputedStyle(element);
-    var border = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
-    var end = item.summary.getBoundingClientRect().height + border;
-    if (open) end += item.body.getBoundingClientRect().height;
-    item.animation = element.animate([{ height: start + 'px' }, { height: end + 'px' }], {
-      duration: 420, easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
-    });
-    item.animation.onfinish = finish;
-  }
-
-  items.forEach(function (item) {
-    item.summary.addEventListener('click', function (event) {
-      event.preventDefault();
-      var open = !item.expanded;
-      if (open && item.group) {
-        items.forEach(function (other) {
-          if (other !== item && other.group === item.group && other.expanded) expand(other, false);
-        });
-      }
-      expand(item, open);
-    });
-  });
-}
 
 /* ==========================================================================
    Анимации раскрытия
@@ -199,7 +46,8 @@ function canAnimate(el) {
 }
 
 /**
- * Плавное раскрытие <details> (FAQ, группы фильтров): высота самого
+ * Плавное раскрытие <details> (FAQ, группы фильтров, аккордеоны
+ * внутренних страниц .page-details): высота самого
  * details от закрытой до полной, содержимое проявляется со сдвигом.
  * CSS-переходом это не сделать: высоту details в Safari и Firefox
  * не анимировать.
@@ -210,7 +58,7 @@ function canAnimate(el) {
  * поворачивает иконку обратно, не дожидаясь конца анимации.
  */
 function initDetailsAnimation() {
-  document.querySelectorAll('.faq__item, .filters__group, .cart-summary__promo, .order__details').forEach(function (details) {
+  document.querySelectorAll('.faq__item, .page-details, .filters__group, .cart-summary__promo, .order__details').forEach(function (details) {
     var summary = details.querySelector('summary');
     var content = summary.nextElementSibling;
     var group = details.getAttribute('name');
@@ -874,6 +722,7 @@ function initMarquee() {
     var copy = track.cloneNode(true);
     copy.setAttribute('aria-hidden', 'true');
     copy.querySelectorAll('img').forEach(function (img) { img.alt = ''; });
+    copy.querySelectorAll('a').forEach(function (link) { link.tabIndex = -1; });
     marquee.appendChild(copy);
     marquee.classList.add('is-running');
   });
@@ -991,11 +840,7 @@ function initProductCards() {
       ask.setAttribute('data-request-comment', 'Узнать цену: ' + title + ', ' + model.textContent + '.');
     }
 
-    card.querySelector('.product-card__fav').addEventListener('click', function () {
-      var isOn = this.getAttribute('aria-pressed') !== 'true';
-      this.setAttribute('aria-pressed', String(isOn));
-      this.setAttribute('aria-label', (isOn ? 'Убрать из избранного: ' : 'Добавить в избранное: ') + title);
-    });
+    initCardFavorite(card, title);
 
     // Корзина в вёрстке: счётчик в шапке и подтверждение на кнопке.
     // Повторный клик ведёт в корзину.
@@ -1009,6 +854,65 @@ function initProductCards() {
       cart.textContent = 'В корзине';
       updateCartCount(1);
     });
+  });
+}
+
+/* ==========================================================================
+   Избранное
+   В вёрстке — список в localStorage: { id, title, href, img, meta, price }.
+   id — название товара (на WordPress — id товара, список хранится
+   у пользователя или в cookie для гостя). Личный кабинет выводит его
+   во вкладке «Избранное» (initAccountFavorites).
+   ========================================================================== */
+
+var FAVORITES_KEY = 'dk-favorites';
+
+function readFavorites() {
+  try {
+    var list = JSON.parse(localStorage.getItem(FAVORITES_KEY));
+    return Array.isArray(list) ? list : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveFavorites(list) {
+  try { localStorage.setItem(FAVORITES_KEY, JSON.stringify(list)); } catch (e) { /* нет доступа */ }
+}
+
+function isFavorite(id) {
+  return readFavorites().some(function (item) { return item.id === id; });
+}
+
+// Добавить (item целиком) или убрать (по id). Свежее — в начале списка
+function setFavorite(item, isOn) {
+  var list = readFavorites().filter(function (entry) { return entry.id !== item.id; });
+  if (isOn) list.unshift(item);
+  saveFavorites(list);
+}
+
+// Сердечко карточки каталога: состояние из хранилища, клик сохраняет товар
+function initCardFavorite(card, title) {
+  var button = card.querySelector('.product-card__fav');
+
+  function render(isOn) {
+    button.setAttribute('aria-pressed', String(isOn));
+    button.setAttribute('aria-label', (isOn ? 'Убрать из избранного: ' : 'Добавить в избранное: ') + title);
+  }
+
+  render(isFavorite(title));
+  button.addEventListener('click', function () {
+    var isOn = button.getAttribute('aria-pressed') !== 'true';
+    var price = card.querySelector('[data-card-price]');
+    setFavorite({
+      id: title,
+      title: title,
+      href: card.querySelector('.product-card__title a').href,
+      img: card.querySelector('.product-card__media img').src,
+      meta: card.querySelector('[data-card-model]').textContent.trim(),
+      price: price ? price.textContent.trim() : ''
+    }, isOn);
+    render(isOn);
   });
 }
 
@@ -1043,8 +947,11 @@ function initCatalog() {
   var grid = document.querySelector('[data-product-grid]');
   if (!form || !grid) return;
 
-  var FILTERS = ['brand', 'area', 'inverter', 'stock'];
-  var GROUP_LABEL = { brand: '', area: 'Площадь', inverter: 'Инвертор', stock: '' };
+  var FILTERS = ['brand', 'area', 'unit', 'inverter', 'color', 'stock'];
+  var GROUP_LABEL = { brand: '', area: 'Площадь', unit: '', inverter: 'Инвертор', color: 'Цвет', stock: '' };
+  // Пагинация: ?page=2. Любая смена фильтров возвращает на первую страницу
+  var PER_PAGE = 9;
+  var page = 1;
 
   var panel = document.getElementById('catalog-filters');
   var cards = Array.prototype.slice.call(grid.children);
@@ -1052,7 +959,11 @@ function initCatalog() {
   var categoryInput = form.elements.category;
   var sortSelect = document.querySelector('[data-catalog-sort]');
   var empty = document.querySelector('[data-catalog-empty]');
-  var pagination = document.querySelector('.pagination');
+  var pagination = document.querySelector('[data-pagination]');
+  var pageList = pagination.querySelector('[data-pagination-list]');
+  var pagePrev = pagination.querySelector('[data-pagination-prev]');
+  var pageNext = pagination.querySelector('[data-pagination-next]');
+  var listing = document.getElementById('catalog-listing');
   var activeBox = document.querySelector('[data-active-filters]');
   var activeList = document.querySelector('[data-active-list]');
   var activeCount = document.querySelector('[data-active-count]');
@@ -1150,10 +1061,22 @@ function initCatalog() {
 
     var sort = params.get('sort');
     sortSelect.value = sortSelect.querySelector('option[value="' + sort + '"]') ? sort : 'default';
+
+    // Номер страницы: целое от 1, иначе первая. Больше последней — update() поправит
+    page = Math.max(1, parseInt(params.get('page'), 10) || 1);
   }
 
-  // Форма → адрес. Пустые поля и сортировка по умолчанию в адрес не попадают
+  // Форма → адрес. Пустые поля, сортировка по умолчанию и первая страница
+  // в адрес не попадают
   function writeUrl(push) {
+    var query = buildQuery(page);
+    var url = window.location.pathname + (query ? '?' + query : '');
+    if (url === window.location.pathname + window.location.search) return;
+    history[push ? 'pushState' : 'replaceState'](null, '', url);
+  }
+
+  // Параметры текущего набора с номером страницы: для адреса и ссылок пагинации
+  function buildQuery(pageNumber) {
     var params = new URLSearchParams();
     if (categoryInput.value) params.set('category', categoryInput.value);
     FILTERS.forEach(function (name) {
@@ -1165,11 +1088,8 @@ function initCatalog() {
       if (form.elements[name].value) params.set(name, form.elements[name].value);
     });
     if (sortSelect.value !== 'default') params.set('sort', sortSelect.value);
-
-    var query = params.toString();
-    var url = window.location.pathname + (query ? '?' + query : '');
-    if (url === window.location.pathname + window.location.search) return;
-    history[push ? 'pushState' : 'replaceState'](null, '', url);
+    if (pageNumber > 1) params.set('page', pageNumber);
+    return params.toString();
   }
 
   /* --- Отрисовка --------------------------------------------------------- */
@@ -1218,6 +1138,18 @@ function initCatalog() {
       catalogItem.textContent = 'Каталог';
       crumbs.appendChild(catalogItem);
     }
+  }
+
+  // Группа фильтра, у которой нет данных в категории, не нужна:
+  // у обогревателей нет инвертора и типа внутреннего блока
+  function renderGroups(state) {
+    FILTERS.forEach(function (name) {
+      var group = form.querySelector('input[name="' + name + '"]').closest('.filters__group');
+      group.hidden = !cards.some(function (card) {
+        if (state.category && card.getAttribute('data-category') !== state.category) return false;
+        return cardValues(card, name).length > 0;
+      });
+    });
   }
 
   // Сколько товаров даст каждое значение при остальных фильтрах
@@ -1286,6 +1218,7 @@ function initCatalog() {
       button.appendChild(icon);
       button.addEventListener('click', function () {
         item.clear();
+        page = 1;
         update();
         writeUrl(false);
       });
@@ -1342,15 +1275,20 @@ function initCatalog() {
 
   function update() {
     var state = readState();
-    var found = 0;
 
-    cards.forEach(function (card) {
-      var show = matches(card, state);
-      card.hidden = !show;
-      if (show) {
-        found++;
-        selectArea(card, state.groups.area);
-      }
+    // Подходящие карточки в порядке сортировки (как стоят в сетке)
+    var matched = Array.prototype.filter.call(grid.children, function (card) {
+      return matches(card, state);
+    });
+    var found = matched.length;
+    var pages = Math.max(1, Math.ceil(found / PER_PAGE));
+    page = Math.min(page, pages);
+    var from = (page - 1) * PER_PAGE;
+
+    cards.forEach(function (card) { card.hidden = true; });
+    matched.forEach(function (card, index) {
+      card.hidden = index < from || index >= from + PER_PAGE;
+      selectArea(card, state.groups.area);
     });
 
     var text = found + ' ' + plural(found, 'товар', 'товара', 'товаров');
@@ -1358,12 +1296,84 @@ function initCatalog() {
     empty.hidden = found !== 0;
     grid.hidden = found === 0;
 
+    renderGroups(state);
     renderCounts(state);
-    var activeTotal = renderActive(state);
-
-    // Пагинация в вёрстке относится к полному списку без фильтров
-    pagination.hidden = Boolean(state.category) || activeTotal > 0 || found === 0;
+    renderActive(state);
+    renderPagination(pages);
   }
+
+  /* --- Пагинация --------------------------------------------------------- */
+
+  function pageHref(number) {
+    var query = buildQuery(number);
+    return window.location.pathname + (query ? '?' + query : '');
+  }
+
+  // Номера: первая, последняя, текущая и соседние с ней; пропуски — «…»
+  function pageNumbers(pages) {
+    var numbers = [];
+    for (var n = 1; n <= pages; n++) {
+      if (n === 1 || n === pages || Math.abs(n - page) <= 1) numbers.push(n);
+      else if (numbers[numbers.length - 1] !== '…') numbers.push('…');
+    }
+    return numbers;
+  }
+
+  function setArrow(arrow, number, pages) {
+    var enabled = number >= 1 && number <= pages;
+    if (enabled) {
+      arrow.href = pageHref(number);
+      arrow.setAttribute('data-page', number);
+      arrow.removeAttribute('aria-disabled');
+    } else {
+      arrow.removeAttribute('href');
+      arrow.removeAttribute('data-page');
+      arrow.setAttribute('aria-disabled', 'true');
+    }
+  }
+
+  function renderPagination(pages) {
+    pagination.hidden = pages <= 1;
+    if (pages <= 1) return;
+
+    pageList.innerHTML = '';
+    pageNumbers(pages).forEach(function (number) {
+      var li = document.createElement('li');
+      if (number === '…') {
+        var gap = document.createElement('span');
+        gap.className = 'pagination__gap';
+        gap.textContent = '…';
+        li.appendChild(gap);
+      } else {
+        var link = document.createElement('a');
+        link.className = 'pagination__link';
+        link.href = pageHref(number);
+        link.textContent = number;
+        link.setAttribute('data-page', number);
+        link.setAttribute('aria-label', 'Страница ' + number);
+        if (number === page) link.setAttribute('aria-current', 'page');
+        li.appendChild(link);
+      }
+      pageList.appendChild(li);
+    });
+
+    setArrow(pagePrev, page - 1, pages);
+    setArrow(pageNext, page + 1, pages);
+  }
+
+  // Переход по странице: без перезагрузки, с записью в историю и подъёмом
+  // к началу списка. Клик с Ctrl/Cmd открывает ссылку как обычно
+  pagination.addEventListener('click', function (event) {
+    var link = event.target.closest('[data-page]');
+    if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) return;
+    event.preventDefault();
+    var number = Number(link.getAttribute('data-page'));
+    if (number === page) return;
+    page = number;
+    update();
+    writeUrl(true);
+    listing.scrollIntoView({ behavior: canAnimate(listing) ? 'smooth' : 'auto', block: 'start' });
+  });
 
   // Полная перерисовка из адреса: при загрузке и по «Назад» / «Вперёд»
   function fromUrl() {
@@ -1378,22 +1388,28 @@ function initCatalog() {
 
   form.addEventListener('change', function (event) {
     if (event.target === sortSelect) return;
+    page = 1;
     update();
     writeUrl(false);
   });
   form.addEventListener('input', function (event) {
     if (event.target.type !== 'number') return;
+    page = 1;
     update();
     writeUrl(false);
   });
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+    page = 1;
     update();
     writeUrl(false);
   });
 
+  // Сортировка меняет порядок, а значит и состав страниц: снова первая
   sortSelect.addEventListener('change', function () {
     sortCards();
+    page = 1;
+    update();
     writeUrl(false);
   });
 
@@ -1410,6 +1426,7 @@ function initCatalog() {
       form.reset();
       sortSelect.value = sort;
       categoryInput.value = category;
+      page = 1;
       restoreCards();
       renderCategory();
       update();
@@ -1427,6 +1444,7 @@ function initCatalog() {
       form.reset();
       categoryInput.value = category;
       sortSelect.value = sort;
+      page = 1;
       restoreCards();
       update();
       writeUrl(false);
@@ -1615,7 +1633,9 @@ function initProductPage() {
   var price = document.querySelector('[data-pr-price]');
   var cart = document.querySelector('[data-pr-cart]');
   var cartText = document.querySelector('[data-pr-cart-text]');
-  var install = document.querySelector('[data-pr-install]');
+  var installButtons = document.querySelectorAll('[data-pr-install]');
+  var installPrice = document.querySelector('[data-pr-install-price]');
+  var room = document.querySelector('[data-pr-room]');
   var fav = document.querySelector('[data-pr-fav]');
   var favText = document.querySelector('[data-pr-fav-text]');
 
@@ -1624,8 +1644,12 @@ function initProductPage() {
     document.querySelectorAll('[data-pr-model]').forEach(function (el) { el.textContent = model; });
     document.querySelectorAll('[data-pr-area]').forEach(function (el) { el.textContent = input.value; });
     price.textContent = formatPrice(input.getAttribute('data-price'));
-    install.setAttribute('data-request-comment',
-      'Монтаж: ' + title + ', ' + model + ' (' + input.value + ' м²).');
+    installButtons.forEach(function (button) {
+      button.setAttribute('data-request-comment',
+        'Монтаж: ' + title + ', ' + model + ' (' + input.value + ' м²).');
+    });
+    if (installPrice) installPrice.textContent = 'от ' + formatPrice(input.getAttribute('data-install'));
+    if (room) room.textContent = input.getAttribute('data-room');
 
     cart.classList.remove('is-added');
     cartText.textContent = 'В корзину';
@@ -1665,10 +1689,77 @@ function initProductPage() {
     updateCartCount(1);
   });
 
-  fav.addEventListener('click', function () {
-    var isOn = fav.getAttribute('aria-pressed') !== 'true';
+  // Избранное: тот же список, что у карточек каталога (id — название)
+  function renderFav(isOn) {
     fav.setAttribute('aria-pressed', String(isOn));
     favText.textContent = isOn ? 'В избранном' : 'В избранное';
+  }
+
+  renderFav(isFavorite(title));
+  fav.addEventListener('click', function () {
+    var isOn = fav.getAttribute('aria-pressed') !== 'true';
+    var checked = inputs.filter(function (input) { return input.checked; })[0];
+    setFavorite({
+      id: title,
+      title: title,
+      href: window.location.href,
+      img: document.querySelector('[data-gallery-main]').src,
+      meta: checked.getAttribute('data-model'),
+      price: price.textContent.trim()
+    }, isOn);
+    renderFav(isOn);
+  });
+}
+
+/**
+ * Отзыв о товаре: кнопка «Написать отзыв» раскрывает форму, проверка
+ * полей и сообщение «на модерации». На WordPress форма отправляет
+ * отзыв WooCommerce (комментарий к товару с оценкой).
+ */
+function initProductReviews() {
+  var toggle = document.querySelector('[data-review-toggle]');
+  var form = document.querySelector('[data-review-form]');
+  if (!toggle || !form) return;
+
+  var fields = form.querySelector('.review-form__fields');
+  var success = form.querySelector('.review-form__success');
+  var rating = form.querySelector('.review-form__rating');
+  var ratingError = document.getElementById('review-rating-error');
+
+  function setRatingError(isInvalid) {
+    rating.classList.toggle('is-invalid', isInvalid);
+    ratingError.hidden = !isInvalid;
+  }
+
+  toggle.addEventListener('click', function () {
+    var isOpen = toggle.getAttribute('aria-expanded') !== 'true';
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    slideToggle(form, isOpen);
+    if (isOpen) form.querySelector('input[name="rating"]').focus({ preventScroll: true });
+  });
+
+  form.addEventListener('change', function (event) {
+    if (event.target.name === 'rating') setRatingError(false);
+  });
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var invalid = validateForm(form, {
+      name: function (input) { return input.value.trim().length > 1; },
+      text: function (input) { return input.value.trim().length >= 10; },
+      consent: function (input) { return input.checked; }
+    });
+    // Оценка — группа радиокнопок, validateForm работает с одним полем
+    var hasRating = Boolean(form.querySelector('input[name="rating"]:checked'));
+    setRatingError(!hasRating);
+    if (!hasRating) form.querySelector('input[name="rating"]').focus();
+    if (invalid || !hasRating) return;
+
+    sendRequest(new FormData(form)).then(function () {
+      fields.hidden = true;
+      success.hidden = false;
+      toggle.hidden = true;
+    });
   });
 }
 
@@ -2248,6 +2339,13 @@ function initAuth() {
       tab.setAttribute('aria-selected', String(active));
       tab.tabIndex = active ? 0 : -1;
       if (active && focus) tab.focus();
+
+      // На узком экране вкладки — лента: подкручиваем её к активной
+      // (scrollLeft, чтобы не двигать саму страницу)
+      var nav = tab.parentNode;
+      if (active && nav.scrollWidth > nav.clientWidth) {
+        nav.scrollLeft += tab.getBoundingClientRect().left - nav.getBoundingClientRect().left - 8;
+      }
     });
     account.querySelectorAll('[data-account-panel]').forEach(function (panel) {
       panel.hidden = panel.getAttribute('data-account-panel') !== name;
@@ -2384,4 +2482,86 @@ function initAuth() {
   });
 
   render();
+}
+
+/* ==========================================================================
+   Отзывы на главной
+   ========================================================================== */
+
+/**
+ * Личный кабинет, вкладка «Избранное»: список из localStorage по шаблону,
+ * счётчик на вкладке, удаление, пустое состояние. Список обновляется,
+ * если избранное поменяли в другой вкладке браузера.
+ */
+function initAccountFavorites() {
+  var list = document.querySelector('[data-favorites-list]');
+  if (!list) return;
+
+  var template = document.querySelector('[data-favorite-template]');
+  var empty = document.querySelector('[data-favorites-empty]');
+  var count = document.querySelector('[data-favorites-count]');
+
+  function render() {
+    var items = readFavorites();
+    list.innerHTML = '';
+
+    items.forEach(function (item) {
+      var node = template.content.firstElementChild.cloneNode(true);
+      node.querySelectorAll('[data-favorite-link]').forEach(function (link) { link.href = item.href; });
+      node.querySelector('[data-favorite-img]').src = item.img;
+      node.querySelector('[data-favorite-title]').textContent = item.title;
+      node.querySelector('[data-favorite-meta]').textContent = item.meta;
+
+      // Цена или статус («Под заказ») — статус тише, как в карточке
+      var price = node.querySelector('[data-favorite-price]');
+      price.textContent = item.price;
+      price.classList.toggle('product-mini__price--none', !/\d/.test(item.price));
+
+      var remove = node.querySelector('[data-favorite-remove]');
+      remove.setAttribute('aria-label', 'Убрать из избранного: ' + item.title);
+      remove.addEventListener('click', function () {
+        setFavorite(item, false);
+        render();
+        // Фокус не теряется: на следующий товар или на ссылку в каталог
+        var next = list.querySelector('[data-favorite-remove]') || empty.querySelector('a');
+        next.focus();
+      });
+
+      list.appendChild(node);
+    });
+
+    list.hidden = items.length === 0;
+    empty.hidden = items.length !== 0;
+    count.hidden = items.length === 0;
+    count.textContent = items.length;
+  }
+
+  render();
+  window.addEventListener('storage', function (event) {
+    if (event.key === FAVORITES_KEY) render();
+  });
+}
+
+/**
+ * Стрелки ленты отзывов: прокрутка на ширину видимой части.
+ * Крайние стрелки гаснут. Сама лента листается и жестом / колесом.
+ */
+function initReviews() {
+  var list = document.querySelector('[data-reviews-list]');
+  if (!list) return;
+
+  var prev = document.querySelector('[data-reviews-prev]');
+  var next = document.querySelector('[data-reviews-next]');
+
+  function update() {
+    prev.disabled = list.scrollLeft <= 2;
+    next.disabled = list.scrollLeft + list.clientWidth >= list.scrollWidth - 2;
+  }
+
+  prev.addEventListener('click', function () { list.scrollBy({ left: -list.clientWidth, behavior: 'smooth' }); });
+  next.addEventListener('click', function () { list.scrollBy({ left: list.clientWidth, behavior: 'smooth' }); });
+  // Событие scroll самой ленты, а не окна: срабатывает только при её прокрутке
+  list.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 }

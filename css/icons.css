@@ -10,8 +10,6 @@
 .icon--arrow-back-up { --icon: url("../img/icons/arrow-back-up.svg"); }
 .icon--arrow-up-right { --icon: url("../img/icons/arrow-up-right.svg"); }
 .icon--arrows-sort { --icon: url("../img/icons/arrows-sort.svg"); }
-.icon--brand-telegram { --icon: url("../img/icons/brand-telegram.svg"); }
-.icon--brand-vk { --icon: url("../img/icons/brand-vk.svg"); }
 .icon--briefcase { --icon: url("../img/icons/briefcase.svg"); }
 .icon--building { --icon: url("../img/icons/building.svg"); }
 .icon--building-store { --icon: url("../img/icons/building-store.svg"); }
@@ -39,6 +37,7 @@
 .icon--logout { --icon: url("../img/icons/logout.svg"); }
 .icon--mail { --icon: url("../img/icons/mail.svg"); }
 .icon--map-pin { --icon: url("../img/icons/map-pin.svg"); }
+.icon--message-circle { --icon: url("../img/icons/message-circle.svg"); }
 .icon--minus { --icon: url("../img/icons/minus.svg"); }
 .icon--package { --icon: url("../img/icons/package.svg"); }
 .icon--phone { --icon: url("../img/icons/phone.svg"); }
@@ -50,6 +49,9 @@
 .icon--shopping-cart { --icon: url("../img/icons/shopping-cart.svg"); }
 .icon--shopping-cart-off { --icon: url("../img/icons/shopping-cart-off.svg"); }
 .icon--snowflake { --icon: url("../img/icons/snowflake.svg"); }
+.icon--social-max { --icon: url("../img/icons/social-max.svg"); }
+.icon--social-telegram { --icon: url("../img/icons/social-telegram.svg"); }
+.icon--social-vk { --icon: url("../img/icons/social-vk.svg"); }
 .icon--star-filled { --icon: url("../img/icons/star-filled.svg"); }
 .icon--sun { --icon: url("../img/icons/sun.svg"); }
 .icon--temperature { --icon: url("../img/icons/temperature.svg"); }
@@ -59,6 +61,8 @@
 .icon--truck { --icon: url("../img/icons/truck.svg"); }
 .icon--user { --icon: url("../img/icons/user.svg"); }
 .icon--volume { --icon: url("../img/icons/volume.svg"); }
+.icon--wave-sine { --icon: url("../img/icons/wave-sine.svg"); }
+.icon--wifi { --icon: url("../img/icons/wifi.svg"); }
 .icon--wind { --icon: url("../img/icons/wind.svg"); }
 .icon--x { --icon: url("../img/icons/x.svg"); }
 .icon--zoom-in { --icon: url("../img/icons/zoom-in.svg"); }

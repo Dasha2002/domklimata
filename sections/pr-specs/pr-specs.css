@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Секция: Характеристики, доставка и оплата
+   Секция: Характеристики, доставка и оплата, гарантия
    ========================================================================== */
 
 .pr-specs {
@@ -54,8 +54,14 @@
   color: var(--color-brand-dark);
 }
 
-/* --- Доставка и оплата --------------------------------------------------- */
+/* --- Доставка и оплата, гарантия: две карточки справа --------------------- */
 .pr-specs__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pr-specs__card {
   padding: 24px;
   border-radius: var(--radius-lg);
   background-color: var(--color-surface);
@@ -90,6 +96,46 @@
   color: var(--color-brand-dark);
 }
 
+/* Срок гарантии крупно, условия списком */
+.pr-specs__warranty {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--color-muted);
+}
+
+.pr-specs__warranty strong {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-brand-dark);
+}
+
+.pr-specs__conditions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.pr-specs__conditions li {
+  display: flex;
+  gap: 10px;
+}
+
+.pr-specs__conditions .icon {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: var(--color-brand);
+}
+
 .pr-specs__term-icon {
   display: flex;
   align-items: center;
@@ -108,7 +154,9 @@
   }
 
   .pr-specs__aside {
-    max-width: 640px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
   }
 }
 
@@ -127,6 +175,10 @@
   }
 
   .pr-specs__aside {
+    grid-template-columns: 1fr;
+  }
+
+  .pr-specs__card {
     padding: 20px;
   }
 }

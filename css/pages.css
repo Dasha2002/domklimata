@@ -1,5 +1,7 @@
 /* Внутренние страницы используют палитру, типографику и радиусы главной. */
-.inner-page .button--accent { color: var(--color-brand-dark); }
+/* Монтаж: все оранжевые кнопки одного размера шрифта — 16px, с планшета 14px */
+.page-installation .button.button--accent { font-size: 16px; }
+@media (max-width: 1024px) { .page-installation .button.button--accent { font-size: 14px; } }
 .breadcrumbs { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 28px; padding-bottom: 24px; color: var(--color-muted); font-size: 14px; }
 .breadcrumbs a:hover { color: var(--color-brand); text-decoration: underline; }
 .page-intro__panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; border-radius: var(--radius-lg); background: var(--color-brand-tint); }
@@ -9,10 +11,17 @@
 .page-intro__text { max-width: 43ch; margin-top: 24px; color: var(--color-muted); font-size: 18px; }
 .page-intro__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .page-intro__actions .button { padding-inline: 20px; font-size: 15px; }
-.page-intro__image { width: 100%; height: 100%; min-height: 440px; max-height: 520px; object-fit: cover; }
-.page-nav { display: flex; flex-wrap: wrap; gap: 8px 28px; padding-top: 24px; padding-bottom: 24px; font-size: 14px; font-weight: 500; }
-.page-nav a { padding-block: 8px; border-bottom: 1px solid var(--color-line); }
-.page-nav a:hover { color: var(--color-brand); border-color: var(--color-brand); }
+/* Картинка в своей ячейке растягивается на всю высоту панели: контейнер
+   тянется по сетке, фото лежит в нём абсолютно и обрезается cover */
+.page-intro__media { position: relative; min-height: 440px; }
+.page-intro__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Переходы по разделам — как .pr-nav на странице товара: общая линия снизу
+   (фон по ширине контента, без полей контейнера), ссылка подчёркивается
+   при наведении. На узком экране лента листается вбок */
+.page-nav { display: flex; gap: 32px; margin-top: 24px; margin-bottom: 24px; overflow-x: auto; scrollbar-width: none; background: linear-gradient(var(--color-line), var(--color-line)) no-repeat left bottom / 100% 1px; background-origin: content-box; background-clip: content-box; }
+.page-nav::-webkit-scrollbar { display: none; }
+.page-nav a { flex-shrink: 0; padding: 14px 0; border-bottom: 2px solid transparent; font-weight: 600; color: var(--color-muted); white-space: nowrap; transition: color var(--transition), border-color var(--transition); }
+.page-nav a:hover { color: var(--color-brand-dark); border-bottom-color: var(--color-brand); }
 .page-section { padding-top: 48px; padding-bottom: 48px; }
 .page-section .section-title { max-width: 28ch; }
 .page-section > .section-title + :not(.section-lead) { margin-top: 32px; }
@@ -22,6 +31,8 @@
 .page-link { display: inline-flex; align-items: center; gap: 8px; color: var(--color-brand); font-weight: 600; font-size: 14px; }
 .page-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .page-copy + .page-link { margin-top: 24px; }
+/* Кнопка-призыв после текста раздела (вентиляция: «Обсудить ваш проект») */
+.page-copy + .page-cta { margin-top: 28px; }
 .page-more { margin-top: 28px; }
 .service-rows { border-top: 1px solid var(--color-line); }
 .service-row { display: grid; grid-template-columns: 32px minmax(0, 1fr) minmax(0, 2fr); align-items: start; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--color-line); }
@@ -34,12 +45,14 @@
 .work-steps h3 { margin-bottom: 12px; font-size: 21px; }
 .work-steps p { color: var(--color-muted); }
 .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.project { overflow: hidden; border: 1px solid var(--color-line); border-radius: var(--radius); background: var(--color-surface); }
+/* Карточка — колонка: ссылка прижата к низу, в ряду карточек они на одной линии */
+.project { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--color-line); border-radius: var(--radius); background: var(--color-surface); }
 .project > img { width: 100%; height: 280px; object-fit: cover; }
-.project__body { padding: 24px; }
+.project__body { display: flex; flex-direction: column; flex-grow: 1; align-items: flex-start; padding: 24px; }
 .project h3 { font-size: 22px; }
 .project p { margin-top: 12px; color: var(--color-muted); }
-.project .page-link { margin-top: 20px; }
+.project .page-link { margin-top: auto; padding-top: 20px; text-decoration: underline; text-decoration-color: rgba(1, 68, 84, 0.35); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: text-decoration-color var(--transition); }
+.project .page-link:hover { text-decoration-color: currentColor; }
 .page-details { border-bottom: 1px solid var(--color-line); }
 .page-details:first-child { border-top: 1px solid var(--color-line); }
 .page-details summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; cursor: pointer; list-style: none; font-size: 21px; line-height: 1.35; font-weight: 600; color: var(--color-brand-dark); }
@@ -66,7 +79,9 @@
 .photo-gallery a { display: block; overflow: hidden; border-radius: var(--radius); background: var(--color-brand-tint); }
 .photo-gallery img { width: 100%; height: 300px; object-fit: cover; }
 .photo-gallery a:hover img { opacity: 0.85; }
-.company-story { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 64px; }
+/* Заголовок с текстом — одна колонка, пункты — вторая, верх у них общий */
+.company-story { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; gap: 64px; }
+.company-story__text .page-copy { margin-top: 32px; }
 .company-points { border-top: 1px solid var(--color-line); font-weight: 500; color: var(--color-brand-dark); }
 .company-points li { padding: 18px 0; border-bottom: 1px solid var(--color-line); }
 .certificate-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
@@ -75,7 +90,8 @@
 .certificate img { width: 100%; height: 300px; object-fit: contain; margin-bottom: 24px; }
 .certificate h3 { font-size: 21px; }
 .certificate p { margin-block: 12px 20px; font-size: 15px; color: var(--color-muted); }
-.certificate .page-link { margin-top: auto; }
+.certificate .page-link { margin-top: auto; text-decoration: underline; text-decoration-color: rgba(1, 68, 84, 0.35); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: text-decoration-color var(--transition); }
+.certificate:hover .page-link { text-decoration-color: currentColor; }
 .partnership { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 48px; }
 .partnership > img { width: 100%; height: 440px; object-fit: cover; border-radius: var(--radius-lg); }
 .partnership .button { margin-top: 28px; }
@@ -86,7 +102,7 @@
 .header a[aria-current="page"] { color: var(--color-brand); text-decoration: underline; text-underline-offset: 5px; }
 @media (max-width: 1024px) {
  .page-intro__content { padding: 32px; }
- .page-intro__image { min-height: 400px; }
+ .page-intro__media { min-height: 400px; }
  .project-grid, .certificate-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
  .work-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
  .photo-gallery img { height: 240px; }
@@ -96,10 +112,10 @@
  .breadcrumbs { padding-top: 20px; padding-bottom: 20px; }
  .page-intro__panel { grid-template-columns: 1fr; }
  .page-intro__content { padding: 28px 24px; }
- .page-intro__image { min-height: 0; height: 280px; }
+ .page-intro__media { min-height: 0; height: 280px; }
  .page-intro__label { margin-bottom: 18px; }
  .page-intro__text { font-size: 17px; margin-top: 20px; }
- .page-nav { column-gap: 20px; }
+ .page-nav { gap: 24px; }
  .page-section { padding-top: 32px; padding-bottom: 32px; }
  .page-copy { font-size: 17px; }
  .service-row { grid-template-columns: 28px minmax(0, 1fr); gap: 12px 18px; }
@@ -135,13 +151,15 @@
 .certificate-viewer { position: fixed; inset: 0; margin: auto; width: 100%; height: 100dvh; max-width: none; max-height: none; padding: 64px 24px 24px; border: 0; background: transparent; color: white; overflow: hidden; }
 .certificate-viewer::backdrop { background: rgb(1 25 31 / 94%); }
 .certificate-viewer__figure { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 16px; width: 100%; height: 100%; min-height: 0; }
-.certificate-viewer__figure img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+/* Картинка по размеру документа, а не на всю ячейку: клик мимо неё
+   приходится на подложку и закрывает просмотр */
+.certificate-viewer__figure img { justify-self: center; align-self: center; width: auto; height: auto; max-width: 100%; max-height: 100%; min-height: 0; object-fit: contain; }
 .certificate-viewer figcaption { max-width: 70ch; margin-inline: auto; text-align: center; font-size: 15px; line-height: 1.4; }
 .certificate-viewer__close { position: absolute; right: 16px; top: 12px; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgb(255 255 255 / 25%); border-radius: var(--radius-sm); color: white; background: rgb(255 255 255 / 8%); }
 .certificate-viewer__close:hover { background: rgb(255 255 255 / 20%); }
 .certificate-viewer__close .icon { width: 26px; height: 26px; }
 .page-details summary .icon { transition: transform 0.3s var(--ease); }
-.page-details.is-collapsing > summary .icon { transform: none; }
+.page-details.is-closing > summary .icon { transform: none; }
 @media (max-width: 640px) {
  .breadcrumbs { padding-top: 12px; padding-bottom: 12px; font-size: 12px; }
  .page-intro__content { padding: 20px; }
@@ -150,7 +168,7 @@
  .page-intro__text { margin-top: 14px; font-size: 14px; line-height: 1.4; }
  .page-intro__actions { margin-top: 18px; gap: 8px; }
  .page-intro__actions .button { width: 100%; min-height: 42px; padding: 0 12px; font-size: 14px; }
- .page-intro__image { height: clamp(110px, 22svh, 180px); }
+ .page-intro__media { height: clamp(110px, 22svh, 180px); }
  .certificate-viewer { padding: 64px 12px 20px; }
  .certificate-viewer figcaption { font-size: 13px; }
 }
@@ -161,5 +179,41 @@
  .page-intro__text { margin-top: 10px; font-size: 13px; }
  .page-intro__actions { margin-top: 14px; gap: 6px; }
  .page-intro__actions .button { min-height: 40px; font-size: 13px; }
- .page-intro__image { height: 100px; }
+ .page-intro__media { height: 100px; }
+}
+
+
+/* --- Юридический документ (/politika/) -----------------------------------
+   Оглавление слева липнет при прокрутке, текст справа узкой колонкой.
+   На планшете и телефоне оглавление над текстом */
+.legal { padding-bottom: var(--section-y); }
+.legal__title { max-width: 24ch; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -0.03em; text-wrap: balance; }
+.legal__lead { margin-top: 16px; max-width: 70ch; font-size: 17px; color: var(--color-muted); }
+.legal__lead a, .legal__body a { color: var(--color-brand); text-decoration: underline; text-decoration-color: rgba(1, 68, 84, 0.35); text-underline-offset: 3px; overflow-wrap: anywhere; }
+.legal__lead a:hover, .legal__body a:hover { text-decoration-color: currentColor; }
+.legal__layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: start; gap: 64px; margin-top: 48px; }
+.legal__toc { position: sticky; top: calc(var(--header-main-h) + 24px); max-height: calc(100vh - var(--header-main-h) - 48px); overflow-y: auto; padding: 24px; border-radius: var(--radius); background: var(--color-brand-tint); }
+.legal__toc-title { margin-bottom: 12px; font-size: 14px; font-weight: 600; color: var(--color-brand); }
+.legal__toc-list { display: flex; flex-direction: column; gap: 4px; padding-left: 20px; list-style: decimal; font-size: 14px; line-height: 1.4; color: var(--color-muted); }
+.legal__toc-list a { display: block; padding: 4px 0; color: var(--color-brand-dark); transition: color var(--transition); }
+.legal__toc-list a:hover { color: var(--color-brand); text-decoration: underline; text-underline-offset: 3px; }
+.legal__body { max-width: 72ch; font-size: 16px; line-height: 1.65; color: var(--color-ink); }
+.legal__body h2 { margin-top: 40px; margin-bottom: 14px; font-size: 22px; line-height: 1.3; scroll-margin-top: calc(var(--header-main-h) + 24px); }
+.legal__body h2:first-child { margin-top: 0; }
+.legal__body p + p, .legal__body ul + p { margin-top: 10px; }
+.legal__body ul { margin-top: 8px; padding-left: 24px; list-style: disc; }
+.legal__body li + li { margin-top: 6px; }
+.legal__body li::marker { color: var(--color-brand); }
+@media (max-width: 1024px) {
+ .legal__layout { grid-template-columns: 1fr; gap: 32px; margin-top: 32px; }
+ .legal__toc { position: static; max-height: none; }
+ .legal__toc-list { columns: 2; column-gap: 32px; display: block; }
+ .legal__toc-list li { break-inside: avoid; }
+}
+@media (max-width: 640px) {
+ .legal__lead { font-size: 15px; }
+ .legal__toc { padding: 18px 20px; }
+ .legal__toc-list { columns: 1; }
+ .legal__body { font-size: 15px; }
+ .legal__body h2 { margin-top: 32px; font-size: 19px; }
 }

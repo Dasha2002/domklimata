@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Соцсети: Telegram, ВКонтакте, MAX
+   Иконки — заливка с вырезанным знаком (из проекта avtoverdikt): цвет
+   фигуры задаёт color, знак просвечивает фоном. Поэтому одна и та же
+   иконка работает на светлом фоне (петроль) и на тёмном (--on-dark, белая)
+   ========================================================================== */
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.socials__link {
+  display: flex;
+  color: var(--color-brand);
+  transition: color var(--transition), transform var(--transition);
+}
+
+.socials__link .icon {
+  width: 36px;
+  height: 36px;
+}
+
+.socials__link:hover {
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.socials__link:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.socials--on-dark .socials__link {
+  color: #fff;
+}
+
+.socials--on-dark .socials__link:hover {
+  color: var(--color-accent);
+}

@@ -4,13 +4,15 @@
      Логика в app.js (initSelection). Расчёт ориентировочный:
      0,1 кВт на 1 м² для жилья и 0,12 кВт для офиса и магазина.
      Точный подбор делает инженер, об этом сказано в подписи.
+     Под калькулятором — шесть диапазонов площади из ТЗ, каждый ведёт
+     на предустановленный фильтр каталога (на WordPress — SEO-страница).
      ========================================================================== -->
 <section class="selection" id="selection" aria-labelledby="selection-title">
   <div class="container">
     <div class="selection__panel" data-reveal>
 
       <form class="selection__form" id="selection-form">
-        <h2 class="section-title" id="selection-title">Подбор кондиционера по&nbsp;площади</h2>
+        <h2 class="section-title" id="selection-title">Подберите кондиционер по&nbsp;площади помещения</h2>
         <p class="selection__lead">Ответьте на три вопроса, и мы подскажем мощность и тип оборудования.</p>
 
         <fieldset class="selection__group">
@@ -88,5 +90,17 @@
       </div>
 
     </div>
+
+    <nav class="selection__areas" aria-labelledby="selection-areas-title">
+      <p class="selection__areas-title" id="selection-areas-title">Или сразу к моделям для своей площади</p>
+      <ul class="selection__areas-list">
+        <li><a class="selection__area" href="{{root}}catalog/?category=bitovie_konditsioneri&amp;area=20">до 20&nbsp;м²</a></li>
+        <li><a class="selection__area" href="{{root}}catalog/?category=bitovie_konditsioneri&amp;area=25">20-25&nbsp;м²</a></li>
+        <li><a class="selection__area" href="{{root}}catalog/?category=bitovie_konditsioneri&amp;area=35">25-35&nbsp;м²</a></li>
+        <li><a class="selection__area" href="{{root}}catalog/?category=bitovie_konditsioneri&amp;area=50">35-50&nbsp;м²</a></li>
+        <li><a class="selection__area" href="{{root}}catalog/?category=bitovie_konditsioneri&amp;area=70">50-70&nbsp;м²</a></li>
+        <li><a class="selection__area" href="{{root}}catalog/?category=polupromishlennie_konditsioneri">более 70&nbsp;м²</a></li>
+      </ul>
+    </nav>
   </div>
 </section>

@@ -2,8 +2,9 @@
    Секция: Похожие товары
    ========================================================================== */
 
+/* Идёт после вопросов о модели: их нижнего отступа достаточно */
 .pr-similar {
-  padding: var(--section-y) 0;
+  padding-bottom: var(--section-y);
 }
 
 .pr-similar__head {
@@ -54,4 +55,9 @@
     flex: 0 0 78%;
     scroll-snap-align: start;
   }
+}
+
+/* Заголовок аналогов длинный: на десктопе в одну строку */
+.pr-similar--analogs .section-title {
+  max-width: none;
 }

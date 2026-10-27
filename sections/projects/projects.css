@@ -1,0 +1,162 @@
+/* ==========================================================================
+   Секция: Реализованные объекты
+   Первый кейс во всю ширину: фото слева, факты справа.
+   Под ним два кейса рядом, у каждого широкое фото сверху
+   ========================================================================== */
+
+.projects {
+  padding-bottom: var(--section-y);
+}
+
+.projects__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.case {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.case:hover {
+  border-color: #b6c7ca;
+  box-shadow: var(--shadow);
+}
+
+.case__img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.case__body {
+  padding: 24px 28px 28px;
+}
+
+.case__type {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background-color: var(--color-brand-tint);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-brand);
+}
+
+.case__title {
+  margin-top: 10px;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+/* Факты в две колонки: задача и оборудование, работы и результат */
+.case__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 24px;
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.case__facts dt {
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.case__facts dd {
+  margin-top: 2px;
+  color: var(--color-muted);
+}
+
+/* --- Главный кейс: строка во всю ширину ---------------------------------- */
+.case--main {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+
+.case--main .case__img {
+  height: 100%;
+  min-height: 360px;
+  aspect-ratio: auto;
+  object-position: center 35%;
+}
+
+.case--main .case__body {
+  align-self: center;
+  padding: 36px 40px;
+}
+
+.case--main .case__title {
+  font-size: 26px;
+}
+
+.case--main .case__facts {
+  gap: 18px 28px;
+  margin-top: 24px;
+  font-size: 15px;
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .case--main {
+    grid-template-columns: 1fr;
+  }
+
+  .case--main .case__img {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  .case--main .case__body {
+    padding: 28px 32px 32px;
+  }
+}
+
+@media (max-width: 760px) {
+  .projects__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .case__body,
+  .case--main .case__body {
+    padding: 18px 20px 20px;
+  }
+
+  .case__facts,
+  .case--main .case__facts {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .case__title,
+  .case--main .case__title {
+    font-size: 19px;
+  }
+}

@@ -1,9 +1,6 @@
-/* Первый экран: единая светлая панель и три предложения. */
+/* Первый экран: светлая панель, текст слева, фото справа. */
 .hero { padding: 32px 0 24px; }
-.hero__panel { position: relative; overflow: hidden; border-radius: var(--radius-lg); background: var(--color-brand-tint); }
-.hero__slides { overflow: hidden; touch-action: pan-y pinch-zoom; }
-.hero__track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; align-items: stretch; }
-.hero__slide { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-width: 0; }
+.hero__panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; border-radius: var(--radius-lg); background: var(--color-brand-tint); }
 
 .hero__content { align-self: center; padding: 48px 60px; }
 .hero__eyebrow { margin-bottom: 24px; font-size: 14px; font-weight: 600; color: var(--color-brand); }
@@ -11,27 +8,14 @@
 .hero__text { margin-top: 24px; max-width: 43ch; font-size: 18px; line-height: 1.55; color: var(--color-muted); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .hero__actions .button { padding-inline: 20px; font-size: 15px; }
-.hero__actions .button--accent { color: var(--color-brand-dark); }
-.hero__media { display: block; width: 100%; height: 100%; min-height: 480px; max-height: 620px; object-fit: cover; align-self: stretch; overflow: hidden; background: var(--color-brand-soft); }
+.hero__media { display: block; width: 100%; height: 100%; min-height: 480px; max-height: 620px; overflow: hidden; background: var(--color-brand-soft); }
 .hero__media img { width: 100%; height: 100%; object-fit: cover; }
-.hero__media--installation { object-position: 46% center; }
-.hero__controls { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
-.hero__controls[hidden] { display: none; }
-.hero__arrow { position: absolute; top: 94%; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--color-line); border-radius: var(--radius-sm); color: var(--color-brand); background: var(--color-surface); box-shadow: var(--shadow); pointer-events: auto; transform: translateY(-50%); }
-.hero__arrow--prev { left: 12px; }
-.hero__arrow--next { right: 12px; }
-.hero__arrow:hover { background: var(--color-brand-soft); border-color: var(--color-brand); }
-.hero__arrow--prev .icon { transform: rotate(-135deg); }
-.hero__arrow--next .icon { transform: rotate(45deg); }
-@media (prefers-reduced-motion: no-preference) {
-  .hero__track { transition: transform 0.65s var(--ease); }
-}
 @media (max-width: 1100px) {
   .hero__content { padding: 36px 56px; }
 }
 @media (max-width: 760px) {
   .hero { padding-top: 20px; }
-  .hero__slide { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+  .hero__panel { grid-template-columns: 1fr; }
   .hero__content { padding: 28px 24px; }
   .hero__title { max-width: 22ch; font-size: clamp(30px, 5.5vw, 42px); }
   .hero__eyebrow { margin-bottom: 16px; }
@@ -39,16 +23,12 @@
   .hero__actions { margin-top: 24px; }
   .hero__media { min-height: 0; height: 280px; }
   .hero__media img { object-position: center 40%; }
-  .hero__arrow { top: auto; bottom: 108px; transform: none; }
-  .hero__arrow--prev { left: 10px; }
-  .hero__arrow--next { right: 10px; }
 }
 @media (max-width: 400px) {
   .hero__content { padding: 24px 20px; }
   .hero__actions { gap: 10px; }
   .hero__actions .button { width: 100%; }
   .hero__media { height: 220px; }
-  .hero__arrow { bottom: 88px; }
 }
 /* На телефоне первый экран включает текст, обе кнопки и компактное фото. */
 @media (max-width: 640px) {
@@ -59,9 +39,7 @@
  .hero__text { margin-top: 14px; font-size: 14px; line-height: 1.4; }
  .hero__actions { margin-top: 18px; gap: 8px; }
  .hero__actions .button { width: 100%; min-height: 42px; padding: 0 12px; font-size: 14px; }
- 
  .hero__media img { object-position: center 32%; }
- .hero__arrow { bottom: calc(clamp(110px, 22svh, 180px) / 2 - 22px); }
 }
 @media (max-width: 640px) and (max-height: 660px) {
  .hero__content { padding: 16px 20px; }
@@ -71,5 +49,4 @@
  .hero__actions { margin-top: 14px; gap: 6px; }
  .hero__actions .button { min-height: 40px; font-size: 13px; }
  .hero__media { height: 100px; }
- .hero__arrow { bottom: 28px; }
 }

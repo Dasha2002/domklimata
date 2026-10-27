@@ -1,0 +1,63 @@
+/* ==========================================================================
+   Секция: Полезные статьи на странице товара
+   Три карточки в ряд, фото сверху. На телефоне — список с фото слева
+   ========================================================================== */
+
+.pr-articles {
+  padding-bottom: var(--section-y);
+}
+
+.pr-articles__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.pr-articles__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.pr-articles .article-card {
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 16px;
+}
+
+.pr-articles .article-card__media {
+  aspect-ratio: 16 / 10;
+}
+
+@media (max-width: 760px) {
+  .pr-articles__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .pr-articles__list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pr-articles .article-card {
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .pr-articles .article-card__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .pr-articles .article-card__title {
+    font-size: 16px;
+  }
+
+  .pr-articles .article-card__text {
+    font-size: 14px;
+  }
+}

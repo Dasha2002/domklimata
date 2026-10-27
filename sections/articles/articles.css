@@ -1,0 +1,157 @@
+/* ==========================================================================
+   Секция: Полезные статьи
+   Крупная статья слева, три в списке справа
+   ========================================================================== */
+
+.articles {
+  padding: var(--section-y) 0;
+}
+
+.articles__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.articles__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: 32px;
+}
+
+.articles__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- Карточка статьи ----------------------------------------------------- */
+/* Кликабельна целиком: растянутая ссылка на заголовке */
+.article-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+}
+
+.article-card__media {
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: var(--color-brand-soft);
+}
+
+.article-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease);
+}
+
+.article-card:hover .article-card__media img {
+  transform: scale(1.04);
+}
+
+.article-card__title {
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.article-card__title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.article-card:hover .article-card__title a {
+  color: var(--color-brand);
+}
+
+.article-card__title a:focus-visible {
+  outline: none;
+}
+
+.article-card:has(.article-card__title a:focus-visible) {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: var(--radius);
+}
+
+.article-card__text {
+  margin-top: 6px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+/* Крупная статья: фото сверху */
+.article-card--main {
+  grid-template-columns: 1fr;
+  align-items: start;
+  align-content: start;
+  gap: 20px;
+}
+
+.article-card--main .article-card__media {
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg);
+}
+
+.article-card--main .article-card__title {
+  font-size: 24px;
+}
+
+.article-card--main .article-card__text {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.article-card__more {
+  display: inline-block;
+  margin-top: 14px;
+  font-weight: 600;
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-decoration-color: rgba(1, 68, 84, 0.35);
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 1024px) {
+  .articles__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .articles__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .article-card {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .article-card__title {
+    font-size: 16px;
+  }
+
+  .article-card__text {
+    font-size: 14px;
+  }
+
+  .article-card--main {
+    grid-template-columns: 1fr;
+  }
+
+  .article-card--main .article-card__title {
+    font-size: 20px;
+  }
+}

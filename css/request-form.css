@@ -11,6 +11,20 @@
   gap: 18px;
 }
 
+/* Два поля в строку (имя и телефон). На узком экране — друг под другом */
+.request-form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 18px 16px;
+}
+
+@media (max-width: 480px) {
+  .request-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .request-form__submit {
   width: 100%;
   margin-top: 4px;

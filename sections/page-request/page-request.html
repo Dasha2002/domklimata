@@ -1,11 +1,12 @@
 <!-- ==========================================================================
-     Секция: Заявка (CTA)
-     Блок БЭМ: .cta, форма: .request-form (стили в css/request-form.css,
+     Секция: Заявка на внутренних страницах (монтаж, вентиляция, о компании)
+     Блок БЭМ: .cta с модификатором .cta--page (форма шире, телефон
+     и e-mail в одну строку — стили в sections/page-request), форма: .request-form (стили в css/request-form.css,
      та же форма стоит в модалке sections/request-modal).
      Отправка: в вёрстке форма проверяется и показывает успех без сервера.
      На WordPress обработчик подключается в app.js, функция sendRequest.
      ========================================================================== -->
-<section class="cta" id="request" aria-labelledby="cta-title">
+<section class="cta cta--page" id="request" aria-labelledby="cta-title">
   <div class="container">
     <div class="cta__panel" data-reveal>
 
@@ -42,18 +43,20 @@
             <p class="field__error" id="cta-name-error" hidden>Напишите, как к вам обращаться</p>
           </div>
 
-          <div class="field">
-            <label class="field__label" for="cta-phone">Телефон</label>
-            <input class="field__input" id="cta-phone" name="phone" type="tel"
-                   inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required
-                   aria-describedby="cta-phone-error" data-phone>
-            <p class="field__error" id="cta-phone-error" hidden>Введите номер полностью: 10 цифр после +7</p>
-          </div>
+          <div class="request-form__row">
+            <div class="field">
+              <label class="field__label" for="cta-phone">Телефон</label>
+              <input class="field__input" id="cta-phone" name="phone" type="tel"
+                     inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required
+                     aria-describedby="cta-phone-error" data-phone>
+              <p class="field__error" id="cta-phone-error" hidden>Введите номер полностью: 10 цифр после +7</p>
+            </div>
 
-          <div class="field">
-            <label class="field__label" for="cta-email">E-mail</label>
-            <input class="field__input" id="cta-email" name="email" type="email" autocomplete="email" maxlength="200" required aria-describedby="cta-email-error">
-            <p class="field__error" id="cta-email-error" hidden>Укажите корректный e-mail</p>
+            <div class="field">
+              <label class="field__label" for="cta-email">E-mail</label>
+              <input class="field__input" id="cta-email" name="email" type="email" autocomplete="email" maxlength="200" required aria-describedby="cta-email-error">
+              <p class="field__error" id="cta-email-error" hidden>Укажите корректный e-mail</p>
+            </div>
           </div>
           <div class="field">
             <label class="field__label" for="cta-type">Тип помещения <span class="field__optional">(необязательно)</span></label>

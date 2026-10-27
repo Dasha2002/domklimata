@@ -21,8 +21,10 @@ document.addEventListener('sections:loaded', function () {
       });
     });
     certificateViewer.querySelector('button').addEventListener('click', function () { certificateViewer.close(); });
+    // Клик по затемнению вокруг документа закрывает просмотр,
+    // по самому документу и подписи — нет
     certificateViewer.addEventListener('click', function (event) {
-      if (event.target === certificateViewer) certificateViewer.close();
+      if (!event.target.closest('img, figcaption, button')) certificateViewer.close();
     });
     certificateViewer.addEventListener('close', function () { document.body.classList.remove('is-locked'); });
   }

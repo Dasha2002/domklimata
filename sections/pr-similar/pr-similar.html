@@ -1,50 +1,21 @@
 <!-- ==========================================================================
      Секция: Похожие товары
      Блок БЭМ: .pr-similar, компактная карточка .product-mini
-     (css/product-card.css). Первые три — блок «Похожие товары» этой
-     модели на текущем сайте, четвёртый — из той же категории каталога.
-     На телефоне ряд листается вбок.
+     (css/product-card.css). Сравнимые модели того же типа: настенные
+     сплит-системы, в том числе дороже и инверторные. Цены по запросу —
+     «Под заказ» и кнопка «Узнать цену» (открывает заявку).
+     Модели и цены — каталог текущего сайта. На телефоне ряд листается вбок.
      В вёрстке ссылки ведут на пример страницы товара, на WordPress —
-     на страницы самих товаров.
+     на страницы самих товаров (related products, минимум 4).
      ========================================================================== -->
-<section class="pr-similar" aria-labelledby="similar-title">
+<section class="pr-similar" id="similar" aria-labelledby="similar-title">
   <div class="container">
     <div class="pr-similar__head">
       <h2 class="section-title" id="similar-title">Похожие товары</h2>
-      <a class="text-link" href="{{root}}catalog/?category=bitovie_konditsioneri">Все бытовые кондиционеры</a>
+      <a class="text-link" href="{{root}}catalog/?category=bitovie_konditsioneri&amp;unit=wall">Все настенные кондиционеры</a>
     </div>
 
     <ul class="pr-similar__list">
-      <li class="product-mini">
-        <a class="product-mini__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
-          <img src="{{root}}img/products/daichi-ice35avq1.webp" width="640" height="480" alt="" loading="lazy">
-        </a>
-        <div class="product-mini__body">
-          <h3 class="product-mini__title"><a href="{{root}}catalog/product/asx07h1r/">Daichi ICE35AVQ1</a></h3>
-          <p class="product-mini__meta">до 35&nbsp;м², инвертор</p>
-          <div class="product-mini__bottom">
-            <p class="product-mini__price">29&nbsp;390&nbsp;₽</p>
-            <button class="product-mini__cart" type="button" aria-label="В корзину: Daichi ICE35AVQ1" data-mini-cart>
-              <span class="icon icon--shopping-cart" aria-hidden="true"></span>
-            </button>
-          </div>
-        </div>
-      </li>
-      <li class="product-mini">
-        <a class="product-mini__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
-          <img src="{{root}}img/products/daichi-air35avq1.webp" width="640" height="480" alt="" loading="lazy">
-        </a>
-        <div class="product-mini__body">
-          <h3 class="product-mini__title"><a href="{{root}}catalog/product/asx07h1r/">Daichi AIR35AVQ1</a></h3>
-          <p class="product-mini__meta">до 35&nbsp;м²</p>
-          <div class="product-mini__bottom">
-            <p class="product-mini__price">22&nbsp;690&nbsp;₽</p>
-            <button class="product-mini__cart" type="button" aria-label="В корзину: Daichi AIR35AVQ1" data-mini-cart>
-              <span class="icon icon--shopping-cart" aria-hidden="true"></span>
-            </button>
-          </div>
-        </div>
-      </li>
       <li class="product-mini">
         <a class="product-mini__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
           <img src="{{root}}img/products/daichi-ice25avqs1r.webp" width="640" height="480" alt="" loading="lazy">
@@ -61,16 +32,48 @@
         </div>
       </li>
       <li class="product-mini">
-        <a class="product-mini__media" href="{{root}}catalog/product/asx07h1r/?area=35" tabindex="-1" aria-hidden="true">
-          <img src="{{root}}img/products/daichi-mes-epsilon.webp" width="640" height="480" alt="" loading="lazy">
+        <a class="product-mini__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+          <img src="{{root}}img/products/axioma-f-inverter.webp" width="640" height="480" alt="" loading="lazy">
         </a>
         <div class="product-mini__body">
-          <h3 class="product-mini__title"><a href="{{root}}catalog/product/asx07h1r/?area=35">DAICHIxMES Epsilon_UNL_A</a></h3>
-          <p class="product-mini__meta">до 35&nbsp;м²</p>
+          <h3 class="product-mini__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma Серия F Inverter</a></h3>
+          <p class="product-mini__meta">20-70&nbsp;м², инвертор</p>
           <div class="product-mini__bottom">
-            <p class="product-mini__price">21&nbsp;500&nbsp;₽</p>
-            <button class="product-mini__cart" type="button" aria-label="В корзину: DAICHIxMES Epsilon_UNL_A" data-mini-cart>
+            <p class="product-mini__price">58&nbsp;990&nbsp;₽</p>
+            <button class="product-mini__cart" type="button" aria-label="В корзину: Axioma Серия F Inverter" data-mini-cart>
               <span class="icon icon--shopping-cart" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li class="product-mini">
+        <a class="product-mini__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+          <img src="{{root}}img/products/axioma-h.webp" width="640" height="480" alt="" loading="lazy">
+        </a>
+        <div class="product-mini__body">
+          <h3 class="product-mini__title"><a href="{{root}}catalog/product/asx07h1r/">Axioma Серия H inverter R32</a></h3>
+          <p class="product-mini__meta">20-70&nbsp;м², инвертор, R32</p>
+          <div class="product-mini__bottom">
+            <p class="product-mini__price product-mini__price--none">Под заказ</p>
+            <button class="product-mini__cart" type="button" aria-label="Узнать цену: Axioma Серия H inverter R32" data-open-request
+                    data-request-comment="Узнать цену: Axioma Серия H inverter R32.">
+              <span class="icon icon--phone" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li class="product-mini">
+        <a class="product-mini__media" href="{{root}}catalog/product/asx07h1r/" tabindex="-1" aria-hidden="true">
+          <img src="{{root}}img/products/bosch-climate-line-2000.webp" width="640" height="480" alt="" loading="lazy">
+        </a>
+        <div class="product-mini__body">
+          <h3 class="product-mini__title"><a href="{{root}}catalog/product/asx07h1r/">Bosch Climate Line 2000</a></h3>
+          <p class="product-mini__meta">20-70&nbsp;м²</p>
+          <div class="product-mini__bottom">
+            <p class="product-mini__price product-mini__price--none">Под заказ</p>
+            <button class="product-mini__cart" type="button" aria-label="Узнать цену: Bosch Climate Line 2000" data-open-request
+                    data-request-comment="Узнать цену: Bosch Climate Line 2000.">
+              <span class="icon icon--phone" aria-hidden="true"></span>
             </button>
           </div>
         </div>

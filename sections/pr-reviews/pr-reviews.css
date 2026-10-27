@@ -1,0 +1,325 @@
+/* ==========================================================================
+   Секция: Отзывы о товаре
+   Сводка рейтинга слева (липнет при прокрутке), отзывы и форма справа
+   ========================================================================== */
+
+.pr-reviews {
+  padding: var(--section-y) 0;
+}
+
+.pr-reviews__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  align-items: start;
+  gap: 48px;
+  margin-top: 32px;
+}
+
+/* --- Сводка -------------------------------------------------------------- */
+.pr-rating {
+  position: sticky;
+  top: calc(var(--header-main-h) + 24px);
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-brand-tint);
+}
+
+.pr-rating__value {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-brand-dark);
+}
+
+/* Две строки звёзд друг на друге: серая и оранжевая, обрезанная по --rating */
+.pr-rating__stars {
+  position: relative;
+  display: inline-block;
+  margin-top: 12px;
+  line-height: 0;
+}
+
+.pr-rating__stars-base,
+.pr-rating__stars-fill {
+  display: flex;
+  gap: 2px;
+}
+
+.pr-rating__stars-base {
+  color: #c9d6d8;
+}
+
+.pr-rating__stars-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--rating) / 5 * 100%);
+  overflow: hidden;
+  color: var(--color-accent);
+}
+
+.pr-rating__stars .icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+
+.pr-rating__count {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+.pr-rating__bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.pr-rating__bars li {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 10px;
+}
+
+.pr-rating__bars li > span:last-child {
+  text-align: right;
+}
+
+.pr-rating__bar {
+  height: 6px;
+  border-radius: 3px;
+  background-color: var(--color-brand-soft);
+  overflow: hidden;
+}
+
+.pr-rating__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--color-accent);
+}
+
+.pr-rating__write {
+  width: 100%;
+  margin-top: 24px;
+}
+
+/* --- Отзывы -------------------------------------------------------------- */
+.pr-reviews__list {
+  border-top: 1px solid var(--color-line);
+}
+
+.pr-review {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pr-review__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.pr-review__author {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.pr-review__date {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.pr-review__stars {
+  display: flex;
+  gap: 2px;
+  color: var(--color-accent);
+}
+
+.pr-review__stars .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.pr-review__star-off {
+  color: #c9d6d8;
+}
+
+.pr-review__meta {
+  grid-column: 1 / -1;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.pr-review__text {
+  grid-column: 1 / -1;
+  max-width: 68ch;
+  margin-top: 8px;
+}
+
+/* --- Форма отзыва -------------------------------------------------------- */
+.review-form {
+  margin-bottom: 32px;
+}
+
+.review-form__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding: 28px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}
+
+.review-form__title {
+  grid-column: 1 / -1;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.review-form__wide {
+  grid-column: 1 / -1;
+}
+
+.review-form__rating {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.review-form__submit {
+  justify-self: start;
+}
+
+.review-form__success {
+  display: flex;
+  gap: 12px;
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  background-color: #e3f3ea;
+  color: var(--color-ink);
+}
+
+.review-form__success .icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-success);
+}
+
+/* Выбор оценки. В разметке звёзды идут 5…1, row-reverse ставит их 1…5;
+   «~» подсвечивает выбранную звезду и все меньшие оценки слева от неё */
+.stars-input {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+/* Без промежутков между звёздами: курсор не «проваливается» между ними */
+.stars-input label {
+  display: flex;
+  padding: 3px;
+  color: #c9d6d8;
+  cursor: pointer;
+  transition: color var(--transition), transform var(--transition);
+}
+
+.stars-input .icon {
+  width: 30px;
+  height: 30px;
+}
+
+.stars-input input:checked ~ label {
+  color: var(--color-accent);
+}
+
+/* При наведении показываем оценку под курсором, а не выбранную */
+.stars-input:hover input ~ label {
+  color: #c9d6d8;
+}
+
+.stars-input:hover label:hover,
+.stars-input:hover label:hover ~ label {
+  color: var(--color-accent);
+}
+
+.stars-input label:active {
+  transform: scale(0.9);
+}
+
+.stars-input input:focus-visible + label {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 1px;
+  border-radius: 6px;
+}
+
+.review-form__rating.is-invalid .stars-input:not(:hover) label {
+  color: #e7b9b5;
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .pr-reviews__layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .pr-rating {
+    position: static;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0 24px;
+  }
+
+  .pr-rating__value { grid-row: span 2; }
+  .pr-rating__stars { margin-top: 0; justify-self: start; }
+  .pr-rating__bars,
+  .pr-rating__write { grid-column: 1 / -1; }
+  .pr-rating__bars { max-width: 440px; }
+  .pr-rating__write { justify-self: start; width: auto; }
+}
+
+@media (max-width: 640px) {
+  .pr-reviews__layout {
+    margin-top: 24px;
+  }
+
+  .pr-rating {
+    padding: 20px;
+  }
+
+  .pr-rating__value {
+    font-size: 44px;
+  }
+
+  .pr-rating__write {
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .review-form__fields {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .review-form__submit {
+    justify-self: stretch;
+  }
+
+  .pr-review {
+    padding: 20px 0;
+  }
+}

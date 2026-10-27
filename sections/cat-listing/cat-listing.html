@@ -16,7 +16,9 @@
 
      Товары, модели, цены и статусы — снимок текущего сайта, по нескольку
      позиций из каждой категории. Признак «Инвертор» проставлен по названию
-     модели: на WordPress он берётся из атрибута товара.
+     модели, тип внутреннего блока (data-unit) — по серии, цвета (data-color)
+     — пример для проверки фильтра. На WordPress всё это атрибуты товара.
+     Группа фильтра прячется, если у товаров категории нет такого атрибута.
      ========================================================================== -->
 <section class="cat-listing" id="catalog-listing" aria-label="Товары">
   <div class="cat-listing__inner container">
@@ -48,6 +50,9 @@
               <label class="check"><input type="checkbox" name="brand" value="DAICHIxMTC"><span class="check__label">DAICHIxMTC</span><span class="check__count" data-filter-count></span></label>
               <label class="check"><input type="checkbox" name="brand" value="Daichi"><span class="check__label">Daichi</span><span class="check__count" data-filter-count></span></label>
               <label class="check"><input type="checkbox" name="brand" value="Daikin"><span class="check__label">Daikin</span><span class="check__count" data-filter-count></span></label>
+              <label class="check"><input type="checkbox" name="brand" value="Haier"><span class="check__label">Haier</span><span class="check__count" data-filter-count></span></label>
+              <label class="check"><input type="checkbox" name="brand" value="Lessar"><span class="check__label">Lessar</span><span class="check__count" data-filter-count></span></label>
+              <label class="check"><input type="checkbox" name="brand" value="Royal Clima"><span class="check__label">Royal Clima</span><span class="check__count" data-filter-count></span></label>
             </div>
             <button class="filters__toggle" type="button" data-filters-more-toggle aria-expanded="false">Показать ещё</button>
           </div>
@@ -83,10 +88,33 @@
         </details>
 
         <details class="filters__group" open>
+          <summary class="filters__summary">Тип внутреннего блока<span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
+          <div class="filters__options">
+            <label class="check"><input type="checkbox" name="unit" value="wall"><span class="check__label">Настенный</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="unit" value="duct"><span class="check__label">Канальный</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="unit" value="cassette"><span class="check__label">Кассетный</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="unit" value="floor-ceiling"><span class="check__label">Напольно-потолочный</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="unit" value="floor"><span class="check__label">Напольный</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="unit" value="ceiling"><span class="check__label">Подпотолочный</span><span class="check__count" data-filter-count></span></label>
+          </div>
+        </details>
+
+        <details class="filters__group" open>
           <summary class="filters__summary">Инвертор<span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
           <div class="filters__options">
             <label class="check"><input type="checkbox" name="inverter" value="yes"><span class="check__label">Да</span><span class="check__count" data-filter-count></span></label>
             <label class="check"><input type="checkbox" name="inverter" value="no"><span class="check__label">Нет</span><span class="check__count" data-filter-count></span></label>
+          </div>
+        </details>
+
+        <!-- Цвет: образец цвета рисует --swatch. На WordPress — термины
+             атрибута pa_color, цвет образца хранится в поле термина -->
+        <details class="filters__group" open>
+          <summary class="filters__summary">Цвет<span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
+          <div class="filters__options">
+            <label class="check"><input type="checkbox" name="color" value="white"><span class="check__label"><span class="check__swatch" style="--swatch: #ffffff"></span>Белый</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="color" value="black"><span class="check__label"><span class="check__swatch" style="--swatch: #1d2427"></span>Чёрный</span><span class="check__count" data-filter-count></span></label>
+            <label class="check"><input type="checkbox" name="color" value="silver"><span class="check__label"><span class="check__swatch" style="--swatch: linear-gradient(135deg, #e9eef0, #a9b4b8)"></span>Серебристый</span><span class="check__count" data-filter-count></span></label>
           </div>
         </details>
 
@@ -147,7 +175,7 @@
       </div>
 
       <ul class="product-grid" data-product-grid>
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="DAICHIxMTC" data-inverter="no" data-areas="20 25 35 50" data-prices="">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="DAICHIxMTC" data-inverter="no" data-unit="wall" data-color="white" data-areas="20 25 35 50" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: DAICHIxMTC Beta 1_UNL_A">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -176,7 +204,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="DAICHIxMES" data-inverter="no" data-areas="20 25 35 50" data-prices="21500 32000">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="DAICHIxMES" data-inverter="no" data-unit="wall" data-color="white" data-areas="20 25 35 50" data-prices="21500 32000">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: DAICHIxMES Epsilon_UNL_A">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -205,7 +233,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Aurum" data-inverter="yes" data-areas="20 25" data-prices="">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Aurum" data-inverter="yes" data-unit="wall" data-color="white" data-areas="20 25" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Aurum PRIZE Inverter">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -233,7 +261,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Aurum" data-inverter="no" data-areas="25 50" data-prices="">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Aurum" data-inverter="no" data-unit="wall" data-color="white" data-areas="25 50" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Aurum PRIZE">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -260,7 +288,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="yes" data-areas="20 25 35 50 70" data-prices="">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="yes" data-unit="wall" data-color="white" data-areas="20 25 35 50 70" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия H inverter R32">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -291,7 +319,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="no" data-areas="20 25 35 50 70" data-prices="20790 22890 31190 51490 64690">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="no" data-unit="wall" data-color="white" data-areas="20 25 35 50 70" data-prices="20790 22890 31190 51490 64690">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия H R32">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -322,7 +350,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="yes" data-areas="20 25 35 50 70" data-prices="58990">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="yes" data-unit="wall" data-color="white black" data-areas="20 25 35 50 70" data-prices="58990">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия F Inverter">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -353,7 +381,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="no" data-areas="20 25 35 50 70" data-prices="">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="no" data-unit="wall" data-color="white" data-areas="20 25 35 50 70" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия F">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -383,7 +411,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="yes" data-areas="20 25 35 50 70" data-prices="">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="yes" data-unit="wall" data-color="white" data-areas="20 25 35 50 70" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия H Inverter">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -414,7 +442,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="no" data-areas="20 25 35 50 70" data-prices="">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Axioma" data-inverter="no" data-unit="wall" data-color="white" data-areas="20 25 35 50 70" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma Серия H">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -444,7 +472,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Bosch" data-inverter="no" data-areas="25 70" data-prices="">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Bosch" data-inverter="no" data-unit="wall" data-color="white silver" data-areas="25 70" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Bosch Climate 6000i">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -471,7 +499,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Bosch" data-inverter="no" data-areas="20 25 35 50 70" data-prices="">
+        <li class="product-card" data-category="bitovie_konditsioneri" data-brand="Bosch" data-inverter="no" data-unit="wall" data-color="white" data-areas="20 25 35 50 70" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Bosch Climate Line 2000">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -501,7 +529,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="multisplit_sistemi" data-brand="" data-inverter="" data-areas="" data-prices="">
+        <li class="product-card" data-category="multisplit_sistemi" data-brand="" data-inverter="" data-unit="wall" data-color="white" data-areas="" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Мульти-сплит система для двух комнат">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -523,7 +551,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="multisplit_sistemi" data-brand="" data-inverter="" data-areas="" data-prices="">
+        <li class="product-card" data-category="multisplit_sistemi" data-brand="" data-inverter="" data-unit="wall" data-color="white" data-areas="" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Мульти-сплит система для трех комнат">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -545,7 +573,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="multisplit_sistemi" data-brand="" data-inverter="" data-areas="" data-prices="">
+        <li class="product-card" data-category="multisplit_sistemi" data-brand="" data-inverter="" data-unit="wall" data-color="white" data-areas="" data-prices="">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Мульти-сплит система для четырех комнат">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -567,7 +595,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="polupromishlennie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="50 70 100 140 160" data-prices="71990 90290 119790 149390">
+        <li class="product-card" data-category="polupromishlennie_konditsioneri" data-brand="Midea" data-inverter="no" data-unit="duct" data-color="" data-areas="50 70 100 140 160" data-prices="71990 90290 119790 149390">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MTI-1-P/MOU-L">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -597,7 +625,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="polupromishlennie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="70 100 140 160" data-prices="90290 119790 149390">
+        <li class="product-card" data-category="polupromishlennie_konditsioneri" data-brand="Midea" data-inverter="no" data-unit="cassette" data-color="white" data-areas="70 100 140 160" data-prices="90290 119790 149390">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MCD1/MOU-L">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -626,7 +654,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="polupromishlennie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="35 50" data-prices="61590 66190">
+        <li class="product-card" data-category="polupromishlennie_konditsioneri" data-brand="Midea" data-inverter="no" data-unit="cassette" data-color="white" data-areas="35 50" data-prices="61590 66190">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MCA3/MOU-L">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -653,7 +681,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="mobilnie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="" data-prices="27990 29990">
+        <li class="product-card" data-category="mobilnie_konditsioneri" data-brand="Midea" data-inverter="no" data-unit="" data-color="white" data-areas="" data-prices="27990 29990">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MPPHA">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -675,7 +703,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="mobilnie_konditsioneri" data-brand="Midea" data-inverter="no" data-areas="35" data-prices="49990">
+        <li class="product-card" data-category="mobilnie_konditsioneri" data-brand="Midea" data-inverter="no" data-unit="" data-color="white" data-areas="35" data-prices="49990">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Midea MPPDB">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -701,7 +729,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="okonnie_konditsioneri" data-brand="Axioma" data-inverter="no" data-areas="20 25 17" data-prices="20990 27990 33490">
+        <li class="product-card" data-category="okonnie_konditsioneri" data-brand="Axioma" data-inverter="no" data-unit="" data-color="white" data-areas="20 25 17" data-prices="20990 27990 33490">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma ASJC">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -729,7 +757,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="aksessuari" data-brand="Axioma" data-inverter="" data-areas="" data-prices="7400">
+        <li class="product-card" data-category="aksessuari" data-brand="Axioma" data-inverter="" data-unit="" data-color="white" data-areas="" data-prices="7400">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Axioma AWC">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -751,7 +779,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="aksessuari" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="5500 5600">
+        <li class="product-card" data-category="aksessuari" data-brand="Kentatsu" data-inverter="" data-unit="" data-color="" data-areas="" data-prices="5500 5600">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu KPU65">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -773,7 +801,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="ventilyatsiya" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="488000 531000 557000">
+        <li class="product-card" data-category="ventilyatsiya" data-brand="Kentatsu" data-inverter="" data-unit="" data-color="" data-areas="" data-prices="488000 531000 557000">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu Компакт RR">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -795,7 +823,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="otoplenie" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="47599 48599 49599">
+        <li class="product-card" data-category="otoplenie" data-brand="Kentatsu" data-inverter="" data-unit="" data-color="" data-areas="" data-prices="47599 48599 49599">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu Nobby Electro KBP(E)">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -817,7 +845,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="otoplenie" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="8099 9999 45899">
+        <li class="product-card" data-category="otoplenie" data-brand="Kentatsu" data-inverter="" data-unit="" data-color="" data-areas="" data-prices="8099 9999 45899">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu ANTEI RIB">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -839,7 +867,7 @@
           </div>
         </li>
 
-        <li class="product-card" data-category="otoplenie" data-brand="Kentatsu" data-inverter="" data-areas="" data-prices="57599 61699 73399">
+        <li class="product-card" data-category="otoplenie" data-brand="Kentatsu" data-inverter="" data-unit="" data-color="" data-areas="" data-prices="57599 61699 73399">
           <button class="product-card__fav" type="button" aria-pressed="false" aria-label="Добавить в избранное: Kentatsu Nobby Smart II">
             <span class="icon icon--heart" aria-hidden="true"></span>
           </button>
@@ -871,20 +899,18 @@
         </div>
       </div>
 
-      <!-- Пагинация. На WordPress: woocommerce_pagination, ссылки сохраняют
-           параметры фильтра. В вёрстке скрывается, пока выбран фильтр или категория -->
-      <nav class="pagination" aria-label="Страницы каталога">
-        <a class="pagination__arrow" aria-disabled="true" aria-label="Предыдущая страница">
+      <!-- Пагинация — параметр адреса ?page=2, как фильтры: ссылки страниц
+           сохраняют категорию, фильтры и сортировку, первая страница идёт без
+           параметра. В вёрстке номера и скрытие лишних карточек делает app.js
+           (initCatalog, 9 товаров на странице). На WordPress сервер отдаёт эту
+           же разметку с готовыми href; data-page — номер страницы ссылки.
+           Неактивная стрелка — без href и с aria-disabled="true" -->
+      <nav class="pagination" aria-label="Страницы каталога" data-pagination hidden>
+        <a class="pagination__arrow" aria-label="Предыдущая страница" data-pagination-prev>
           <span class="icon icon--chevron-left" aria-hidden="true"></span>
         </a>
-        <ul class="pagination__list">
-          <li><a class="pagination__link" href="{{root}}catalog/" aria-current="page">1</a></li>
-          <li><a class="pagination__link" href="{{root}}catalog/page/2/">2</a></li>
-          <li><a class="pagination__link" href="{{root}}catalog/page/3/">3</a></li>
-          <li><a class="pagination__link" href="{{root}}catalog/page/4/">4</a></li>
-          <li><a class="pagination__link" href="{{root}}catalog/page/5/">5</a></li>
-        </ul>
-        <a class="pagination__arrow" href="{{root}}catalog/page/2/" aria-label="Следующая страница">
+        <ul class="pagination__list" data-pagination-list></ul>
+        <a class="pagination__arrow" aria-label="Следующая страница" data-pagination-next>
           <span class="icon icon--chevron-right" aria-hidden="true"></span>
         </a>
       </nav>

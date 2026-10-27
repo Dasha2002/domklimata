@@ -1,0 +1,66 @@
+<!-- ==========================================================================
+     Секция: Реализованные объекты
+     Блок БЭМ: .projects, кейс .case
+
+     ПРИМЕР ДЛЯ ВЁРСТКИ. Кейсы собраны по записям блога текущего сайта
+     (установка с альпинистом, кондиционер в деревянном доме, тепловая
+     завеса), фото оттуда же. Тексты «задача / работы / результат»
+     написаны для вёрстки: заменить данными реальных объектов.
+     На WordPress — записи типа «Объект» с полями тип, задача,
+     оборудование, работы, результат.
+     ========================================================================== -->
+<section class="projects" id="projects" aria-labelledby="projects-title">
+  <div class="container">
+    <div class="projects__head">
+      <h2 class="section-title" id="projects-title">Реализованные объекты</h2>
+      <a class="text-link" href="{{root}}news/">Все объекты в блоге</a>
+    </div>
+
+    <div class="projects__grid">
+      <article class="case case--main" data-reveal>
+        <img class="case__img" src="{{root}}img/photos/installation.webp" width="844" height="508"
+             alt="Монтажник-альпинист устанавливает наружный блок на фасаде" loading="lazy">
+        <div class="case__body">
+          <p class="case__type">Квартира в многоэтажном доме</p>
+          <h3 class="case__title">Наружный блок на высоком этаже без балкона</h3>
+          <dl class="case__facts">
+            <div><dt>Задача</dt><dd>Установить кондиционер в квартире, где к месту наружного блока не подойти с балкона</dd></div>
+            <div><dt>Оборудование</dt><dd>Настенная сплит-система</dd></div>
+            <div><dt>Работы</dt><dd>Монтаж наружного блока промышленным альпинистом, прокладка трассы, пусконаладка</dd></div>
+            <div><dt>Результат</dt><dd>Блок закреплён на фасаде без автовышки, система работает в обоих режимах</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="case" data-reveal style="--reveal-index: 1">
+        <img class="case__img" src="{{root}}img/photos/maintenance.webp" width="642" height="385"
+             alt="Белый настенный кондиционер на деревянной стене" loading="lazy">
+        <div class="case__body">
+          <p class="case__type">Частный дом из бруса</p>
+          <h3 class="case__title">Кондиционер в деревянном интерьере</h3>
+          <dl class="case__facts">
+            <div><dt>Задача</dt><dd>Охладить гостиную и сохранить вид деревянных стен</dd></div>
+            <div><dt>Оборудование</dt><dd>Настенная сплит-система Lessar</dd></div>
+            <div><dt>Работы</dt><dd>Подбор места, аккуратный вывод трассы, монтаж</dd></div>
+            <div><dt>Результат</dt><dd>Белый блок вписался в интерьер, трасса не видна</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="case" data-reveal style="--reveal-index: 2">
+        <img class="case__img" src="{{root}}img/photos/heat-curtain.webp" width="966" height="529"
+             alt="Тепловая завеса над входной дверью кафе" loading="lazy">
+        <div class="case__body">
+          <p class="case__type">Кафе</p>
+          <h3 class="case__title">Тепловая завеса над входом</h3>
+          <dl class="case__facts">
+            <div><dt>Задача</dt><dd>Убрать холод у входа зимой, когда дверь часто открывают</dd></div>
+            <div><dt>Оборудование</dt><dd>Электрическая тепловая завеса</dd></div>
+            <div><dt>Работы</dt><dd>Демонтаж старой завесы, монтаж и подключение новой</dd></div>
+            <div><dt>Результат</dt><dd>У входа тепло, холодный воздух не проходит в зал</dd></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

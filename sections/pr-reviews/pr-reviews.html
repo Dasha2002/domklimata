@@ -1,0 +1,147 @@
+<!-- ==========================================================================
+     Секция: Отзывы о товаре
+     Блок БЭМ: .pr-reviews, сводка .pr-rating, отзыв .pr-review,
+     форма .review-form. Поведение в app.js: initProductReviews.
+
+     ВНИМАНИЕ: отзывы ниже — пример для вёрстки, на сайт их не переносить.
+     На WordPress — отзывы WooCommerce к товару (комментарии с оценкой),
+     сводка считается по ним. Нет отзывов — вместо списка и сводки
+     выводится строка «Отзывов пока нет» и кнопка «Написать отзыв».
+     Рейтинг в сводке рисует ширина заливки: --rating от 0 до 5.
+     ========================================================================== -->
+<section class="pr-reviews" id="product-reviews" aria-labelledby="product-reviews-title">
+  <div class="container">
+    <h2 class="section-title" id="product-reviews-title">Отзывы о модели</h2>
+
+    <div class="pr-reviews__layout">
+      <div class="pr-rating">
+        <p class="pr-rating__value">4,7</p>
+        <p class="pr-rating__stars" style="--rating: 4.7" aria-label="Средняя оценка 4,7 из 5">
+          <span class="pr-rating__stars-base" aria-hidden="true"><span class="icon icon--star-filled"></span><span class="icon icon--star-filled"></span><span class="icon icon--star-filled"></span><span class="icon icon--star-filled"></span><span class="icon icon--star-filled"></span></span>
+          <span class="pr-rating__stars-fill" aria-hidden="true"><span class="icon icon--star-filled"></span><span class="icon icon--star-filled"></span><span class="icon icon--star-filled"></span><span class="icon icon--star-filled"></span><span class="icon icon--star-filled"></span></span>
+        </p>
+        <p class="pr-rating__count">по 3 отзывам</p>
+
+        <!-- Распределение оценок: ширина полосы — доля отзывов -->
+        <ul class="pr-rating__bars">
+          <li><span>5</span><span class="pr-rating__bar"><span style="width: 67%"></span></span><span>2</span></li>
+          <li><span>4</span><span class="pr-rating__bar"><span style="width: 33%"></span></span><span>1</span></li>
+          <li><span>3</span><span class="pr-rating__bar"><span style="width: 0%"></span></span><span>0</span></li>
+          <li><span>2</span><span class="pr-rating__bar"><span style="width: 0%"></span></span><span>0</span></li>
+          <li><span>1</span><span class="pr-rating__bar"><span style="width: 0%"></span></span><span>0</span></li>
+        </ul>
+
+        <button class="button button--outline pr-rating__write" type="button"
+                aria-expanded="false" aria-controls="review-form" data-review-toggle>
+          <span class="icon icon--message-circle" aria-hidden="true"></span>
+          Написать отзыв
+        </button>
+      </div>
+
+      <div class="pr-reviews__main">
+
+        <!-- Форма отзыва. Раскрывается кнопкой «Написать отзыв» -->
+        <form class="review-form" id="review-form" action="#" method="post" novalidate hidden data-review-form>
+          <div class="review-form__fields">
+            <p class="review-form__title">Ваш отзыв об Axioma Серия H R32</p>
+
+            <fieldset class="field review-form__rating">
+              <legend class="field__label">Оценка</legend>
+              <!-- Звёзды в обратном порядке: CSS подсвечивает выбранную и все до неё -->
+              <div class="stars-input">
+                <input class="visually-hidden" type="radio" id="review-rating-5" name="rating" value="5" aria-describedby="review-rating-error">
+                <label for="review-rating-5"><span class="icon icon--star-filled" aria-hidden="true"></span><span class="visually-hidden">5 из 5, отлично</span></label>
+                <input class="visually-hidden" type="radio" id="review-rating-4" name="rating" value="4">
+                <label for="review-rating-4"><span class="icon icon--star-filled" aria-hidden="true"></span><span class="visually-hidden">4 из 5, хорошо</span></label>
+                <input class="visually-hidden" type="radio" id="review-rating-3" name="rating" value="3">
+                <label for="review-rating-3"><span class="icon icon--star-filled" aria-hidden="true"></span><span class="visually-hidden">3 из 5, нормально</span></label>
+                <input class="visually-hidden" type="radio" id="review-rating-2" name="rating" value="2">
+                <label for="review-rating-2"><span class="icon icon--star-filled" aria-hidden="true"></span><span class="visually-hidden">2 из 5, плохо</span></label>
+                <input class="visually-hidden" type="radio" id="review-rating-1" name="rating" value="1">
+                <label for="review-rating-1"><span class="icon icon--star-filled" aria-hidden="true"></span><span class="visually-hidden">1 из 5, очень плохо</span></label>
+              </div>
+              <p class="field__error" id="review-rating-error" hidden>Поставьте оценку от 1 до 5</p>
+            </fieldset>
+
+            <div class="field">
+              <label class="field__label" for="review-name">Имя</label>
+              <input class="field__input" id="review-name" name="name" type="text"
+                     autocomplete="given-name" maxlength="80" required
+                     aria-describedby="review-name-error">
+              <p class="field__error" id="review-name-error" hidden>Напишите, как вас подписать</p>
+            </div>
+
+            <div class="field review-form__wide">
+              <label class="field__label" for="review-text">Отзыв</label>
+              <textarea class="field__input" id="review-text" name="text" rows="4" maxlength="3000" required
+                        placeholder="Где стоит кондиционер, как охлаждает, шумит ли" aria-describedby="review-text-error"></textarea>
+              <p class="field__error" id="review-text-error" hidden>Напишите хотя бы пару предложений</p>
+            </div>
+
+            <div class="field review-form__wide">
+              <label class="checkbox">
+                <input type="checkbox" name="consent" required aria-describedby="review-consent-error">
+                <span>Согласен на обработку персональных данных по <a href="{{root}}politika/" target="_blank">политике конфиденциальности</a></span>
+              </label>
+              <p class="field__error" id="review-consent-error" hidden>Без согласия мы не сможем опубликовать отзыв</p>
+            </div>
+
+            <button class="button button--primary review-form__submit" type="submit">Отправить отзыв</button>
+          </div>
+
+          <div class="review-form__success" role="status" hidden>
+            <span class="icon icon--check" aria-hidden="true"></span>
+            <span><strong>Спасибо за отзыв!</strong> Он появится на странице после проверки модератором.</span>
+          </div>
+        </form>
+
+        <ul class="pr-reviews__list">
+          <li class="pr-review">
+            <div class="pr-review__head">
+              <p class="pr-review__author">Анна</p>
+              <time class="pr-review__date" datetime="2026-08-12">12 августа 2026</time>
+            </div>
+            <p class="pr-review__stars" aria-label="Оценка 5 из 5">
+              <span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span>
+            </p>
+            <p class="pr-review__meta">Спальня 16&nbsp;м², модель на 20&nbsp;м²</p>
+            <p class="pr-review__text">
+              Ставили в спальню с окнами на юг. Охлаждает быстро, ночью на тихой
+              скорости почти не слышно. Монтажники приехали в назначенный день
+              и убрали за собой.
+            </p>
+          </li>
+          <li class="pr-review">
+            <div class="pr-review__head">
+              <p class="pr-review__author">Сергей</p>
+              <time class="pr-review__date" datetime="2026-07-03">3 июля 2026</time>
+            </div>
+            <p class="pr-review__stars" aria-label="Оценка 5 из 5">
+              <span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span>
+            </p>
+            <p class="pr-review__meta">Кабинет 22&nbsp;м², модель на 25&nbsp;м²</p>
+            <p class="pr-review__text">
+              Брал из-за цены: дешевле инверторных, а для кабинета, где работаю
+              днём, мощности хватает. Пульт понятный, есть таймер на выключение.
+            </p>
+          </li>
+          <li class="pr-review">
+            <div class="pr-review__head">
+              <p class="pr-review__author">Ирина</p>
+              <time class="pr-review__date" datetime="2026-06-18">18 июня 2026</time>
+            </div>
+            <p class="pr-review__stars" aria-label="Оценка 4 из 5">
+              <span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled" aria-hidden="true"></span><span class="icon icon--star-filled pr-review__star-off" aria-hidden="true"></span>
+            </p>
+            <p class="pr-review__meta">Гостиная 30&nbsp;м², модель на 35&nbsp;м²</p>
+            <p class="pr-review__text">
+              Холодит хорошо, комнату остужает минут за десять. Минус: когда
+              включается компрессор, наружный блок слышно с балкона, но в
+              комнате это не мешает.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

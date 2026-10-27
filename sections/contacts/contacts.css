@@ -1,0 +1,101 @@
+/* ==========================================================================
+   Секция: Контакты (карта)
+   Карточка с адресом лежит поверх карты слева; на телефоне — под картой
+   ========================================================================== */
+
+.contacts {
+  padding-bottom: var(--section-y);
+}
+
+.contacts__map {
+  position: relative;
+  height: 440px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-brand-soft);
+  overflow: hidden;
+}
+
+.contacts__frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.contacts__card {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  padding: 28px;
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+.contacts__title {
+  font-size: 24px;
+}
+
+.contacts__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+  margin-bottom: 24px;
+  font-size: 16px;
+}
+
+.contacts__list li {
+  display: flex;
+  gap: 12px;
+}
+
+.contacts__list .icon {
+  margin-top: 2px;
+  color: var(--color-brand);
+}
+
+.contacts__list a {
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.contacts__list a:hover {
+  color: var(--color-brand);
+}
+
+.contacts__route {
+  margin-top: auto;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .contacts__map {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    border-radius: var(--radius);
+  }
+
+  .contacts__frame {
+    height: 280px;
+  }
+
+  .contacts__card {
+    position: static;
+    width: auto;
+    padding: 20px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* На главной карта идёт сразу после формы заявки (секция cta) и вместе
+   с ней составляет блок «Контакты»: убираем двойной отступ между ними */
+.cta + .contacts {
+  margin-top: calc(var(--section-y) * -0.5);
+}

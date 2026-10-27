@@ -1,0 +1,180 @@
+/* ==========================================================================
+   Секция: Описание модели и «Для какого помещения подходит»
+   Текст слева, карточка про помещение справа. Сверху — переходы по странице
+   ========================================================================== */
+
+.pr-desc {
+  padding: 0 0 var(--section-y);
+}
+
+/* --- Навигация по странице ----------------------------------------------- */
+.pr-nav {
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pr-nav__list {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pr-nav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.pr-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-weight: 600;
+  color: var(--color-muted);
+  white-space: nowrap;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.pr-nav__link:hover {
+  border-bottom-color: var(--color-brand);
+  color: var(--color-brand-dark);
+}
+
+.pr-nav__count {
+  padding: 1px 7px;
+  border-radius: 6px;
+  background-color: var(--color-brand-soft);
+  font-size: 13px;
+  color: var(--color-brand);
+}
+
+/* --- Описание ------------------------------------------------------------ */
+.pr-desc__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  align-items: start;
+  gap: 64px;
+}
+
+.pr-desc__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 68ch;
+  margin-top: 24px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.pr-desc__copy a {
+  font-weight: 600;
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-decoration-color: rgba(1, 68, 84, 0.35);
+  text-underline-offset: 3px;
+}
+
+.pr-desc__copy a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* --- Для какого помещения ------------------------------------------------ */
+.pr-room {
+  position: sticky;
+  top: calc(var(--header-main-h) + 24px);
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-brand);
+  color: #fff;
+}
+
+.pr-room__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.pr-room__icon .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.pr-room__title {
+  margin-top: 18px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pr-room__lead {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.pr-room__note {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Обводка на тёмном фоне — белая */
+.pr-room__button {
+  width: 100%;
+  margin-top: 20px;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.pr-room__button:hover {
+  border-color: #fff;
+  background-color: #fff;
+  color: var(--color-brand);
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .pr-desc__layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .pr-room {
+    position: static;
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 760px) {
+  .pr-nav {
+    margin: 0 calc(var(--container-padding) * -1) 40px;
+    padding: 0 var(--container-padding);
+  }
+
+  .pr-nav__list {
+    gap: 24px;
+  }
+
+  .pr-desc__copy {
+    margin-top: 16px;
+    font-size: 16px;
+  }
+
+  .pr-room {
+    padding: 22px 20px;
+  }
+
+  .pr-room__lead {
+    font-size: 19px;
+  }
+}
