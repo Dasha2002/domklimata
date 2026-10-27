@@ -46,6 +46,8 @@
   --header-main-h: 76px;
 }
 
+::selection { background: #f26c2ed6; color: #ffffff; } 
+
 @media (max-width: 1024px) {
   :root {
     --section-y: 72px;

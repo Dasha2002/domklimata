@@ -149,31 +149,36 @@
     </div>
   </div>
 
-  <!-- Мобильное меню (до 1024px) -->
+  <!-- Общая навигация: доступна по бургеру на компьютере и телефоне. -->
   <div class="mobile-menu" id="mobile-menu" hidden>
-    <nav class="mobile-menu__nav" aria-label="Основное меню">
-      <p class="mobile-menu__title">Каталог</p>
-      <a href="{{root}}catalog/">Полный каталог</a>
-      <a href="{{root}}catalog/?category=bitovie_konditsioneri">Бытовые кондиционеры</a>
-      <a href="{{root}}catalog/?category=multisplit_sistemi">Мультисплит-системы</a>
-      <a href="{{root}}catalog/?category=polupromishlennie_konditsioneri">Полупромышленные</a>
-      <a href="{{root}}catalog/?category=ventilyatsiya">Вентиляция</a>
-      <a href="{{root}}catalog/?category=otoplenie">Отопление</a>
-
-      <p class="mobile-menu__title">Покупателям</p>
-      <a href="{{root}}Installation/">Монтаж</a>
-      <a href="{{root}}dostavka-i-oplata/">Доставка и оплата</a>
-      <a href="{{root}}about/">О компании</a>
-      <a href="{{root}}news/">Блог</a>
-      <a href="{{root}}kontakty/">Контакты</a>
-    </nav>
-
-    <div class="mobile-menu__contacts">
-      <a class="mobile-menu__phone" href="tel:+73422717711">+7 (342) 271-77-11</a>
-      <a class="mobile-menu__phone" href="tel:+79519517711">+7 (951) 951-77-11</a>
-      <p>Пн-Пт, 9:00-18:00. Пермь, ул. Трамвайная, 27, офис 4</p>
-      <button class="button button--accent" type="button" data-open-request>Оставить заявку</button>
+    <div class="mobile-menu__inner container">
+      <nav class="mobile-menu__nav" aria-label="Основное меню">
+        <p class="mobile-menu__title">Разделы сайта</p>
+        <a href="{{root}}index.html">Главная</a>
+        <a href="{{root}}ventilyatsiya/">Вентиляция</a>
+        <a href="{{root}}Installation/">Монтаж</a>
+        <a href="{{root}}about/">О компании</a>
+        <a href="{{root}}dostavka-i-oplata/">Доставка и оплата</a>
+        <a href="{{root}}news/">Блог</a>
+        <a href="{{root}}kontakty/">Контакты</a>
+      </nav>
+      <nav class="mobile-menu__nav" aria-label="Каталог оборудования">
+        <p class="mobile-menu__title">Каталог оборудования</p>
+        <a href="{{root}}catalog/konditsionirovanie/bitovie_konditsioneri/">Бытовые кондиционеры</a>
+        <a href="{{root}}catalog/konditsionirovanie/multisplit_sistemi/">Мультисплит-системы</a>
+        <a href="{{root}}catalog/konditsionirovanie/polupromishlennie_konditsioneri/">Полупромышленные</a>
+        <a href="{{root}}catalog/ventilyatsiya/">Вентиляция</a>
+        <a href="{{root}}catalog/otoplenie/">Отопление</a>
+      </nav>
+      <div class="mobile-menu__contacts">
+        <p class="mobile-menu__title">Всегда на связи</p>
+        <a class="mobile-menu__phone" href="tel:+73422717711">+7 (342) 271-77-11</a>
+        <a class="mobile-menu__phone" href="tel:+79519517711">+7 (951) 951-77-11</a>
+        <a href="mailto:info@domklimata59.ru">info@domklimata59.ru</a>
+        <p>Пн-Пт, 9:00-18:00</p>
+        <p>Пермь, ул. Трамвайная, 27, офис 4</p>
+        <button class="button button--accent" type="button" data-open-request>Оставить заявку</button>
+      </div>
     </div>
   </div>
-
 </header>
