@@ -2,7 +2,8 @@
 document.addEventListener('sections:loaded', function () {
   var current = window.location.pathname.replace(/index\.html$/, '').toLowerCase();
   document.querySelectorAll('.header a[href]').forEach(function (link) {
-    if (new URL(link.href).pathname.replace(/index\.html$/, '').toLowerCase() === current) {
+    var target = new URL(link.href).pathname.replace(/index\.html$/, '').toLowerCase();
+    if (target === current || (target.endsWith('/news/') && current.indexOf(target) === 0)) {
       link.setAttribute('aria-current', 'page');
     }
   });
@@ -24,7 +25,17 @@ document.addEventListener('sections:loaded', function () {
     // Клик по затемнению вокруг документа закрывает просмотр,
     // по самому документу и подписи — нет
     certificateViewer.addEventListener('click', function (event) {
-      if (!event.target.closest('img, figcaption, button')) certificateViewer.close();
+      if (!certificateViewer.open || event.target.closest('button')) return;
+      var image = certificateViewer.querySelector('img');
+      var box = image.getBoundingClientRect();
+      // object-fit: contain оставляет поля внутри самого img. Они тоже фон.
+      var scale = Math.min(box.width / image.naturalWidth, box.height / image.naturalHeight);
+      var width = image.naturalWidth * scale;
+      var height = image.naturalHeight * scale;
+      var left = box.left + (box.width - width) / 2;
+      var top = box.top + (box.height - height) / 2;
+      if (!(event.clientX >= left && event.clientX <= left + width &&
+            event.clientY >= top && event.clientY <= top + height)) certificateViewer.close();
     });
     certificateViewer.addEventListener('close', function () { document.body.classList.remove('is-locked'); });
   }

@@ -381,3 +381,19 @@ textarea.field__input {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Общая кнопка возврата в начало. На коротких страницах JS оставляет её скрытой. */
+.back-to-top-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
+.back-to-top { position: fixed; right: 24px; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 60; display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--color-line); border-radius: var(--radius-sm); background: var(--color-brand); color: white; box-shadow: var(--shadow); }
+.back-to-top:hover { background: var(--color-brand-dark); }
+.back-to-top .icon { transform: rotate(-45deg); width: 24px; height: 24px; }
+@media (max-width: 640px) { .back-to-top { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); width: 44px; height: 44px; } body:has(.cart-bar.is-visible) .back-to-top { bottom: 100px; } }
+
+/* Единая фирменная полоса прокрутки страниц и прокручиваемых областей. */
+html { scrollbar-gutter: stable; }
+* { scrollbar-width: thin; scrollbar-color: var(--color-brand) var(--color-brand-tint); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-brand-tint); }
+::-webkit-scrollbar-thumb { background: var(--color-brand); border: 2px solid var(--color-brand-tint); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+::-webkit-scrollbar-corner { background: var(--color-brand-tint); }

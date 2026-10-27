@@ -3,16 +3,36 @@
    ========================================================================== */
 
 .modal {
-  width: min(480px, calc(100% - 32px));
-  max-height: calc(100dvh - 32px);
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 24px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__panel {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(480px, 100%);
   margin: auto;
   padding: 40px 32px 32px;
-  border: 0;
   border-radius: var(--radius-lg);
-  background-color: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--color-surface);
   box-shadow: 0 32px 80px rgba(1, 49, 61, 0.3);
-  overflow-y: auto;
 }
 
 .modal::backdrop {
@@ -20,7 +40,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .modal[open] {
+  .modal[open] .modal__panel {
     animation: modal-in 0.35s var(--ease);
   }
 }
@@ -68,6 +88,10 @@
 
 @media (max-width: 640px) {
   .modal {
+    padding: 16px 12px;
+  }
+
+  .modal__panel {
     padding: 32px 20px 24px;
     border-radius: var(--radius);
   }

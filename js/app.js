@@ -30,6 +30,7 @@ document.addEventListener('sections:loaded', function () {
   initAccountFavorites();
   initAuth();
   initReviews();
+  initBackToTop();
 });
 
 var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -565,6 +566,7 @@ function initRequestModal() {
     }
 
     modal.showModal();
+    modal.scrollTop = 0;
     document.body.classList.add('is-locked');
   });
 
@@ -1797,7 +1799,7 @@ function setCartCount(count) {
 /**
  * Корзина и оформление: количество, удаление с отменой, пересчёт
  * товаров и доставки, проверка формы, панель «Итого» на телефоне.
- * Доставка по Перми бесплатна от 20 000 ₽, иначе 1 000 ₽ (условия сайта),
+ * Доставка по Перми бесплатна от 50 000 ₽, иначе 1 000 ₽ (условия сайта),
  * за пределами города и монтаж — расчёт менеджера.
  * На WordPress пересчёт и сохранение делает WooCommerce, скрипт
  * отправляет изменения запросом; разметка остаётся той же.
@@ -1806,7 +1808,7 @@ function initCart() {
   var section = document.querySelector('[data-cart]');
   if (!section) return;
 
-  var FREE_FROM = 20000;
+  var FREE_FROM = 50000;
   var DELIVERY_PRICE = 1000;
 
   var form = document.getElementById('checkout-form');
@@ -2440,6 +2442,7 @@ function initAuth() {
   account.querySelector('[data-open-password]').addEventListener('click', function () {
     resetPasswordModal();
     passwordModal.showModal();
+    passwordModal.scrollTop = 0;
     document.body.classList.add('is-locked');
   });
 
@@ -2564,4 +2567,48 @@ function initReviews() {
   list.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   update();
+}
+
+/* Кнопка появляется после первого экрана и только на достаточно длинной странице. */
+function initBackToTop() {
+  if (document.querySelector('.back-to-top')) return;
+  var button = document.createElement('button');
+  button.className = 'back-to-top';
+  button.type = 'button';
+  button.hidden = true;
+  button.setAttribute('aria-label', 'Вернуться в начало страницы');
+  button.title = 'Наверх';
+  button.innerHTML = '<span class="icon icon--arrow-up-right" aria-hidden="true"></span>';
+  document.body.appendChild(button);
+  var sentinel = document.createElement('span');
+  sentinel.className = 'back-to-top-sentinel';
+  sentinel.setAttribute('aria-hidden', 'true');
+  document.body.prepend(sentinel);
+  var pastFirstScreen = false;
+  var observer;
+  function update() {
+    var auth = document.querySelector('.auth');
+    var shortPage = document.documentElement.scrollHeight <= window.innerHeight * 1.5;
+    var loginVisible = auth && !auth.hidden && auth.getBoundingClientRect().height > 0;
+    button.hidden = !pastFirstScreen || shortPage || loginVisible;
+  }
+  function observeTop() {
+    if (observer) observer.disconnect();
+    observer = new IntersectionObserver(function (entries) {
+      pastFirstScreen = !entries[0].isIntersecting;
+      update();
+    }, { rootMargin: Math.round(window.innerHeight * 0.75) + 'px 0px 0px' });
+    observer.observe(sentinel);
+    update();
+  }
+  button.addEventListener('click', function () {
+    var logo = document.querySelector('.header__logo');
+    if (logo) logo.focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+  });
+  if ('IntersectionObserver' in window) {
+    observeTop();
+    window.addEventListener('resize', observeTop);
+    if ('ResizeObserver' in window) new ResizeObserver(update).observe(document.body);
+  }
 }
