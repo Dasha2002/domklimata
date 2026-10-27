@@ -591,3 +591,9 @@
  .header__burger { visibility: hidden; opacity: 0; pointer-events: none; transition: opacity var(--transition), background-color var(--transition); }
  .header.is-navigation-hidden .header__burger { visibility: visible; opacity: 1; pointer-events: auto; }
 }
+/* На самых узких экранах телефон доступен в меню, логотип не наезжает на иконки. */
+@media (max-width: 380px) {
+ .header__main-inner { grid-template-columns: minmax(0, 1fr) auto auto auto; grid-template-areas: "logo account cart burger" "search search search search"; gap: 0 6px; }
+ .header__logo { width: 128px; margin-right: 0; }
+ .header__phone { display: none; }
+}
