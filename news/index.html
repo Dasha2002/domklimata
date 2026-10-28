@@ -10,7 +10,7 @@
 <link rel="preload" href="../fonts/Onest-Cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../css/styles.css?v=20261027-ui">
 <link rel="stylesheet" href="../css/pages.css">
-<link rel="stylesheet" href="../css/editorial.css?v=20261027-links-restored">
+<link rel="stylesheet" href="../css/editorial.css?v=20261028-filter-restored">
 </head>
 <body class="inner-page editorial-page" data-root="../">
 <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -23,7 +23,6 @@
 <span aria-current="page">Блог</span>
 </nav>
 <section class="blog-intro container">
-<p class="editorial-kicker">Знания и практика</p>
 <h1>Блог «Дом Климата»</h1>
 <p class="editorial-lead">Оборудование, обслуживание и реальные объекты. Делимся опытом работы с климатом.</p>
 </section>
@@ -42,232 +41,274 @@
 <button type="button" data-blog-filter="Наши работы" aria-pressed="false">Наши работы</button>
 <button type="button" data-blog-filter="Новости компании" aria-pressed="false">Новости компании</button>
 </div>
+<div class="blog-filter-accordion">
+<button class="blog-filter-toggle" type="button" aria-expanded="false" aria-controls="blog-date-panel" data-blog-toggle>Фильтры <span class="icon icon--chevron-down" aria-hidden="true"></span></button>
+<div id="blog-date-panel" data-blog-panel hidden>
+<div class="blog-dates" role="group" aria-label="Период публикации">
+<div class="archive-field"><span id="archive-year-label">Год</span><details class="archive-select" data-archive-select="year">
+<summary aria-labelledby="archive-year-label archive-year-value"><span id="archive-year-value" data-archive-value></span><span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
+<div class="archive-select__options" aria-label="Выберите год" data-archive-options></div></details></div>
+<div class="archive-field"><span id="archive-month-label">Месяц</span><details class="archive-select" data-archive-select="month">
+<summary aria-labelledby="archive-month-label archive-month-value"><span id="archive-month-value" data-archive-value>Все месяцы</span><span class="icon icon--chevron-down" aria-hidden="true"></span></summary>
+<div class="archive-select__options" aria-label="Выберите месяц" data-archive-options></div></details></div>
+<button class="blog-dates__reset" type="button" data-blog-date-reset hidden>Все месяцы</button>
+</div>
+</div>
+</div>
 <p class="blog-count" data-blog-count role="status" aria-live="polite">28 публикаций</p>
 <div class="blog-grid">
 <article class="blog-card" data-blog-card data-category="Советы" data-search="обслуживание кондиционера комплексная диагностика сплит-системы— залог её долговечной и эффективной работы">
 <a class="blog-card__image" href="article/?post=obsluzhivanie-konditsionera"><img src="../img/content/news-35.webp" width="933" height="385" alt="Обслуживание кондиционера" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%8B">Советы</a>
-<h2><a href="article/?post=obsluzhivanie-konditsionera">Обслуживание кондиционера</a></h2>
+<time class="blog-card__date" datetime="2026-10-26">26 октября 2026 г.</time>
+<h3><a href="article/?post=obsluzhivanie-konditsionera">Обслуживание кондиционера</a></h3>
 <p>Комплексная диагностика сплит-системы— залог её долговечной и эффективной работы</p>
-<a class="page-link" href="article/?post=obsluzhivanie-konditsionera">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=obsluzhivanie-konditsionera">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="монтаж мульти сплит системы делимся частичкой первого этапа нашего объекта. у нас в работе квартира площадью 150 м²!">
 <a class="blog-card__image" href="article/?post=montazh-multi-split-sistemi"><img src="../img/content/news-36.webp" width="838" height="541" alt="Монтаж мульти сплит системы" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=montazh-multi-split-sistemi">Монтаж мульти сплит системы</a></h2>
+<time class="blog-card__date" datetime="2026-10-19">19 октября 2026 г.</time>
+<h3><a href="article/?post=montazh-multi-split-sistemi">Монтаж мульти сплит системы</a></h3>
 <p>Делимся частичкой первого этапа нашего объекта. У нас в работе квартира площадью 150 м²!</p>
-<a class="page-link" href="article/?post=montazh-multi-split-sistemi">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=montazh-multi-split-sistemi">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="установка кондиционера kentatsu установили кондиционер kentatsu модель kanami inverter ksga53hzrn1/ksra53hzrn1">
 <a class="blog-card__image" href="article/?post=ustanovka-konditsionera-kentatsu"><img src="../img/blog/photo-02.webp" width="704" height="453" alt="Установка кондиционера Kentatsu" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=ustanovka-konditsionera-kentatsu">Установка кондиционера Kentatsu</a></h2>
+<time class="blog-card__date" datetime="2026-10-12">12 октября 2026 г.</time>
+<h3><a href="article/?post=ustanovka-konditsionera-kentatsu">Установка кондиционера Kentatsu</a></h3>
 <p>Установили кондиционер Kentatsu модель Kanami Inverter KSGA53HZRN1/KSRA53HZRN1</p>
-<a class="page-link" href="article/?post=ustanovka-konditsionera-kentatsu">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=ustanovka-konditsionera-kentatsu">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="кондиционеры в дизайне делимся прекрасным сочетанием, которое вы можете использовать в вашем интерьере: белый кондиционер на деревянных стенах.">
 <a class="blog-card__image" href="article/?post=konditsioneri-v-dizaine"><img src="../img/content/news-37.webp" width="642" height="385" alt="Кондиционеры в дизайне" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=konditsioneri-v-dizaine">Кондиционеры в дизайне</a></h2>
+<time class="blog-card__date" datetime="2026-10-05">5 октября 2026 г.</time>
+<h3><a href="article/?post=konditsioneri-v-dizaine">Кондиционеры в дизайне</a></h3>
 <p>Делимся прекрасным сочетанием, которое вы можете использовать в вашем интерьере: белый кондиционер на деревянных стенах.</p>
-<a class="page-link" href="article/?post=konditsioneri-v-dizaine">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=konditsioneri-v-dizaine">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Советы" data-search="почему мы рекомендуем инверторные кондиционеры? инверторные кондиционеры имеют несколько преимуществ по сравнению с обычными кондиционерами">
 <a class="blog-card__image" href="article/?post=pochemu-mi-rekomenduem-invertornie-kondicionery"><img src="../img/blog/photo-03.webp" width="842" height="430" alt="Почему мы рекомендуем инверторные кондиционеры?" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%8B">Советы</a>
-<h2><a href="article/?post=pochemu-mi-rekomenduem-invertornie-kondicionery">Почему мы рекомендуем инверторные кондиционеры?</a></h2>
+<time class="blog-card__date" datetime="2026-09-28">28 сентября 2026 г.</time>
+<h3><a href="article/?post=pochemu-mi-rekomenduem-invertornie-kondicionery">Почему мы рекомендуем инверторные кондиционеры?</a></h3>
 <p>Инверторные кондиционеры имеют несколько преимуществ по сравнению с обычными кондиционерами</p>
-<a class="page-link" href="article/?post=pochemu-mi-rekomenduem-invertornie-kondicionery">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=pochemu-mi-rekomenduem-invertornie-kondicionery">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="кондиционер midea наши специалисты столкнулись с интересным заданием - установить кондиционер у клиента, у которого уже встроен купе-шкаф у уличной стены.">
 <a class="blog-card__image" href="article/?post=konditsioner-midea"><img src="../img/blog/photo-04.webp" width="1048" height="476" alt="Кондиционер Midea" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=konditsioner-midea">Кондиционер Midea</a></h2>
+<time class="blog-card__date" datetime="2026-09-21">21 сентября 2026 г.</time>
+<h3><a href="article/?post=konditsioner-midea">Кондиционер Midea</a></h3>
 <p>Наши специалисты столкнулись с интересным заданием - установить кондиционер у клиента, у которого уже встроен купе-шкаф у уличной стены.</p>
-<a class="page-link" href="article/?post=konditsioner-midea">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=konditsioner-midea">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="установка кондиционера с учетом дизайна рады сообщить, что мы начали работу над очередным проектом по кондиционированию!">
 <a class="blog-card__image" href="article/?post=ustanovka-konditsionera-s-uchetom-dizain"><img src="../img/blog/photo-05.webp" width="1015" height="500" alt="Установка кондиционера с учетом дизайна" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=ustanovka-konditsionera-s-uchetom-dizain">Установка кондиционера с учетом дизайна</a></h2>
+<time class="blog-card__date" datetime="2026-09-14">14 сентября 2026 г.</time>
+<h3><a href="article/?post=ustanovka-konditsionera-s-uchetom-dizain">Установка кондиционера с учетом дизайна</a></h3>
 <p>Рады сообщить, что мы начали работу над очередным проектом по кондиционированию!</p>
-<a class="page-link" href="article/?post=ustanovka-konditsionera-s-uchetom-dizain">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=ustanovka-konditsionera-s-uchetom-dizain">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="мульти сплит система один из проектов поразил нас своей сложностью и уникальностью">
 <a class="blog-card__image" href="article/?post=multi-split-sistema"><img src="../img/blog/photo-06.webp" width="650" height="308" alt="Мульти сплит система" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=multi-split-sistema">Мульти сплит система</a></h2>
+<time class="blog-card__date" datetime="2026-09-07">7 сентября 2026 г.</time>
+<h3><a href="article/?post=multi-split-sistema">Мульти сплит система</a></h3>
 <p>Один из проектов поразил нас своей сложностью и уникальностью</p>
-<a class="page-link" href="article/?post=multi-split-sistema">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=multi-split-sistema">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="инверторная сплит система неделю завершаем примером установки на 2м этапе мультисплит-системы в квартире.">
 <a class="blog-card__image" href="article/?post=invertornaya-split-sistema"><img src="../img/blog/photo-07.webp" width="688" height="342" alt="Инверторная сплит система" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=invertornaya-split-sistema">Инверторная сплит система</a></h2>
+<time class="blog-card__date" datetime="2026-08-31">31 августа 2026 г.</time>
+<h3><a href="article/?post=invertornaya-split-sistema">Инверторная сплит система</a></h3>
 <p>Неделю завершаем примером установки на 2м этапе мультисплит-системы в квартире.</p>
-<a class="page-link" href="article/?post=invertornaya-split-sistema">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=invertornaya-split-sistema">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="кондиционер daichi carbon inverter кондиционер, который&amp;nbsp;&amp;nbsp;обеспечит вам комфорт и уют в любое время года.">
 <a class="blog-card__image" href="article/?post=konditsioner-daichi-carbon-inverter"><img src="../img/blog/photo-08.webp" width="661" height="313" alt="Кондиционер Daichi Carbon Inverter" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=konditsioner-daichi-carbon-inverter">Кондиционер Daichi Carbon Inverter</a></h2>
+<time class="blog-card__date" datetime="2026-08-24">24 августа 2026 г.</time>
+<h3><a href="article/?post=konditsioner-daichi-carbon-inverter">Кондиционер Daichi Carbon Inverter</a></h3>
 <p>Кондиционер, который&amp;nbsp;&amp;nbsp;обеспечит вам комфорт и уют в любое время года.</p>
-<a class="page-link" href="article/?post=konditsioner-daichi-carbon-inverter">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=konditsioner-daichi-carbon-inverter">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Новости компании" data-search="лидер по продаже сплит-систем в пермском крае ">
 <a class="blog-card__image" href="article/?post=lider-po-prodazhe-split-sistem"><img src="../img/blog/photo-09.webp" width="956" height="577" alt="Лидер по продаже сплит-систем в Пермском крае" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8">Новости компании</a>
-<h2><a href="article/?post=lider-po-prodazhe-split-sistem">Лидер по продаже сплит-систем в Пермском крае</a></h2>
+<time class="blog-card__date" datetime="2026-08-17">17 августа 2026 г.</time>
+<h3><a href="article/?post=lider-po-prodazhe-split-sistem">Лидер по продаже сплит-систем в Пермском крае</a></h3>
 <p>
 </p>
-<a class="page-link" href="article/?post=lider-po-prodazhe-split-sistem">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=lider-po-prodazhe-split-sistem">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="кондиционер в офис мы успешно завершили установку двух инверторных кондиционеров в помещении площадью 100 квадратных метров">
 <a class="blog-card__image" href="article/?post=konditsioner-v-ofis"><img src="../img/blog/photo-10.webp" width="700" height="393" alt="Кондиционер в офис" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=konditsioner-v-ofis">Кондиционер в офис</a></h2>
+<time class="blog-card__date" datetime="2026-08-10">10 августа 2026 г.</time>
+<h3><a href="article/?post=konditsioner-v-ofis">Кондиционер в офис</a></h3>
 <p>Мы успешно завершили установку двух инверторных кондиционеров в помещении площадью 100 квадратных метров</p>
-<a class="page-link" href="article/?post=konditsioner-v-ofis">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=konditsioner-v-ofis">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="установка кондиционеров установили кондиционер и рассказали об этапах">
 <a class="blog-card__image" href="article/?post=ustanovka-konditsionerov-Midea"><img src="../img/blog/photo-11.webp" width="545" height="328" alt="Установка кондиционеров" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=ustanovka-konditsionerov-Midea">Установка кондиционеров</a></h2>
+<time class="blog-card__date" datetime="2026-08-03">3 августа 2026 г.</time>
+<h3><a href="article/?post=ustanovka-konditsionerov-Midea">Установка кондиционеров</a></h3>
 <p>Установили кондиционер и рассказали об этапах</p>
-<a class="page-link" href="article/?post=ustanovka-konditsionerov-Midea">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=ustanovka-konditsionerov-Midea">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="установка daichi alpine inverter поставка и монтаж кондиционера daichi alpine inverter alp25avqs1r/alp25fvs1r">
 <a class="blog-card__image" href="article/?post=ustanovka-daichi-alpine-inverter"><img src="../img/blog/photo-12.webp" width="359" height="190" alt="Установка Daichi ALPine Inverter" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=ustanovka-daichi-alpine-inverter">Установка Daichi ALPine Inverter</a></h2>
+<time class="blog-card__date" datetime="2026-07-27">27 июля 2026 г.</time>
+<h3><a href="article/?post=ustanovka-daichi-alpine-inverter">Установка Daichi ALPine Inverter</a></h3>
 <p>Поставка и монтаж кондиционера Daichi ALPine Inverter ALP25AVQS1R/ALP25FVS1R</p>
-<a class="page-link" href="article/?post=ustanovka-daichi-alpine-inverter">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=ustanovka-daichi-alpine-inverter">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="кассетные кондиционеры компания «климат59» осуществляет поставку и установку полупромышленных кассетных кондиционеров">
 <a class="blog-card__image" href="article/?post=kassetnie-konditsioneri"><img src="../img/blog/photo-13.webp" width="1072" height="583" alt="Кассетные кондиционеры" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=kassetnie-konditsioneri">Кассетные кондиционеры</a></h2>
+<time class="blog-card__date" datetime="2026-07-20">20 июля 2026 г.</time>
+<h3><a href="article/?post=kassetnie-konditsioneri">Кассетные кондиционеры</a></h3>
 <p>Компания «Климат59» осуществляет поставку и установку полупромышленных кассетных кондиционеров</p>
-<a class="page-link" href="article/?post=kassetnie-konditsioneri">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=kassetnie-konditsioneri">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="мед. центр роден-med в медицинском центре роден-med климат под нашим контролем">
 <a class="blog-card__image" href="article/?post=med-tsentr-roden-med"><img src="../img/blog/photo-14.webp" width="1090" height="506" alt="Мед. центр РОДЕН-MED" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=med-tsentr-roden-med">Мед. центр РОДЕН-MED</a></h2>
+<time class="blog-card__date" datetime="2026-07-13">13 июля 2026 г.</time>
+<h3><a href="article/?post=med-tsentr-roden-med">Мед. центр РОДЕН-MED</a></h3>
 <p>В Медицинском центре РОДЕН-MED климат под нашим контролем</p>
-<a class="page-link" href="article/?post=med-tsentr-roden-med">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=med-tsentr-roden-med">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Советы" data-search="отличие инверторного кондиционера от обычного (on\off) при выборе сплит-системы покупатель сталкивается с дилеммой: взять обычный кондиционер или сплит-систему с инвертором.">
 <a class="blog-card__image" href="article/?post=otlichie-invertornogo-konditsionera"><img src="../img/blog/photo-15.webp" width="621" height="461" alt="Отличие инверторного кондиционера от обычного (ON\OFF)" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%8B">Советы</a>
-<h2><a href="article/?post=otlichie-invertornogo-konditsionera">Отличие инверторного кондиционера от обычного (ON\OFF)</a></h2>
+<time class="blog-card__date" datetime="2026-07-06">6 июля 2026 г.</time>
+<h3><a href="article/?post=otlichie-invertornogo-konditsionera">Отличие инверторного кондиционера от обычного (ON\OFF)</a></h3>
 <p>При выборе сплит-системы покупатель сталкивается с дилеммой: взять обычный кондиционер или сплит-систему с инвертором.</p>
-<a class="page-link" href="article/?post=otlichie-invertornogo-konditsionera">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=otlichie-invertornogo-konditsionera">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="установка трех кондиционеров поставка и установка трех кондиционеров в два этапа: комфорт в вашем доме!">
 <a class="blog-card__image" href="article/?post=ustanovka-treh-konditsionerov"><img src="../img/blog/photo-16.webp" width="859" height="462" alt="Установка трех кондиционеров" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=ustanovka-treh-konditsionerov">Установка трех кондиционеров</a></h2>
+<time class="blog-card__date" datetime="2026-06-29">29 июня 2026 г.</time>
+<h3><a href="article/?post=ustanovka-treh-konditsionerov">Установка трех кондиционеров</a></h3>
 <p>Поставка и установка трех кондиционеров в два этапа: комфорт в вашем доме!</p>
-<a class="page-link" href="article/?post=ustanovka-treh-konditsionerov">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=ustanovka-treh-konditsionerov">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Новости компании" data-search="изменения в правилах благоустройства новости пермской городской думы">
 <a class="blog-card__image" href="article/?post=izmeneniya-v-pravilah-blagoustroistva"><img src="../img/blog/photo-17.webp" width="593" height="427" alt="Изменения в правилах благоустройства" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8">Новости компании</a>
-<h2><a href="article/?post=izmeneniya-v-pravilah-blagoustroistva">Изменения в правилах благоустройства</a></h2>
+<time class="blog-card__date" datetime="2026-06-22">22 июня 2026 г.</time>
+<h3><a href="article/?post=izmeneniya-v-pravilah-blagoustroistva">Изменения в правилах благоустройства</a></h3>
 <p>Новости пермской городской думы</p>
-<a class="page-link" href="article/?post=izmeneniya-v-pravilah-blagoustroistva">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=izmeneniya-v-pravilah-blagoustroistva">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="не только сплит-системы! мы занимаемся не только поставкой и установкой кондиционеров, но и предлагаем широкий спектр климатических решений!">
 <a class="blog-card__image" href="article/?post=ne-tolko-split-sistemi"><img src="../img/blog/photo-18.webp" width="785" height="433" alt="Не только сплит-системы!" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=ne-tolko-split-sistemi">Не только сплит-системы!</a></h2>
+<time class="blog-card__date" datetime="2026-06-15">15 июня 2026 г.</time>
+<h3><a href="article/?post=ne-tolko-split-sistemi">Не только сплит-системы!</a></h3>
 <p>Мы занимаемся не только поставкой и установкой кондиционеров, но и предлагаем широкий спектр климатических решений!</p>
-<a class="page-link" href="article/?post=ne-tolko-split-sistemi">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=ne-tolko-split-sistemi">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Новости компании" data-search="отличные новости! получили награду от даичи">
 <a class="blog-card__image" href="article/?post=otlichnie-novosti"><img src="../img/blog/photo-19.webp" width="978" height="456" alt="Отличные новости!" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8">Новости компании</a>
-<h2><a href="article/?post=otlichnie-novosti">Отличные новости!</a></h2>
+<time class="blog-card__date" datetime="2026-06-08">8 июня 2026 г.</time>
+<h3><a href="article/?post=otlichnie-novosti">Отличные новости!</a></h3>
 <p>Получили награду от Даичи</p>
-<a class="page-link" href="article/?post=otlichnie-novosti">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=otlichnie-novosti">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="монтаж системы вентиляции в магазине new yorker объект в тц «мега» екатеринбург">
 <a class="blog-card__image" href="article/?post=montazh-sistemi-ventilyatsii"><img src="../img/blog/photo-20.webp" width="525" height="308" alt="Монтаж системы вентиляции в магазине New Yorker" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=montazh-sistemi-ventilyatsii">Монтаж системы вентиляции в магазине New Yorker</a></h2>
+<time class="blog-card__date" datetime="2026-06-01">1 июня 2026 г.</time>
+<h3><a href="article/?post=montazh-sistemi-ventilyatsii">Монтаж системы вентиляции в магазине New Yorker</a></h3>
 <p>Объект в ТЦ «МЕГА» Екатеринбург</p>
-<a class="page-link" href="article/?post=montazh-sistemi-ventilyatsii">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=montazh-sistemi-ventilyatsii">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="установка кондиционеров в перми с радостью делимся с вами выполнением наших работ. на этом объект kentatsu kanami inverter.">
 <a class="blog-card__image" href="article/?post=ustanovka-konditsionerov-v-permi"><img src="../img/blog/photo-21.webp" width="715" height="366" alt="Установка кондиционеров в Перми" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=ustanovka-konditsionerov-v-permi">Установка кондиционеров в Перми</a></h2>
+<time class="blog-card__date" datetime="2026-05-25">25 мая 2026 г.</time>
+<h3><a href="article/?post=ustanovka-konditsionerov-v-permi">Установка кондиционеров в Перми</a></h3>
 <p>С радостью делимся с вами выполнением наших работ. На этом объект Kentatsu Kanami Inverter.</p>
-<a class="page-link" href="article/?post=ustanovka-konditsionerov-v-permi">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=ustanovka-konditsionerov-v-permi">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="vrf система наружный блок vrf системы готов к отправке в казань">
 <a class="blog-card__image" href="article/?post=vrf-sistema"><img src="../img/blog/photo-22.webp" width="386" height="254" alt="VRF система" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=vrf-sistema">VRF система</a></h2>
+<time class="blog-card__date" datetime="2026-05-18">18 мая 2026 г.</time>
+<h3><a href="article/?post=vrf-sistema">VRF система</a></h3>
 <p>Наружный блок VRF системы готов к отправке в Казань</p>
-<a class="page-link" href="article/?post=vrf-sistema">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=vrf-sistema">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="установка кондиционера с альпинистом установка кондиционера в привлечением альпиниста">
 <a class="blog-card__image" href="article/?post=ustanovka-konditsionera"><img src="../img/blog/photo-23.webp" width="844" height="508" alt="Установка кондиционера с альпинистом" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=ustanovka-konditsionera">Установка кондиционера с альпинистом</a></h2>
+<time class="blog-card__date" datetime="2026-05-11">11 мая 2026 г.</time>
+<h3><a href="article/?post=ustanovka-konditsionera">Установка кондиционера с альпинистом</a></h3>
 <p>Установка кондиционера в привлечением альпиниста</p>
-<a class="page-link" href="article/?post=ustanovka-konditsionera">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=ustanovka-konditsionera">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="тепловая завеса пермь мы рады сообщить о запуске новой услуги: замена и установка тепловых завес!">
 <a class="blog-card__image" href="article/?post=teplovaya-zavesa-perm"><img src="../img/blog/photo-24.webp" width="966" height="529" alt="Тепловая завеса Пермь" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=teplovaya-zavesa-perm">Тепловая завеса Пермь</a></h2>
+<time class="blog-card__date" datetime="2026-05-04">4 мая 2026 г.</time>
+<h3><a href="article/?post=teplovaya-zavesa-perm">Тепловая завеса Пермь</a></h3>
 <p>Мы рады сообщить о запуске новой услуги: замена и установка тепловых завес!</p>
-<a class="page-link" href="article/?post=teplovaya-zavesa-perm">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=teplovaya-zavesa-perm">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="завершение проектов в декабре декабрь — это время, когда многие из нас подводят итоги года и завершают начатые проекты.">
 <a class="blog-card__image" href="article/?post=zavershenie_proektov_v_dekabre"><img src="../img/blog/photo-25.webp" width="953" height="476" alt="Завершение проектов в декабре" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=zavershenie_proektov_v_dekabre">Завершение проектов в декабре</a></h2>
+<time class="blog-card__date" datetime="2026-04-27">27 апреля 2026 г.</time>
+<h3><a href="article/?post=zavershenie_proektov_v_dekabre">Завершение проектов в декабре</a></h3>
 <p>Декабрь — это время, когда многие из нас подводят итоги года и завершают начатые проекты.</p>
-<a class="page-link" href="article/?post=zavershenie_proektov_v_dekabre">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=zavershenie_proektov_v_dekabre">Читать статью</a>
 </div></article>
 <article class="blog-card" data-blog-card data-category="Наши работы" data-search="кондиционеры lessar мы стремимся предоставить вам только лучшие решения для создания идеальной атмосферы">
 <a class="blog-card__image" href="article/?post=kondicionery_lessar"><img src="../img/blog/photo-26.webp" width="888" height="513" alt="Кондиционеры Lessar" loading="lazy"></a>
 <div class="blog-card__body">
 <a class="blog-card__category category-link" href="?category=%D0%9D%D0%B0%D1%88%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Наши работы</a>
-<h2><a href="article/?post=kondicionery_lessar">Кондиционеры Lessar</a></h2>
+<time class="blog-card__date" datetime="2026-04-20">20 апреля 2026 г.</time>
+<h3><a href="article/?post=kondicionery_lessar">Кондиционеры Lessar</a></h3>
 <p>Мы стремимся предоставить вам только лучшие решения для создания идеальной атмосферы</p>
-<a class="page-link" href="article/?post=kondicionery_lessar">Читать статью <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+<a class="page-link blog-card__read" href="article/?post=kondicionery_lessar">Читать статью</a>
 </div></article>
 </div>
 <div class="blog-empty" data-blog-empty hidden>
@@ -293,9 +334,9 @@
 </script>
 <script src="../js/pages.js">
 </script>
-<script src="../js/blog-data.js?v=20261027-categories">
+<script src="../js/blog-data.js?v=20261028-filter-restored">
 </script>
-<script src="../js/blog.js?v=20261027-categories">
+<script src="../js/blog.js?v=20261028-filter-restored">
 </script>
 </body>
 </html>

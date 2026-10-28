@@ -19,9 +19,12 @@
     />
     <link rel="stylesheet" href="../css/styles.css?v=20261027-ui" />
     <link rel="stylesheet" href="../css/pages.css" />
-    <link rel="stylesheet" href="../css/editorial.css?v=20261027-links-restored" />
+    <link
+      rel="stylesheet"
+      href="../css/editorial.css?v=20261028-contact-two-columns"
+    />
   </head>
-  <body class="inner-page editorial-page" data-root="../">
+  <body class="inner-page editorial-page contacts-page" data-root="../">
     <a class="skip-link" href="#main">Перейти к содержимому</a>
     <div data-include="../sections/header/header.html"></div>
     <main id="main">
@@ -31,32 +34,23 @@
         <span aria-current="page">Контакты</span>
       </nav>
       <section class="contact-intro container">
-        <p class="editorial-kicker">Дом Климата · Пермь</p>
-        <h1>Давайте обсудим<br />ваш климат</h1>
-        <p class="editorial-lead">
-          Поможем выбрать оборудование, согласовать монтаж и обслуживание.
-        </p>
-        <div class="contact-layout">
-          <div class="contact-office">
-            <div class="contact-office-header">
-                <span class="icon icon--map-pin" aria-hidden="true"> </span>
-                <h2>Приезжайте в гости</h2>
+        <div class="contact-hero editorial-hero">
+          <div class="contact-hero__content">
+            <h1>Давайте обсудим ваш климат</h1>
+            <p class="editorial-lead">Поможем выбрать оборудование, согласовать монтаж и обслуживание.</p>
+            <button class="header__request button button--accent" type="button" data-open-request="">
+        Оставить заявку
+      </button>
+            <div class="contact-hero__visit">
+              <p class="contact-hero__location"><span class="icon icon--map-pin" aria-hidden="true"></span>Пермь, ул. Трамвайная, 27, офис 4</p>
+              <p class="contact-hero__hours">Пн–Пт, с 9:00 до 18:00</p>
+              <a class="page-link" href="https://yandex.ru/maps/?text=Пермь%2C%20Трамвайная%2027" target="_blank" rel="noopener">Открыть в Яндекс Картах</a>
             </div>
-            <p class="contact-office__address">
-              Пермь, ул. Трамвайная, 27,<br />офис 4
-            </p>
-            <p>Пн-Пт с 9:00 до 18:00</p>
-            <a
-              class="page-link"
-              href="https://yandex.ru/maps/?text=Пермь%2C%20Трамвайная%2027"
-              target="_blank"
-              rel="noopener"
-              >Открыть в Яндекс Картах
-              <span class="icon icon--arrow-up-right" aria-hidden="true">
-              </span>
-            </a>
           </div>
-          <div class="contact-connect">
+          <figure class="editorial-hero__media"><img src="../img/content/showroom-branded.webp" width="1536" height="1024" alt="Иллюстрация шоурума «Дом Климата» с фирменным логотипом" fetchpriority="high"></figure>
+        </div>
+        <div class="contact-layout contact-layout--strip">
+          <div class="contact-connect contact-strip">
             <div>
               <span class="contact-connect__label">Позвоните нам</span>
               <a class="contact-connect__phone" href="tel:+73422717711"
@@ -66,7 +60,8 @@
                 >+7 (951) 951-77-11</a
               >
             </div>
-            <div>
+            <div class="contact-strip__social">
+            <div class="contact-strip__mail">
               <span class="contact-connect__label">Напишите нам</span>
               <a
                 class="contact-connect__email"
@@ -74,7 +69,14 @@
                 >info@domklimata59.ru</a
               >
             </div>
+            <span class="contact-connect__label">Мы в соцсетях</span>
+            <ul class="socials socials--on-dark footer__socials icon-kontakty" aria-label="Мы в соцсетях">
+        <li><a class="socials__link" href="https://t.me/klimat59" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><span class="icon icon--social-telegram" aria-hidden="true"></span></a></li>
+        <li><a class="socials__link" href="https://vk.com/domklimata59" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте"><span class="icon icon--social-vk" aria-hidden="true"></span></a></li>
+        <li><a class="socials__link" href="https://max.ru/u/f9LHodD0cOKVtV-FtMKPWqB4duc-1b47MtBX25sE1ISsQS2cnDej8JlWmvE" target="_blank" rel="noopener noreferrer" aria-label="MAX"><span class="icon icon--social-max" aria-hidden="true"></span></a></li>
+      </ul>
             <a class="button button--accent" href="#request">Оставить заявку</a>
+            </div>
           </div>
         </div>
       </section>
@@ -132,7 +134,9 @@
               Обсудим сотрудничество и подберём решения, которые органично
               впишутся в ваши проекты.
             </p>
-            <a class="button button--accent" href="#request">Заявка на сотрудничество</a>
+            <a class="button button--accent" href="#request"
+              >Заявка на сотрудничество</a
+            >
           </div>
         </div>
       </section>
