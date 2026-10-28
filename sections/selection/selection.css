@@ -305,6 +305,27 @@
   .selection__result {
     padding: 28px 20px;
   }
+}
+
+/* Узкий телефон: тип помещения — в одну колонку, количество комнат —
+   флекс с переносом, кнопки по ширине цифры, а не четыре равные ячейки */
+@media (max-width: 400px) {
+  .chips {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chips--compact {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .chips--compact .chip > span {
+    width: auto;
+    min-width: 56px;
+  }
+}
+
+@media (max-width: 640px) {
 
   .selection__result-img {
     width: 96px;
@@ -329,18 +350,21 @@
   }
 }
 
-/* --- Диапазоны площади из ТЗ: ссылки на фильтр каталога ------------------ */
+/* --- Диапазоны площади из ТЗ: ссылки на фильтр каталога ------------------
+   Стоят в конце тёмной панели результата, под кнопками: светлая обводка,
+   при наведении — белая заливка, как у кнопки «Смотреть модели» */
 .selection__areas {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 20px;
-  margin-top: 20px;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .selection__areas-title {
-  font-weight: 600;
-  color: var(--color-brand-dark);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .selection__areas-list {
@@ -352,29 +376,24 @@
 .selection__area {
   display: inline-flex;
   align-items: center;
-  min-height: 42px;
-  padding: 0 16px;
-  border: 1.5px solid var(--color-line);
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
   border-radius: var(--radius-sm);
-  background-color: var(--color-surface);
+  font-size: 15px;
   font-weight: 500;
+  color: #fff;
   white-space: nowrap;
   transition: border-color var(--transition), background-color var(--transition), color var(--transition);
 }
 
 .selection__area:hover {
-  border-color: var(--color-brand);
-  background-color: var(--color-brand);
-  color: #fff;
+  border-color: #fff;
+  background-color: #fff;
+  color: var(--color-brand);
 }
 
-@media (max-width: 640px) {
-  .selection__areas {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .selection__area {
-    padding: 0 14px;
-  }
+.selection__area:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
 }

@@ -5,8 +5,8 @@
 .modal {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100dvh;
+  width: var(--screen-w);
+  height: var(--screen-h);
   max-width: none;
   max-height: none;
   margin: 0;

@@ -22,6 +22,7 @@ document.addEventListener('sections:loaded', function () {
   initGallery();
   initProductPage();
   initProductReviews();
+  initPrNav();
   initMiniCart();
   initCart();
   initPasswordToggles();
@@ -1711,6 +1712,36 @@ function initProductPage() {
     }, isOn);
     renderFav(isOn);
   });
+}
+
+/**
+ * Переходы по странице товара (.pr-nav): когда ссылки не влезают и лента
+ * листается вбок, по краям показываются стрелки — только с той стороны,
+ * куда ещё есть что листать. Клик по стрелке листает на 2/3 ширины.
+ */
+function initPrNav() {
+  var nav = document.querySelector('[data-pr-nav]');
+  if (!nav) return;
+  var list = nav.querySelector('.pr-nav__list');
+
+  function update() {
+    var max = list.scrollWidth - list.clientWidth;
+    nav.classList.toggle('has-prev', list.scrollLeft > 4);
+    nav.classList.toggle('has-next', list.scrollLeft < max - 4);
+  }
+
+  function scrollBy(direction) {
+    list.scrollBy({
+      left: direction * list.clientWidth * 0.66,
+      behavior: canAnimate(list) ? 'smooth' : 'auto'
+    });
+  }
+
+  nav.querySelector('[data-pr-nav-prev]').addEventListener('click', function () { scrollBy(-1); });
+  nav.querySelector('[data-pr-nav-next]').addEventListener('click', function () { scrollBy(1); });
+  list.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 }
 
 /**

@@ -256,7 +256,7 @@
   border-radius: 11px;
   background-color: var(--color-accent);
   font-size: 13px;
-  color: var(--color-ink);
+  color: #fff;
 }
 
 .cat-toolbar__found {

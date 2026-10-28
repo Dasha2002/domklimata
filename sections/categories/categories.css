@@ -109,7 +109,7 @@
 
 .category:hover .category__arrow {
   background-color: var(--color-accent);
-  color: var(--color-ink);
+  color: #fff;
 }
 
 /* --- Главная категория --------------------------------------------------- */

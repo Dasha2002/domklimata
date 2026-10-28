@@ -9,8 +9,69 @@
 
 /* --- Навигация по странице ----------------------------------------------- */
 .pr-nav {
+  position: relative;
   margin-bottom: 56px;
   border-bottom: 1px solid var(--color-line);
+}
+
+/* Подсказка «листается дальше»: стрелка на белом размытом краю.
+   Блюр и белизна в ::before и гаснут к середине маской, стрелка — поверх.
+   Видна, только пока в ту сторону есть что листать (классы ставит app.js) */
+.pr-nav__more {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 1px;
+  display: flex;
+  align-items: center;
+  width: 64px;
+  color: var(--color-brand);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.pr-nav__more::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: rgba(251, 252, 252, 0.8);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.pr-nav__more .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.pr-nav__more--next {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+
+.pr-nav__more--next::before {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 55%);
+  mask-image: linear-gradient(to right, transparent, #000 55%);
+}
+
+.pr-nav__more--prev {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 8px;
+}
+
+.pr-nav__more--prev::before {
+  -webkit-mask-image: linear-gradient(to left, transparent, #000 55%);
+  mask-image: linear-gradient(to left, transparent, #000 55%);
+}
+
+.pr-nav.has-next .pr-nav__more--next,
+.pr-nav.has-prev .pr-nav__more--prev {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .pr-nav__list {

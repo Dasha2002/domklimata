@@ -95,7 +95,7 @@
 
 .cat-hero__help:hover .cat-hero__help-arrow {
   background-color: var(--color-accent);
-  color: var(--color-ink);
+  color: #fff;
 }
 
 /* --- Категории ----------------------------------------------------------- */

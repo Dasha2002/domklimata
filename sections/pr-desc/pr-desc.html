@@ -8,8 +8,16 @@
 <section class="pr-desc" id="description" aria-labelledby="desc-title">
   <div class="container">
 
-    <!-- Быстрые переходы по длинной странице товара -->
-    <nav class="pr-nav" aria-label="Разделы страницы товара">
+    <!-- Быстрые переходы по длинной странице товара. Если ссылки не влезают
+         (телефон), лента листается вбок, а по краям появляются стрелки
+         на размытой подложке (initPrNav): видно, что дальше есть ещё -->
+    <nav class="pr-nav" aria-label="Разделы страницы товара" data-pr-nav>
+      <button class="pr-nav__more pr-nav__more--prev" type="button" tabindex="-1" aria-hidden="true" data-pr-nav-prev>
+        <span class="icon icon--chevron-left"></span>
+      </button>
+      <button class="pr-nav__more pr-nav__more--next" type="button" tabindex="-1" aria-hidden="true" data-pr-nav-next>
+        <span class="icon icon--chevron-right"></span>
+      </button>
       <ul class="pr-nav__list">
         <li><a class="pr-nav__link" href="#description">Описание</a></li>
         <li><a class="pr-nav__link" href="#specs">Характеристики</a></li>
