@@ -10,8 +10,8 @@
 .brand-categories__list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  margin-top: 32px;
+  gap: 1.25rem;
+  margin-top: 2rem;
 }
 
 /* Карточка кликабельна целиком: растянутая ссылка на заголовке.
@@ -19,10 +19,10 @@
 .brand-category {
   position: relative;
   display: grid;
-  grid-template-columns: 140px minmax(0, 1fr);
+  grid-template-columns: 8.75rem minmax(0, 1fr);
   align-items: start;
-  gap: 24px;
-  padding: 24px;
+  gap: 1.5rem;
+  padding: 1.5rem;
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
   background-color: var(--color-surface);
@@ -35,15 +35,15 @@
 }
 
 .brand-category__img {
-  width: 140px;
-  height: 140px;
+  width: 8.75rem;
+  height: 8.75rem;
   border-radius: var(--radius-sm);
   background-color: #fff;
   object-fit: contain;
 }
 
 .brand-category__title {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1.25;
 }
 
@@ -58,20 +58,20 @@
 }
 
 .brand-category:has(.brand-category__title a:focus-visible) {
-  outline: 3px solid var(--color-accent);
+  outline: 0.1875rem solid var(--color-accent);
   outline-offset: 2px;
 }
 
 .brand-category__count {
-  margin-top: 4px;
-  font-size: 14px;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-brand);
 }
 
 .brand-category__text {
-  margin-top: 10px;
-  font-size: 15px;
+  margin-top: 0.625rem;
+  font-size: 0.9375rem;
   line-height: 1.5;
   color: var(--color-muted);
 }
@@ -81,20 +81,20 @@
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .brand-category__subs a {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 36px;
-  padding: 0 12px;
+  gap: 0.5rem;
+  min-height: 2.25rem;
+  padding: 0 0.75rem;
   border: 1.5px solid var(--color-line);
   border-radius: var(--radius-sm);
   background-color: var(--color-surface);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   transition: border-color var(--transition), color var(--transition);
 }
@@ -105,7 +105,7 @@
 }
 
 .brand-category__subs span {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--color-muted);
 }
 
@@ -117,21 +117,21 @@
 
 @media (max-width: 640px) {
   .brand-categories__list {
-    margin-top: 24px;
+    margin-top: 1.5rem;
   }
 
   .brand-category {
-    grid-template-columns: 88px minmax(0, 1fr);
-    gap: 16px;
-    padding: 18px;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.125rem;
   }
 
   .brand-category__img {
-    width: 88px;
-    height: 88px;
+    width: 5.5rem;
+    height: 5.5rem;
   }
 
   .brand-category__title {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 }

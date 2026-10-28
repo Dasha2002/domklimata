@@ -14,33 +14,33 @@
 .header__top {
   height: var(--header-top-h);
   background-color: var(--color-brand-tint);
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--color-muted);
 }
 
 .header__top-inner {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 1.75rem;
   height: 100%;
 }
 
 .header__meta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
   white-space: nowrap;
 }
 
 .header__meta .icon {
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   color: var(--color-brand);
 }
 
 .header__links {
   display: flex;
-  gap: 24px;
+  gap: 1.5rem;
   margin-left: auto;
 }
 
@@ -59,14 +59,14 @@
   grid-template-columns: auto auto minmax(0, 1fr) auto auto auto auto auto;
   grid-template-areas: "logo catalog search phone account cart request burger";
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
   height: var(--header-main-h);
 }
 
 .header__logo {
   grid-area: logo;
   display: block;
-  width: 168px;
+  width: 10.5rem;
 }
 
 .header__logo img {
@@ -78,9 +78,9 @@
   grid-area: catalog;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 0 20px;
+  gap: 0.625rem;
+  min-height: 3rem;
+  padding: 0 1.25rem;
   border-radius: var(--radius-sm);
   background-color: var(--color-brand);
   color: #fff;
@@ -109,12 +109,12 @@
 
 .search__input {
   width: 100%;
-  height: 48px;
-  padding: 0 52px 0 16px;
+  height: 3rem;
+  padding: 0 3.25rem 0 1rem;
   border: 1.5px solid var(--color-line);
   border-radius: var(--radius-sm);
   background-color: var(--color-brand-tint);
-  font-size: 16px;
+  font-size: 1rem;
   transition: border-color var(--transition), background-color var(--transition);
 }
 
@@ -135,14 +135,14 @@
 
 .search__submit {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 0.25rem;
+  right: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
   color: var(--color-brand);
   transition: background-color var(--transition);
 }
@@ -153,10 +153,10 @@
 
 .search__suggest {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
-  padding: 12px;
+  padding: 0.75rem;
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
   background-color: var(--color-surface);
@@ -164,15 +164,15 @@
 }
 
 .search__suggest-title {
-  padding: 4px 10px 8px;
-  font-size: 13px;
+  padding: 0.25rem 0.625rem 0.5rem;
+  font-size: 0.8125rem;
   color: var(--color-muted);
 }
 
 .search__suggest-list a {
   display: block;
-  padding: 9px 10px;
-  border-radius: 8px;
+  padding: 0.5625rem 0.625rem;
+  border-radius: 0.5rem;
   transition: background-color var(--transition);
 }
 
@@ -183,7 +183,7 @@
 }
 
 .search__suggest-empty {
-  padding: 8px 10px;
+  padding: 0.5rem 0.625rem;
   color: var(--color-muted);
 }
 
@@ -192,7 +192,7 @@
   grid-area: phone;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
   color: var(--color-brand-dark);
 }
 
@@ -207,13 +207,13 @@
 }
 
 .header__phone-text strong {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 700;
   white-space: nowrap;
 }
 
 .header__phone-text small {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--color-muted);
 }
 
@@ -223,8 +223,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border-radius: var(--radius-sm);
   color: var(--color-brand);
   transition: background-color var(--transition);
@@ -235,8 +235,8 @@
 }
 
 .header__account .icon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .header__cart {
@@ -245,8 +245,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border-radius: var(--radius-sm);
   color: var(--color-brand);
   transition: background-color var(--transition);
@@ -259,12 +259,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 5px;
-  border-radius: 10px;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.3125rem;
+  border-radius: 0.625rem;
   background-color: var(--color-accent);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   color: #fff;
   font-variant-numeric: tabular-nums;
@@ -275,8 +275,8 @@
 }
 
 .header__cart .icon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .header__request {
@@ -288,8 +288,8 @@
   grid-area: burger;
   display: block;
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: var(--radius-sm);
 }
 
@@ -301,8 +301,8 @@
 .header__burger-line::before,
 .header__burger-line::after {
   position: absolute;
-  left: 11px;
-  width: 22px;
+  left: 0.6875rem;
+  width: 1.375rem;
   height: 2px;
   border-radius: 2px;
   background-color: var(--color-brand-dark);
@@ -310,7 +310,7 @@
 }
 
 .header__burger-line {
-  top: 21px;
+  top: 1.3125rem;
 }
 
 .header__burger-line::before,
@@ -320,11 +320,11 @@
 }
 
 .header__burger-line::before {
-  top: -7px;
+  top: -0.4375rem;
 }
 
 .header__burger-line::after {
-  top: 7px;
+  top: 0.4375rem;
 }
 
 .header__burger[aria-expanded="true"] .header__burger-line {
@@ -332,11 +332,11 @@
 }
 
 .header__burger[aria-expanded="true"] .header__burger-line::before {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(0.4375rem) rotate(45deg);
 }
 
 .header__burger[aria-expanded="true"] .header__burger-line::after {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-0.4375rem) rotate(-45deg);
 }
 
 /* --- Выпадающий каталог -------------------------------------------------- */
@@ -347,28 +347,28 @@
   right: 0;
   border-top: 1px solid var(--color-line);
   background-color: var(--color-surface);
-  box-shadow: 0 24px 48px rgba(1, 49, 61, 0.12);
+  box-shadow: 0 1.5rem 3rem rgba(1, 49, 61, 0.12);
 }
 
 .catalog-menu__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 32px;
-  padding-top: 24px;
-  padding-bottom: 28px;
+  grid-template-columns: minmax(0, 1fr) 18.75rem;
+  gap: 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.75rem;
 }
 
 .catalog-menu__list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .catalog-menu__item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 10px 12px;
+  gap: 1rem;
+  padding: 0.625rem 0.75rem;
   border-radius: var(--radius);
   transition: background-color var(--transition);
 }
@@ -378,8 +378,8 @@
 }
 
 .catalog-menu__item img {
-  width: 64px;
-  height: 64px;
+  width: 4rem;
+  height: 4rem;
   object-fit: contain;
   mix-blend-mode: multiply;
 }
@@ -390,9 +390,9 @@
 }
 
 .catalog-menu__icon {
-  width: 32px;
-  height: 32px;
-  margin: 16px;
+  width: 2rem;
+  height: 2rem;
+  margin: 1rem;
   color: var(--color-brand-dark);
 }
 
@@ -402,7 +402,7 @@
 }
 
 .catalog-menu__item small {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--color-muted);
 }
 
@@ -429,37 +429,37 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
-  padding: 24px;
+  gap: 0.5rem;
+  padding: 1.5rem;
   border-radius: var(--radius);
   background-color: var(--color-brand-soft);
 }
 
 .catalog-menu__aside-title {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.3;
   color: var(--color-brand-dark);
 }
 
 .catalog-menu__aside-text {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   color: var(--color-muted);
 }
 
 /* --- Навигация по бургеру на всех размерах экрана ---------------------- */
 .header__burger { background: var(--color-brand-tint); border: 1px solid var(--color-line); }
 .header__burger:hover { background: var(--color-brand-soft); }
-.mobile-menu { position: absolute; top: 100%; left: 0; right: 0; max-height: calc(var(--screen-h) - var(--header-main-h) - 40px); overflow-y: auto; overscroll-behavior: contain; border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); background: var(--color-surface); box-shadow: var(--shadow); }
-.mobile-menu__inner { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 48px; padding-top: 32px; padding-bottom: 36px; }
+.mobile-menu { position: absolute; top: 100%; left: 0; right: 0; max-height: calc(100dvh - var(--header-main-h) - 2.5rem); overflow-y: auto; overscroll-behavior: contain; border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); background: var(--color-surface); box-shadow: var(--shadow); }
+.mobile-menu__inner { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; padding-top: 2rem; padding-bottom: 2.25rem; }
 .mobile-menu__nav { display: flex; flex-direction: column; align-items: flex-start; }
-.mobile-menu__title { margin-bottom: 14px; font-size: 13px; color: var(--color-muted); }
-.mobile-menu__nav a { display: block; padding: 9px 0; font-size: 18px; font-weight: 500; color: var(--color-brand-dark); }
-.mobile-menu__nav a:hover { color: var(--color-brand); text-decoration: underline; text-underline-offset: 4px; }
-.mobile-menu__contacts { display: flex; flex-direction: column; gap: 12px; color: var(--color-muted); }
-.mobile-menu__phone { font-size: 20px; font-weight: 700; color: var(--color-brand-dark); }
-.mobile-menu__contacts .button { margin-top: 12px; align-self: flex-start; }
-.mobile-menu__socials { margin-top: 4px; }
+.mobile-menu__title { margin-bottom: 0.875rem; font-size: 0.8125rem; color: var(--color-muted); }
+.mobile-menu__nav a { display: block; padding: 0.5625rem 0; font-size: 1.125rem; font-weight: 500; color: var(--color-brand-dark); }
+.mobile-menu__nav a:hover { color: var(--color-brand); text-decoration: underline; text-underline-offset: 0.25rem; }
+.mobile-menu__contacts { display: flex; flex-direction: column; gap: 0.75rem; color: var(--color-muted); }
+.mobile-menu__phone { font-size: 1.25rem; font-weight: 700; color: var(--color-brand-dark); }
+.mobile-menu__contacts .button { margin-top: 0.75rem; align-self: flex-start; }
+.mobile-menu__socials { margin-top: 0.25rem; }
 
 /* Каталог в меню: карточки с картинками из выпадающего «Каталога».
    Отступ слева компенсирует внутренний padding карточки, чтобы картинки
@@ -469,23 +469,23 @@
 }
 
 .mobile-menu__categories {
-  margin-left: -12px;
+  margin-left: -0.75rem;
 }
 
 /* У залитой кнопки «Полный каталог» фон виден, поэтому сдвиг списка
    ей возвращаем: левый край вровень с контейнером */
 .mobile-menu__categories .catalog-menu__item--all {
-  margin-left: 12px;
+  margin-left: 0.75rem;
 }
 @media (prefers-reduced-motion: no-preference) {
  .mobile-menu:not([hidden]) .mobile-menu__inner { animation: navigation-in 0.25s var(--ease); }
- @keyframes navigation-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+ @keyframes navigation-in { from { opacity: 0; transform: translateY(-0.5rem); } to { opacity: 1; transform: none; } }
 }
 /* Планшет: каталог строкой сверху, под ним разделы и контакты */
 @media (max-width: 1100px) {
   .mobile-menu__inner {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px 48px;
+    gap: 2rem 3rem;
   }
 
   .mobile-menu__catalog {
@@ -494,8 +494,8 @@
 }
 
 @media (max-width: 760px) {
- .mobile-menu__inner { grid-template-columns: 1fr; gap: 24px; padding-top: 24px; padding-bottom: 28px; }
- .mobile-menu__contacts { padding-top: 24px; border-top: 1px solid var(--color-line); }
+ .mobile-menu__inner { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 1.5rem; padding-bottom: 1.75rem; }
+ .mobile-menu__contacts { padding-top: 1.5rem; border-top: 1px solid var(--color-line); }
 
   /* Телефон: карточки в столбик и компактнее. Подпись категории
      не нужна, хватает картинки и названия */
@@ -505,30 +505,30 @@
   }
 
   .mobile-menu__categories .catalog-menu__item {
-    gap: 12px;
-    padding: 6px 12px;
+    gap: 0.75rem;
+    padding: 0.375rem 0.75rem;
   }
 
   .mobile-menu__categories .catalog-menu__item img {
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
   }
 
   .mobile-menu__categories .catalog-menu__icon {
-    width: 26px;
-    height: 26px;
-    margin: 11px;
+    width: 1.625rem;
+    height: 1.625rem;
+    margin: 0.6875rem;
   }
 
   .mobile-menu__categories .catalog-menu__item strong {
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-weight: 500;
   }
 
   /* «Полный каталог» — кнопка по ширине текста, а не во всю строку */
   .mobile-menu__categories .catalog-menu__item--all {
     display: inline-flex;
-    padding-right: 20px;
+    padding-right: 1.25rem;
   }
 
   .mobile-menu__categories .catalog-menu__item small {
@@ -536,7 +536,7 @@
   }
 
   .mobile-menu__nav {
-    padding-top: 24px;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--color-line);
   }
 }
@@ -549,18 +549,18 @@
 
   .header__phone {
     justify-content: center;
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
     border-radius: var(--radius-sm);
   }
 
   .header__phone .icon {
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .header__links {
-    gap: 18px;
+    gap: 1.125rem;
   }
 }
 
@@ -575,12 +575,12 @@
   .header__main-inner {
     grid-template-columns: auto minmax(0, 1fr) auto auto auto auto;
     grid-template-areas: "logo search phone account cart burger";
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   .header__logo {
-    width: 140px;
-    margin-right: 16px;
+    width: 8.75rem;
+    margin-right: 1rem;
   }
 
   .header__burger {
@@ -596,11 +596,11 @@
       "search search search search search";
     row-gap: 0;
     height: auto;
-    padding-bottom: 12px;
+    padding-bottom: 0.75rem;
   }
 
   .header__logo {
-    width: 128px;
+    width: 8rem;
     height: var(--header-main-h);
     display: flex;
     align-items: center;
@@ -609,12 +609,12 @@
   .header__phone,
   .header__account,
   .header__cart {
-    width: 44px;
-    height: 44px;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
   .mobile-menu {
-    max-height: calc(var(--screen-h) - var(--header-main-h) - 60px);
+    max-height: calc(100dvh - var(--header-main-h) - 3.75rem);
   }
 }
 /* На компьютере бургер заменяет ушедшую за экран верхнюю навигацию. */
@@ -624,7 +624,7 @@
 }
 /* На самых узких экранах телефон доступен в меню, логотип не наезжает на иконки. */
 @media (max-width: 380px) {
- .header__main-inner { grid-template-columns: minmax(0, 1fr) auto auto auto; grid-template-areas: "logo account cart burger" "search search search search"; gap: 0 6px; }
- .header__logo { width: 128px; margin-right: 0; }
+ .header__main-inner { grid-template-columns: minmax(0, 1fr) auto auto auto; grid-template-areas: "logo account cart burger" "search search search search"; gap: 0 0.375rem; }
+ .header__logo { width: 8rem; margin-right: 0; }
  .header__phone { display: none; }
 }

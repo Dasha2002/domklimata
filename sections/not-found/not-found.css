@@ -3,11 +3,11 @@
    ========================================================================== */
 
 .not-found {
-  padding: 96px 0 120px;
+  padding: 6rem 0 7.5rem;
 }
 
 .not-found__code {
-  font-size: clamp(80px, 14vw, 160px);
+  font-size: clamp(5rem, 14vw, 10rem);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -15,27 +15,27 @@
 }
 
 .not-found__title {
-  margin-top: 8px;
-  font-size: clamp(30px, 4vw, 48px);
+  margin-top: 0.5rem;
+  font-size: clamp(1.875rem, 4vw, 3rem);
 }
 
 .not-found__text {
-  margin-top: 16px;
+  margin-top: 1rem;
   max-width: 48ch;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: var(--color-muted);
 }
 
 .not-found__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 32px;
+  gap: 0.75rem;
+  margin-top: 2rem;
 }
 
 @media (max-width: 640px) {
   .not-found {
-    padding: 56px 0 80px;
+    padding: 3.5rem 0 5rem;
   }
 
   .not-found__actions .button {

@@ -9,38 +9,38 @@
 .cta__panel {
   display: grid;
   grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  gap: 56px;
-  padding: 56px;
+  gap: 3.5rem;
+  padding: 3.5rem;
   border-radius: var(--radius-lg);
   background-color: var(--color-brand);
   color: #fff;
 }
 
 .cta__title {
-  font-size: clamp(28px, 3.2vw, 42px);
+  font-size: clamp(1.75rem, 3.2vw, 2.625rem);
   color: #fff;
   max-width: 18ch;
 }
 
 .cta__text {
-  margin-top: 16px;
+  margin-top: 1rem;
   max-width: 46ch;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: rgba(255, 255, 255, 0.78);
 }
 
 .cta__contacts {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  margin-top: 40px;
-  font-size: 17px;
+  gap: 1.125rem;
+  margin-top: 2.5rem;
+  font-size: 1.0625rem;
   line-height: 1.5;
 }
 
 .cta__contacts li {
   display: flex;
-  gap: 14px;
+  gap: 0.875rem;
 }
 
 .cta__contacts .icon {
@@ -57,7 +57,7 @@
 }
 
 .cta__form {
-  padding: 32px;
+  padding: 2rem;
   border-radius: var(--radius);
   background-color: var(--color-surface);
   color: var(--color-ink);
@@ -66,8 +66,8 @@
 @media (max-width: 1024px) {
   .cta__panel {
     grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 40px;
+    gap: 2.5rem;
+    padding: 2.5rem;
   }
 }
 
@@ -78,20 +78,20 @@
   }
 
   .cta__panel {
-    padding: 40px var(--container-padding) var(--container-padding);
+    padding: 2.5rem var(--container-padding) var(--container-padding);
     border-radius: 0;
   }
 
   .cta__text {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .cta__contacts {
-    margin-top: 28px;
-    font-size: 16px;
+    margin-top: 1.75rem;
+    font-size: 1rem;
   }
 
   .cta__form {
-    padding: 24px 20px;
+    padding: 1.5rem 1.25rem;
   }
 }

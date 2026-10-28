@@ -9,14 +9,14 @@
 .product-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 1rem;
 }
 
 .product-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 1rem;
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
   background-color: var(--color-surface);
@@ -31,14 +31,14 @@
 /* --- Избранное ----------------------------------------------------------- */
 .product-card__fav {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 0.75rem;
+  right: 0.75rem;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background-color: var(--color-brand-tint);
   color: var(--color-brand);
@@ -65,7 +65,7 @@
 .product-card__media {
   display: block;
   aspect-ratio: 4 / 3;
-  margin: -4px -4px 12px;
+  margin: -0.25rem -0.25rem 0.75rem;
   border-radius: var(--radius-sm);
   background-color: #fff;
   overflow: hidden;
@@ -90,7 +90,7 @@
 }
 
 .product-card__title {
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.3;
 }
 
@@ -103,8 +103,8 @@
 }
 
 .product-card__model {
-  margin-top: 4px;
-  font-size: 13px;
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
   color: var(--color-muted);
   overflow-wrap: anywhere;
 }
@@ -113,14 +113,14 @@
 .product-card__sizes {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 14px;
+  gap: 0.375rem;
+  margin-top: 0.875rem;
 }
 
 .product-card__sizes-label {
   width: 100%;
-  margin-bottom: 6px;
-  font-size: 13px;
+  margin-bottom: 0.375rem;
+  font-size: 0.8125rem;
   color: var(--color-muted);
 }
 
@@ -140,12 +140,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
-  height: 34px;
-  padding: 0 10px;
+  min-width: 2.75rem;
+  height: 2.125rem;
+  padding: 0 0.625rem;
   border: 1.5px solid var(--color-line);
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   transition: border-color var(--transition), background-color var(--transition), color var(--transition);
@@ -162,7 +162,7 @@
 }
 
 .size input:focus-visible + span {
-  outline: 3px solid var(--color-accent);
+  outline: 0.1875rem solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -170,15 +170,15 @@
 .product-card__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 12px;
+  gap: 0.375rem;
+  margin-top: 0.75rem;
 }
 
 .product-card__tags li {
-  padding: 3px 8px;
-  border-radius: 6px;
+  padding: 0.1875rem 0.5rem;
+  border-radius: 0.375rem;
   background-color: var(--color-brand-tint);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--color-brand);
 }
@@ -186,11 +186,11 @@
 /* --- Цена и статус ------------------------------------------------------- */
 .product-card__offer {
   margin-top: auto;
-  padding-top: 16px;
+  padding-top: 1rem;
 }
 
 .product-card__price {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.2;
   color: var(--color-brand-dark);
@@ -198,22 +198,22 @@
 }
 
 .product-card__price--none {
-  font-size: 19px;
+  font-size: 1.1875rem;
   color: var(--color-muted);
 }
 
 .product-card__status {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 4px;
-  font-size: 13px;
+  gap: 0.375rem;
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
   color: var(--color-muted);
 }
 
 .product-card__status .icon {
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   color: var(--color-brand);
 }
 
@@ -221,14 +221,14 @@
 .product-card__actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 14px;
+  gap: 0.5rem;
+  margin-top: 0.875rem;
 }
 
 .product-card__actions .button {
-  min-height: 44px;
-  padding: 0 10px;
-  font-size: 15px;
+  min-height: 2.75rem;
+  padding: 0 0.625rem;
+  font-size: 0.9375rem;
 }
 
 .product-card__cart.is-added {
@@ -244,15 +244,15 @@
 
 .product-grid--list .product-card {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr) 240px;
+  grid-template-columns: 13.75rem minmax(0, 1fr) 15rem;
   grid-template-rows: auto auto auto 1fr;
   grid-template-areas:
     "media title offer"
     "media model offer"
     "media sizes offer"
     "media tags actions";
-  column-gap: 28px;
-  padding: 20px 20px 20px 16px;
+  column-gap: 1.75rem;
+  padding: 1.25rem 1.25rem 1.25rem 1rem;
 }
 
 .product-grid--list .product-card__body {
@@ -264,7 +264,7 @@
   margin: 0;
 }
 
-.product-grid--list .product-card__title { grid-area: title; padding-right: 48px; }
+.product-grid--list .product-card__title { grid-area: title; padding-right: 3rem; }
 .product-grid--list .product-card__model { grid-area: model; }
 .product-grid--list .product-card__sizes { grid-area: sizes; align-self: start; }
 .product-grid--list .product-card__tags { grid-area: tags; align-self: start; }
@@ -272,7 +272,7 @@
 /* Отступ сверху — место под кнопку избранного */
 .product-grid--list .product-card__offer {
   grid-area: offer;
-  margin-top: 44px;
+  margin-top: 2.75rem;
   padding-top: 0;
 }
 
@@ -280,7 +280,7 @@
   grid-area: actions;
   grid-template-columns: 1fr;
   align-self: end;
-  margin-top: 12px;
+  margin-top: 0.75rem;
 }
 
 /* --- Адаптив ------------------------------------------------------------- */
@@ -296,7 +296,7 @@
   }
 
   .product-grid--list .product-card {
-    grid-template-columns: 160px minmax(0, 1fr);
+    grid-template-columns: 10rem minmax(0, 1fr);
     grid-template-areas:
       "media title"
       "media model"
@@ -307,7 +307,7 @@
   }
 
   .product-grid--list .product-card__offer {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 
   .product-grid--list .product-card__actions {
@@ -324,7 +324,7 @@
   /* На телефоне вид списком не нужен: карточка и так во всю ширину */
   .product-grid--list .product-card {
     display: flex;
-    padding: 16px;
+    padding: 1rem;
   }
 
   .product-grid--list .product-card__body {
@@ -332,7 +332,7 @@
   }
 
   .product-grid--list .product-card__media {
-    margin: -4px -4px 12px;
+    margin: -0.25rem -0.25rem 0.75rem;
   }
 
   .product-grid--list .product-card__title {
@@ -341,7 +341,7 @@
 
   .product-grid--list .product-card__offer {
     margin-top: auto;
-    padding-top: 16px;
+    padding-top: 1rem;
   }
 }
 
@@ -350,10 +350,10 @@
    ========================================================================== */
 .product-mini {
   display: grid;
-  grid-template-columns: 104px minmax(0, 1fr);
+  grid-template-columns: 6.5rem minmax(0, 1fr);
   align-items: center;
-  gap: 14px;
-  padding: 14px;
+  gap: 0.875rem;
+  padding: 0.875rem;
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
   background-color: var(--color-surface);
@@ -380,7 +380,7 @@
 }
 
 .product-mini__title {
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.3;
   overflow-wrap: anywhere;
 }
@@ -392,7 +392,7 @@
 .product-mini__meta {
   overflow-wrap: anywhere;
   margin-top: 2px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--color-muted);
 }
 
@@ -400,12 +400,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .product-mini__price {
-  font-size: 19px;
+  font-size: 1.1875rem;
   font-weight: 700;
   color: var(--color-brand-dark);
   font-variant-numeric: tabular-nums;
@@ -417,8 +417,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 42px;
-  height: 42px;
+  width: 2.625rem;
+  height: 2.625rem;
   border-radius: var(--radius-sm);
   background-color: var(--color-brand-soft);
   color: var(--color-brand);
@@ -441,7 +441,7 @@
 
 /* Цена по запросу: вместо корзины кнопка «Узнать цену» (иконка телефона) */
 .product-mini__price--none {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-muted);
 }
@@ -459,31 +459,31 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 4px;
+  gap: 0.25rem;
   height: 100%;
-  min-height: 132px;
-  padding: 20px 56px 20px 20px;
+  min-height: 8.25rem;
+  padding: 1.25rem 3.5rem 1.25rem 1.25rem;
 }
 
 .product-mini__more-title {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 600;
   line-height: 1.3;
   color: var(--color-brand-dark);
 }
 
 .product-mini__more-text {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--color-muted);
 }
 
 .product-mini__more .icon {
   position: absolute;
   top: 50%;
-  right: 20px;
-  width: 24px;
-  height: 24px;
-  margin-top: -12px;
+  right: 1.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: -0.75rem;
   color: var(--color-brand);
   transition: transform var(--transition);
 }
@@ -493,5 +493,5 @@
 }
 
 .product-mini--more:hover .icon {
-  transform: translateX(4px);
+  transform: translateX(0.25rem);
 }

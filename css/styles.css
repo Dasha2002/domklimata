@@ -6,7 +6,7 @@
 /* --- База ---------------------------------------------------------------- */
 @import url("reset.css");
 @import url("fonts.css");
-@import url("base.css?v=20261027-ui");
+@import url("base.css?v=20261028-rem");
 @import url("icons.css");
 
 /* --- Общие компоненты ---------------------------------------------------- */
@@ -21,7 +21,7 @@
 /* --- Общие секции всех страниц ------------------------------------------- */
 @import url("../sections/header/header.css");
 @import url("../sections/footer/footer.css");
-@import url("../sections/request-modal/request-modal.css?v=20261027-ui");
+@import url("../sections/request-modal/request-modal.css?v=20261028-rem");
 @import url("../sections/cookie/cookie.css");
 
 /* --- Главная (/) --------------------------------------------------------- */

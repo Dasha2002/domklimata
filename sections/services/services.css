@@ -9,8 +9,8 @@
 .services__layout {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 24px;
-  margin-top: 40px;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
 }
 
 /* --- Главная услуга ------------------------------------------------------ */
@@ -25,7 +25,7 @@
 
 .services__feature-img {
   width: 100%;
-  height: 280px;
+  height: 17.5rem;
   object-fit: cover;
   object-position: center 35%;
 }
@@ -35,22 +35,22 @@
   flex-direction: column;
   align-items: flex-start;
   flex: 1;
-  padding: 32px 36px 36px;
+  padding: 2rem 2.25rem 2.25rem;
 }
 
 .services__feature-title {
-  font-size: 26px;
+  font-size: 1.625rem;
   line-height: 1.15;
 }
 
 .services__feature-text {
-  margin-top: 12px;
+  margin-top: 0.75rem;
   color: var(--color-muted);
 }
 
 .services__included-title {
-  margin-top: 24px;
-  font-size: 14px;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-brand-dark);
 }
@@ -58,15 +58,15 @@
 .services__included {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 24px;
-  margin-top: 10px;
-  margin-bottom: 28px;
-  font-size: 15px;
+  gap: 0.625rem 1.5rem;
+  margin-top: 0.625rem;
+  margin-bottom: 1.75rem;
+  font-size: 0.9375rem;
 }
 
 .services__included li {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .services__included .icon {
@@ -82,7 +82,7 @@
 .services__list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .services__list li {
@@ -92,9 +92,9 @@
 .service {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 1.125rem;
   height: 100%;
-  padding: 20px 22px;
+  padding: 1.25rem 1.375rem;
   border-radius: var(--radius);
   background-color: var(--color-brand-tint);
   border: 1px solid transparent;
@@ -111,16 +111,16 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 52px;
-  height: 52px;
+  width: 3.25rem;
+  height: 3.25rem;
   border-radius: var(--radius-sm);
   background-color: var(--color-brand);
   color: #fff;
 }
 
 .service__icon .icon {
-  width: 26px;
-  height: 26px;
+  width: 1.625rem;
+  height: 1.625rem;
 }
 
 .service__body {
@@ -131,14 +131,14 @@
 }
 
 .service__title {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.25;
   color: var(--color-brand-dark);
 }
 
 .service__text {
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.4;
   color: var(--color-muted);
 }
@@ -161,7 +161,7 @@
 
 @media (max-width: 768px) {
   .services__layout {
-    margin-top: 28px;
+    margin-top: 1.75rem;
   }
 
   .services__feature-img {
@@ -174,24 +174,24 @@
   }
 
   .services__feature-body {
-    padding: 24px 20px;
+    padding: 1.5rem 1.25rem;
   }
 
   .services__feature-title {
-    font-size: 22px;
+    font-size: 1.375rem;
   }
 
   .service {
-    padding: 16px;
-    gap: 14px;
+    padding: 1rem;
+    gap: 0.875rem;
   }
 
   .service__icon {
-    width: 44px;
-    height: 44px;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
   .service__title {
-    font-size: 17px;
+    font-size: 1.0625rem;
   }
 }

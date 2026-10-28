@@ -9,7 +9,7 @@
 
 .brands__marquee {
   display: flex;
-  margin-top: 40px;
+  margin-top: 2.5rem;
   /* Края ленты растворяются в фоне */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
@@ -18,17 +18,17 @@
 .brands__track {
   display: flex;
   flex-shrink: 0;
-  gap: 16px;
-  padding-right: 16px;
+  gap: 1rem;
+  padding-right: 1rem;
 }
 
 .brands__item {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
-  height: 96px;
-  padding: 16px 24px;
+  width: 12.5rem;
+  height: 6rem;
+  padding: 1rem 1.5rem;
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
   background-color: #fff;
@@ -81,13 +81,13 @@
 
 @media (max-width: 640px) {
   .brands__marquee {
-    margin-top: 28px;
+    margin-top: 1.75rem;
   }
 
   .brands__item {
-    width: 150px;
-    height: 76px;
-    padding: 12px 18px;
+    width: 9.375rem;
+    height: 4.75rem;
+    padding: 0.75rem 1.125rem;
   }
 }
 
@@ -110,7 +110,7 @@
 }
 
 .brands__item:has(a:focus-visible) {
-  outline: 3px solid var(--color-accent);
+  outline: 0.1875rem solid var(--color-accent);
   outline-offset: 2px;
 }
 

@@ -8,8 +8,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px 0;
-  font-size: 14px;
+  gap: 0.25rem 0;
+  font-size: 0.875rem;
   color: var(--color-muted);
 }
 
@@ -21,9 +21,9 @@
 /* Разделитель рисуем шевроном той же маской, что и иконки */
 .breadcrumbs__item + .breadcrumbs__item::before {
   content: "";
-  width: 16px;
-  height: 16px;
-  margin: 0 6px;
+  width: 1rem;
+  height: 1rem;
+  margin: 0 0.375rem;
   background-color: #9aabaf;
   -webkit-mask: url("../img/icons/chevron-right.svg") center / contain no-repeat;
   mask: url("../img/icons/chevron-right.svg") center / contain no-repeat;
@@ -36,7 +36,7 @@
 .breadcrumbs__item a:hover {
   color: var(--color-brand);
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 0.1875rem;
 }
 
 .breadcrumbs__item[aria-current="page"] {

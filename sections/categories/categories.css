@@ -12,16 +12,16 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 /* Бенто: главная категория 2x2, остальные по ячейке */
 .categories__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-rows: 272px;
-  gap: 16px;
+  grid-auto-rows: 17rem;
+  gap: 1rem;
 }
 
 /* --- Карточка ------------------------------------------------------------ */
@@ -29,7 +29,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 28px;
+  padding: 1.75rem;
   border-radius: var(--radius);
   background-color: var(--color-brand-tint);
   border: 1px solid var(--color-line);
@@ -49,7 +49,7 @@
 }
 
 .category__title {
-  font-size: 21px;
+  font-size: 1.3125rem;
   line-height: 1.2;
 }
 
@@ -66,21 +66,21 @@
 }
 
 .category:has(.category__link:focus-visible) {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 3px;
+  outline: 0.1875rem solid var(--color-accent);
+  outline-offset: 0.1875rem;
 }
 
 .category__text {
-  margin-top: 8px;
-  font-size: 15px;
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
   line-height: 1.45;
   color: var(--color-muted);
 }
 
 .category__img {
   position: absolute;
-  right: -8px;
-  bottom: -8px;
+  right: -0.5rem;
+  bottom: -0.5rem;
   z-index: -1;
   width: 58%;
   height: auto;
@@ -94,13 +94,13 @@
 
 .category__arrow {
   position: absolute;
-  left: 28px;
-  bottom: 28px;
+  left: 1.75rem;
+  bottom: 1.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   background-color: var(--color-surface);
   color: var(--color-brand);
@@ -116,7 +116,7 @@
 .category--main {
   grid-column: span 2;
   grid-row: span 2;
-  padding: 40px;
+  padding: 2.5rem;
   background-color: var(--color-brand-soft);
 }
 
@@ -125,26 +125,26 @@
 }
 
 .category--main .category__title {
-  font-size: 34px;
+  font-size: 2.125rem;
   letter-spacing: -0.02em;
 }
 
 .category--main .category__text {
-  margin-top: 12px;
-  font-size: 17px;
+  margin-top: 0.75rem;
+  font-size: 1.0625rem;
 }
 
 .category--main .category__img {
-  right: -24px;
-  bottom: -24px;
+  right: -1.5rem;
+  bottom: -1.5rem;
   width: 62%;
 }
 
 .category--main .category__arrow {
-  left: 40px;
-  bottom: 40px;
-  width: 52px;
-  height: 52px;
+  left: 2.5rem;
+  bottom: 2.5rem;
+  width: 3.25rem;
+  height: 3.25rem;
 }
 
 .category__tags {
@@ -152,18 +152,18 @@
   z-index: 2;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 24px;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .category__tags a {
   display: inline-flex;
   align-items: center;
-  min-height: 38px;
-  padding: 0 14px;
+  min-height: 2.375rem;
+  padding: 0 0.875rem;
   border-radius: var(--radius-sm);
   background-color: var(--color-surface);
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--color-brand-dark);
   transition: background-color var(--transition), color var(--transition);
@@ -204,21 +204,21 @@
 /* Котёл снят на сером фоне: без выреза, поэтому небольшой и с отступом */
 .category--soft .category__img {
   width: 34%;
-  right: 24px;
-  bottom: 24px;
-  border-radius: 8px;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  border-radius: 0.5rem;
 }
 
 /* --- Адаптив ------------------------------------------------------------- */
 @media (max-width: 1100px) {
   .categories__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: minmax(240px, auto);
+    grid-auto-rows: minmax(15rem, auto);
   }
 
   .category--main {
     grid-row: span 1;
-    min-height: 320px;
+    min-height: 20rem;
   }
 
   .category--main .category__img {
@@ -242,21 +242,21 @@
   .categories__head {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
   }
 
   .categories__grid {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
-    gap: 12px;
+    gap: 0.75rem;
   }
 
   .category,
   .category--main {
     grid-column: auto;
-    min-height: 168px;
-    padding: 24px;
+    min-height: 10.5rem;
+    padding: 1.5rem;
   }
 
   .category__body,
@@ -266,16 +266,16 @@
 
   .category__title,
   .category--main .category__title {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .category--main .category__text {
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
 
   .category__img,
   .category--main .category__img {
-    right: -4px;
+    right: -0.25rem;
     bottom: 50%;
     width: 40%;
     transform: translateY(50%);
@@ -287,7 +287,7 @@
 
   .category--soft .category__img {
     width: 26%;
-    right: 20px;
+    right: 1.25rem;
     bottom: 50%;
   }
 
@@ -296,11 +296,11 @@
   }
 
   .category--main {
-    padding-bottom: 24px;
+    padding-bottom: 1.5rem;
   }
 
   .category__tags {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 
   .category--main .category__body {

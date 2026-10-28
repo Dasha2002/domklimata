@@ -10,7 +10,7 @@
 /* --- Навигация по странице ----------------------------------------------- */
 .pr-nav {
   position: relative;
-  margin-bottom: 56px;
+  margin-bottom: 3.5rem;
   border-bottom: 1px solid var(--color-line);
 }
 
@@ -24,7 +24,7 @@
   bottom: 1px;
   display: flex;
   align-items: center;
-  width: 64px;
+  width: 4rem;
   color: var(--color-brand);
   opacity: 0;
   pointer-events: none;
@@ -37,19 +37,19 @@
   inset: 0;
   z-index: -1;
   background-color: rgba(251, 252, 252, 0.8);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(0.25rem);
+  backdrop-filter: blur(0.25rem);
 }
 
 .pr-nav__more .icon {
-  width: 22px;
-  height: 22px;
+  width: 1.375rem;
+  height: 1.375rem;
 }
 
 .pr-nav__more--next {
   right: 0;
   justify-content: flex-end;
-  padding-right: 8px;
+  padding-right: 0.5rem;
 }
 
 .pr-nav__more--next::before {
@@ -60,7 +60,7 @@
 .pr-nav__more--prev {
   left: 0;
   justify-content: flex-start;
-  padding-left: 8px;
+  padding-left: 0.5rem;
 }
 
 .pr-nav__more--prev::before {
@@ -76,7 +76,7 @@
 
 .pr-nav__list {
   display: flex;
-  gap: 32px;
+  gap: 2rem;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -88,8 +88,8 @@
 .pr-nav__link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 14px 0;
+  gap: 0.375rem;
+  padding: 0.875rem 0;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
   font-weight: 600;
@@ -104,10 +104,10 @@
 }
 
 .pr-nav__count {
-  padding: 1px 7px;
-  border-radius: 6px;
+  padding: 1px 0.4375rem;
+  border-radius: 0.375rem;
   background-color: var(--color-brand-soft);
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--color-brand);
 }
 
@@ -116,16 +116,16 @@
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
   align-items: start;
-  gap: 64px;
+  gap: 4rem;
 }
 
 .pr-desc__copy {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
   max-width: 68ch;
-  margin-top: 24px;
-  font-size: 17px;
+  margin-top: 1.5rem;
+  font-size: 1.0625rem;
   line-height: 1.65;
 }
 
@@ -134,7 +134,7 @@
   color: var(--color-brand);
   text-decoration: underline;
   text-decoration-color: rgba(1, 68, 84, 0.35);
-  text-underline-offset: 3px;
+  text-underline-offset: 0.1875rem;
 }
 
 .pr-desc__copy a:hover {
@@ -144,8 +144,8 @@
 /* --- Для какого помещения ------------------------------------------------ */
 .pr-room {
   position: sticky;
-  top: calc(var(--header-main-h) + 24px);
-  padding: 28px;
+  top: calc(var(--header-main-h) + 1.5rem);
+  padding: 1.75rem;
   border-radius: var(--radius-lg);
   background-color: var(--color-brand);
   color: #fff;
@@ -155,36 +155,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.12);
 }
 
 .pr-room__icon .icon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .pr-room__title {
-  margin-top: 18px;
-  font-size: 15px;
+  margin-top: 1.125rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.75);
 }
 
 .pr-room__lead {
-  margin-top: 6px;
-  font-size: 22px;
+  margin-top: 0.375rem;
+  font-size: 1.375rem;
   font-weight: 600;
   line-height: 1.35;
 }
 
 .pr-room__note {
-  margin-top: 16px;
-  padding-top: 16px;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.75);
 }
@@ -192,7 +192,7 @@
 /* Обводка на тёмном фоне — белая */
 .pr-room__button {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 1.25rem;
   border-color: rgba(255, 255, 255, 0.5);
   color: #fff;
 }
@@ -207,35 +207,35 @@
 @media (max-width: 1024px) {
   .pr-desc__layout {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 2rem;
   }
 
   .pr-room {
     position: static;
-    max-width: 640px;
+    max-width: 40rem;
   }
 }
 
 @media (max-width: 760px) {
   .pr-nav {
-    margin: 0 calc(var(--container-padding) * -1) 40px;
+    margin: 0 calc(var(--container-padding) * -1) 2.5rem;
     padding: 0 var(--container-padding);
   }
 
   .pr-nav__list {
-    gap: 24px;
+    gap: 1.5rem;
   }
 
   .pr-desc__copy {
-    margin-top: 16px;
-    font-size: 16px;
+    margin-top: 1rem;
+    font-size: 1rem;
   }
 
   .pr-room {
-    padding: 22px 20px;
+    padding: 1.375rem 1.25rem;
   }
 
   .pr-room__lead {
-    font-size: 19px;
+    font-size: 1.1875rem;
   }
 }

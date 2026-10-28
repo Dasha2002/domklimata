@@ -5,12 +5,12 @@
 .modal {
   position: fixed;
   inset: 0;
-  width: var(--screen-w);
-  height: var(--screen-h);
+  width: 100vw;
+  height: 100dvh;
   max-width: none;
   max-height: none;
   margin: 0;
-  padding: 24px 16px;
+  padding: 1.5rem 1rem;
   border: 0;
   background: transparent;
   color: var(--color-ink);
@@ -27,12 +27,12 @@
 .modal__panel {
   position: relative;
   flex: 0 0 auto;
-  width: min(480px, 100%);
+  width: min(30rem, 100%);
   margin: auto;
-  padding: 40px 32px 32px;
+  padding: 2.5rem 2rem 2rem;
   border-radius: var(--radius-lg);
   background: var(--color-surface);
-  box-shadow: 0 32px 80px rgba(1, 49, 61, 0.3);
+  box-shadow: 0 2rem 5rem rgba(1, 49, 61, 0.3);
 }
 
 .modal::backdrop {
@@ -48,19 +48,19 @@
 @keyframes modal-in {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.98);
+    transform: translateY(1rem) scale(0.98);
   }
 }
 
 .modal__close {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 1rem;
+  right: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   color: var(--color-brand-dark);
   transition: background-color var(--transition);
@@ -71,32 +71,32 @@
 }
 
 .modal__close .icon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .modal__title {
-  font-size: 28px;
-  padding-right: 40px;
+  font-size: 1.75rem;
+  padding-right: 2.5rem;
 }
 
 .modal__text {
-  margin-top: 10px;
-  margin-bottom: 24px;
+  margin-top: 0.625rem;
+  margin-bottom: 1.5rem;
   color: var(--color-muted);
 }
 
 @media (max-width: 640px) {
   .modal {
-    padding: 16px 12px;
+    padding: 1rem 0.75rem;
   }
 
   .modal__panel {
-    padding: 32px 20px 24px;
+    padding: 2rem 1.25rem 1.5rem;
     border-radius: var(--radius);
   }
 
   .modal__title {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 }

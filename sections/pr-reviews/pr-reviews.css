@@ -11,21 +11,21 @@
   display: grid;
   grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
   align-items: start;
-  gap: 48px;
-  margin-top: 32px;
+  gap: 3rem;
+  margin-top: 2rem;
 }
 
 /* --- Сводка -------------------------------------------------------------- */
 .pr-rating {
   position: sticky;
-  top: calc(var(--header-main-h) + 24px);
-  padding: 28px;
+  top: calc(var(--header-main-h) + 1.5rem);
+  padding: 1.75rem;
   border-radius: var(--radius-lg);
   background-color: var(--color-brand-tint);
 }
 
 .pr-rating__value {
-  font-size: 56px;
+  font-size: 3.5rem;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
@@ -36,7 +36,7 @@
 .pr-rating__stars {
   position: relative;
   display: inline-block;
-  margin-top: 12px;
+  margin-top: 0.75rem;
   line-height: 0;
 }
 
@@ -60,31 +60,31 @@
 
 .pr-rating__stars .icon {
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
+  width: 1.375rem;
+  height: 1.375rem;
 }
 
 .pr-rating__count {
-  margin-top: 6px;
-  font-size: 15px;
+  margin-top: 0.375rem;
+  font-size: 0.9375rem;
   color: var(--color-muted);
 }
 
 .pr-rating__bars {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-top: 20px;
-  font-size: 14px;
+  gap: 0.375rem;
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
   color: var(--color-muted);
   font-variant-numeric: tabular-nums;
 }
 
 .pr-rating__bars li {
   display: grid;
-  grid-template-columns: 12px minmax(0, 1fr) 16px;
+  grid-template-columns: 0.75rem minmax(0, 1fr) 1rem;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .pr-rating__bars li > span:last-child {
@@ -92,8 +92,8 @@
 }
 
 .pr-rating__bar {
-  height: 6px;
-  border-radius: 3px;
+  height: 0.375rem;
+  border-radius: 0.1875rem;
   background-color: var(--color-brand-soft);
   overflow: hidden;
 }
@@ -107,7 +107,7 @@
 
 .pr-rating__write {
   width: 100%;
-  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 
 /* --- Отзывы -------------------------------------------------------------- */
@@ -118,8 +118,8 @@
 .pr-review {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 4px 24px;
-  padding: 24px 0;
+  gap: 0.25rem 1.5rem;
+  padding: 1.5rem 0;
   border-bottom: 1px solid var(--color-line);
 }
 
@@ -127,17 +127,17 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 4px 12px;
+  gap: 0.25rem 0.75rem;
 }
 
 .pr-review__author {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 600;
   color: var(--color-brand-dark);
 }
 
 .pr-review__date {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--color-muted);
 }
 
@@ -148,8 +148,8 @@
 }
 
 .pr-review__stars .icon {
-  width: 18px;
-  height: 18px;
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .pr-review__star-off {
@@ -158,26 +158,26 @@
 
 .pr-review__meta {
   grid-column: 1 / -1;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--color-muted);
 }
 
 .pr-review__text {
   grid-column: 1 / -1;
   max-width: 68ch;
-  margin-top: 8px;
+  margin-top: 0.5rem;
 }
 
 /* --- Форма отзыва -------------------------------------------------------- */
 .review-form {
-  margin-bottom: 32px;
+  margin-bottom: 2rem;
 }
 
 .review-form__fields {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  padding: 28px;
+  gap: 1.25rem;
+  padding: 1.75rem;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
   background-color: var(--color-surface);
@@ -185,7 +185,7 @@
 
 .review-form__title {
   grid-column: 1 / -1;
-  font-size: 19px;
+  font-size: 1.1875rem;
   font-weight: 600;
   color: var(--color-brand-dark);
 }
@@ -206,8 +206,8 @@
 
 .review-form__success {
   display: flex;
-  gap: 12px;
-  padding: 20px 24px;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
   border-radius: var(--radius);
   background-color: #e3f3ea;
   color: var(--color-ink);
@@ -230,15 +230,15 @@
 /* Без промежутков между звёздами: курсор не «проваливается» между ними */
 .stars-input label {
   display: flex;
-  padding: 3px;
+  padding: 0.1875rem;
   color: #c9d6d8;
   cursor: pointer;
   transition: color var(--transition), transform var(--transition);
 }
 
 .stars-input .icon {
-  width: 30px;
-  height: 30px;
+  width: 1.875rem;
+  height: 1.875rem;
 }
 
 .stars-input input:checked ~ label {
@@ -260,9 +260,9 @@
 }
 
 .stars-input input:focus-visible + label {
-  outline: 3px solid var(--color-accent);
+  outline: 0.1875rem solid var(--color-accent);
   outline-offset: 1px;
-  border-radius: 6px;
+  border-radius: 0.375rem;
 }
 
 .review-form__rating.is-invalid .stars-input:not(:hover) label {
@@ -273,7 +273,7 @@
 @media (max-width: 1024px) {
   .pr-reviews__layout {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 2rem;
   }
 
   .pr-rating {
@@ -281,28 +281,28 @@
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
-    gap: 0 24px;
+    gap: 0 1.5rem;
   }
 
   .pr-rating__value { grid-row: span 2; }
   .pr-rating__stars { margin-top: 0; justify-self: start; }
   .pr-rating__bars,
   .pr-rating__write { grid-column: 1 / -1; }
-  .pr-rating__bars { max-width: 440px; }
+  .pr-rating__bars { max-width: 27.5rem; }
   .pr-rating__write { justify-self: start; width: auto; }
 }
 
 @media (max-width: 640px) {
   .pr-reviews__layout {
-    margin-top: 24px;
+    margin-top: 1.5rem;
   }
 
   .pr-rating {
-    padding: 20px;
+    padding: 1.25rem;
   }
 
   .pr-rating__value {
-    font-size: 44px;
+    font-size: 2.75rem;
   }
 
   .pr-rating__write {
@@ -312,7 +312,7 @@
 
   .review-form__fields {
     grid-template-columns: 1fr;
-    padding: 20px;
+    padding: 1.25rem;
   }
 
   .review-form__submit {
@@ -320,6 +320,6 @@
   }
 
   .pr-review {
-    padding: 20px 0;
+    padding: 1.25rem 0;
   }
 }

@@ -9,7 +9,7 @@
 
 .contacts__map {
   position: relative;
-  height: 440px;
+  height: 27.5rem;
   border-radius: var(--radius-lg);
   background-color: var(--color-brand-soft);
   overflow: hidden;
@@ -24,34 +24,34 @@
 
 .contacts__card {
   position: absolute;
-  top: 24px;
-  left: 24px;
-  bottom: 24px;
+  top: 1.5rem;
+  left: 1.5rem;
+  bottom: 1.5rem;
   display: flex;
   flex-direction: column;
-  width: 340px;
-  padding: 28px;
+  width: 21.25rem;
+  padding: 1.75rem;
   border-radius: var(--radius);
   background-color: var(--color-surface);
   box-shadow: var(--shadow);
 }
 
 .contacts__title {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .contacts__list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 20px;
-  margin-bottom: 24px;
-  font-size: 16px;
+  gap: 0.875rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
 }
 
 .contacts__list li {
   display: flex;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .contacts__list .icon {
@@ -82,13 +82,13 @@
   }
 
   .contacts__frame {
-    height: 280px;
+    height: 17.5rem;
   }
 
   .contacts__card {
     position: static;
     width: auto;
-    padding: 20px;
+    padding: 1.25rem;
     border-radius: 0;
     box-shadow: none;
   }

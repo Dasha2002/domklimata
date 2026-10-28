@@ -13,16 +13,16 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .reviews__rating {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-  font-size: 16px;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }
 
@@ -32,15 +32,15 @@
 
 .reviews__controls {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .reviews__arrow {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border: 1.5px solid var(--color-line);
   border-radius: 50%;
   background-color: var(--color-surface);
@@ -59,12 +59,12 @@
 
 .reviews__list {
   display: flex;
-  gap: 16px;
+  gap: 1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  padding-bottom: 4px;
+  padding-bottom: 0.25rem;
 }
 
 .reviews__list::-webkit-scrollbar {
@@ -72,16 +72,16 @@
 }
 
 .reviews__list:focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 4px;
+  outline: 0.1875rem solid var(--color-accent);
+  outline-offset: 0.25rem;
 }
 
 /* Три отзыва в ряд, остальные — прокруткой */
 .review {
   display: flex;
   flex-direction: column;
-  flex: 0 0 calc((100% - 32px) / 3);
-  padding: 28px;
+  flex: 0 0 calc((100% - 2rem) / 3);
+  padding: 1.75rem;
   border-radius: var(--radius-lg);
   background-color: var(--color-surface);
   scroll-snap-align: start;
@@ -94,8 +94,8 @@
 }
 
 .review__stars .icon {
-  width: 18px;
-  height: 18px;
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .review__star-off {
@@ -104,8 +104,8 @@
 
 .review__text {
   flex: 1;
-  margin: 16px 0 0;
-  font-size: 16px;
+  margin: 1rem 0 0;
+  font-size: 1rem;
   line-height: 1.55;
   color: var(--color-ink);
 }
@@ -113,15 +113,15 @@
 .review__author {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
-  padding-top: 16px;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--color-line);
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--color-muted);
 }
 
 .review__author strong {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-brand-dark);
 }
@@ -129,8 +129,8 @@
 .reviews__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 28px;
-  margin-top: 28px;
+  gap: 0.75rem 1.75rem;
+  margin-top: 1.75rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -141,13 +141,13 @@
 
 @media (max-width: 1024px) {
   .review {
-    flex-basis: calc((100% - 16px) / 2);
+    flex-basis: calc((100% - 1rem) / 2);
   }
 }
 
 @media (max-width: 640px) {
   .reviews__head {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 
   .reviews__controls {
@@ -156,12 +156,12 @@
 
   .reviews__list {
     margin: 0 calc(var(--container-padding) * -1);
-    padding: 0 var(--container-padding) 4px;
+    padding: 0 var(--container-padding) 0.25rem;
     scroll-padding: 0 var(--container-padding);
   }
 
   .review {
     flex-basis: 84%;
-    padding: 22px;
+    padding: 1.375rem;
   }
 }

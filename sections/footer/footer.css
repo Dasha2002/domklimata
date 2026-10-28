@@ -3,36 +3,36 @@
    ========================================================================== */
 
 .footer {
-  padding-top: 64px;
+  padding-top: 4rem;
   background-color: var(--color-brand-dark);
   color: rgba(255, 255, 255, 0.72);
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .footer__main {
   display: grid;
   grid-template-columns: minmax(0, 4fr) repeat(3, minmax(0, 2.6fr));
-  gap: 40px;
-  padding-bottom: 48px;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
 }
 
 .footer__logo {
   display: block;
-  width: 168px;
+  width: 10.5rem;
 }
 
 .footer__about {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   max-width: 32ch;
 }
 
 .footer__socials {
-  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 
 .footer__title {
-  margin-bottom: 16px;
-  font-size: 16px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #fff;
 }
@@ -41,7 +41,7 @@
 .footer__contacts {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .footer__links a,
@@ -55,7 +55,7 @@
 }
 
 .footer__phone {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 600;
   color: #fff;
 }
@@ -64,11 +64,11 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 32px;
-  padding-top: 24px;
-  padding-bottom: 32px;
+  gap: 0.5rem 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 14px;
+  font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -93,12 +93,12 @@
 
 @media (max-width: 640px) {
   .footer {
-    padding-top: 48px;
+    padding-top: 3rem;
   }
 
   .footer__main {
     grid-template-columns: 1fr 1fr;
-    gap: 32px 20px;
+    gap: 2rem 1.25rem;
   }
 
   .footer__main > .footer__col:last-child {
